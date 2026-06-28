@@ -1,0 +1,149 @@
+/* ===========================
+   PS365 Statistics
+=========================== */
+
+/* Overview Grid */
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:15px;
+
+    margin-top:15px;
+
+}
+
+/* Stat Card */
+
+.stat-box{
+
+    background:linear-gradient(135deg,#4F46E5,#7C3AED);
+
+    color:white;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    text-align:center;
+
+    box-shadow:0 6px 18px rgba(0,0,0,.12);
+
+    transition:.3s;
+
+}
+
+.stat-box:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.stat-box h2{
+
+    font-size:34px;
+
+    margin-bottom:8px;
+
+}
+
+.stat-box p{
+
+    font-size:15px;
+
+    opacity:.9;
+
+}
+
+/* Achievement */
+
+.achievement-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:14px 0;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.achievement-row:last-child{
+
+    border-bottom:none;
+
+}
+
+.achievement-row span{
+
+    font-size:16px;
+
+}
+
+.achievement-row strong{
+
+    color:#4F46E5;
+
+    font-size:18px;
+
+}
+
+/* Subject Cards */
+
+.subject-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:14px;
+
+    margin-top:12px;
+
+    border-radius:12px;
+
+    background:#F8FAFC;
+
+    border-left:5px solid #4F46E5;
+
+}
+
+.subject-item span{
+
+    font-weight:600;
+
+}
+
+.subject-item strong{
+
+    color:#4F46E5;
+
+}
+
+/* Empty */
+
+#subjectStats{
+
+    margin-top:10px;
+
+}
+
+/* Mobile */
+
+@media(max-width:480px){
+
+    .stats-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

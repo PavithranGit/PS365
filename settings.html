@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PS365 - Settings</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/common.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <h1>⚙️ Settings</h1>
+
+        <p>Application Settings</p>
+
+    </header>
+
+    <main>
+
+        <section class="card">
+
+            <h2>Appearance</h2>
+
+            <label>
+                <input type="checkbox" id="darkMode">
+                Enable Dark Mode
+            </label>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Notifications</h2>
+
+            <label>
+                <input type="checkbox" id="dailyReminder">
+                Daily Study Reminder
+            </label>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Data Management</h2>
+
+            <button id="exportData">
+                📤 Export Data
+            </button>
+
+            <button id="importData">
+                📥 Import Data
+            </button>
+
+            <button id="resetData">
+                🗑 Reset All Data
+            </button>
+
+        </section>
+
+        <section class="card">
+
+            <h2>About PS365</h2>
+
+            <p>Version 1.0</p>
+            <p>Built By Pavithran for Her Success.</p>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<nav class="bottom-nav">
+
+    <a href="dashboard.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+
+    <a href="study.html">
+        <i class="fa-solid fa-book-open"></i>
+        <span>Study</span>
+    </a>
+
+    <a href="calendar.html">
+        <i class="fa-solid fa-calendar"></i>
+        <span>Calendar</span>
+    </a>
+
+    <a href="stats.html">
+        <i class="fa-solid fa-chart-simple"></i>
+        <span>Stats</span>
+    </a>
+
+   
+
+    <a href="settings.html">
+        <i class="fa-solid fa-gear"></i>
+        <span>Settings</span>
+    </a>
+
+</nav>
+
+<script src="js/app.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

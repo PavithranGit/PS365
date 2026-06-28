@@ -1,0 +1,232 @@
+/* ===========================
+   PS365 Calendar
+=========================== */
+
+.month-card{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.month-btn{
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:50%;
+    background:#4F46E5;
+    color:#fff;
+    cursor:pointer;
+    font-size:16px;
+    transition:.3s;
+}
+
+.month-btn:hover{
+    background:#4338CA;
+}
+
+#monthYear{
+    font-size:22px;
+    font-weight:700;
+    color:#4F46E5;
+}
+
+/* ===========================
+   Week Days
+=========================== */
+
+.weekdays{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    text-align:center;
+    margin-bottom:12px;
+    font-weight:600;
+    color:#666;
+}
+
+/* ===========================
+   Calendar Grid
+=========================== */
+
+#calendarGrid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:8px;
+}
+
+/* ===========================
+   Day Cell
+=========================== */
+
+.day{
+
+    aspect-ratio:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:12px;
+
+    background:#F5F5F5;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:600;
+
+    border:1px solid #eee;
+
+}
+
+.day:hover{
+
+    background:#4F46E5;
+
+    color:white;
+
+    transform:scale(1.05);
+
+}
+
+.empty{
+
+    aspect-ratio:1;
+
+}
+
+/* ===========================
+   Day Status
+=========================== */
+
+.completed{
+
+    background:#22C55E;
+
+    color:white;
+
+}
+
+.partial{
+
+    background:#FACC15;
+
+    color:#222;
+
+}
+
+.today{
+
+    border:3px solid #4F46E5;
+
+    font-weight:700;
+
+}
+
+/* ===========================
+   Legend
+=========================== */
+
+.legend{
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.legend div{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:14px;
+
+}
+
+.legend-box{
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:5px;
+
+    display:inline-block;
+
+}
+
+.legend-box.complete{
+
+    background:#22C55E;
+
+}
+
+.legend-box.partial{
+
+    background:#FACC15;
+
+}
+
+.legend-box.none{
+
+    background:#F5F5F5;
+
+    border:1px solid #ddd;
+
+}
+
+/* ===========================
+   Study Details
+=========================== */
+
+#selectedDate{
+
+    color:#4F46E5;
+
+    margin-bottom:15px;
+
+}
+
+#studyDetails{
+
+    line-height:1.8;
+
+    color:#444;
+
+}
+
+#studyDetails p{
+
+    margin-bottom:8px;
+
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:480px){
+
+    #monthYear{
+
+        font-size:18px;
+
+    }
+
+    .day{
+
+        font-size:14px;
+
+    }
+
+}

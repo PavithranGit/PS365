@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS365 - Today's Study</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/study.css">
+    <link rel="stylesheet" href="css/common.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>📚 Today's Study</h1>
+        <p>Record today's preparation</p>
+    </header>
+
+    <main>
+
+        <!-- Date -->
+
+        <section class="card">
+
+            <h2>Study Date</h2>
+
+            <input type="date" id="studyDate">
+
+        </section>
+
+        <!-- Study Hours -->
+
+        <section class="card">
+
+            <h2>Study Hours</h2>
+
+            <input
+                type="number"
+                id="studyHours"
+                min="0"
+                max="24"
+                placeholder="Enter study hours">
+
+        </section>
+
+        <!-- Subject -->
+
+        <section class="card">
+
+            <h2>Subject</h2>
+
+            <select id="subject">
+
+                <option value="">Select Subject</option>
+
+                <option>General Tamil</option>
+                <option>General English</option>
+                <option>History</option>
+                <option>Indian Polity</option>
+                <option>Indian Economy</option>
+                <option>Science</option>
+                <option>Geography</option>
+                <option>Current Affairs</option>
+                <option>Aptitude</option>
+                <option>Environment</option>
+
+            </select>
+
+        </section>
+
+        <!-- MCQs -->
+
+        <section class="card">
+
+            <h2>MCQs Solved</h2>
+
+            <input
+                type="number"
+                id="mcqs"
+                min="0"
+                placeholder="Enter number of MCQs">
+
+        </section>
+
+        <!-- Checklist -->
+
+        <section class="card">
+
+            <h2>Today's Activities</h2>
+
+            <label>
+                <input type="checkbox" id="revision">
+                Revision Completed
+            </label>
+
+            <br><br>
+
+            <label>
+                <input type="checkbox" id="currentAffairs">
+                Current Affairs Completed
+            </label>
+
+            <br><br>
+
+            <label>
+                <input type="checkbox" id="mockTest">
+                Mock Test Completed
+            </label>
+
+        </section>
+
+        <!-- Notes -->
+
+        <section class="card">
+
+            <h2>Study Notes</h2>
+
+            <textarea
+                id="notes"
+                rows="6"
+                placeholder="Write today's notes..."></textarea>
+
+        </section>
+
+        <!-- Buttons -->
+
+        <section class="card">
+
+            <button id="saveBtn">
+                💾 Save Progress
+            </button>
+
+            <button id="resetBtn">
+                🔄 Reset
+            </button>
+
+        </section>
+
+    </main>
+
+</div>
+
+<nav class="bottom-nav">
+
+    <a href="dashboard.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+
+    <a href="study.html">
+        <i class="fa-solid fa-book-open"></i>
+        <span>Study</span>
+    </a>
+
+    <a href="calendar.html">
+        <i class="fa-solid fa-calendar"></i>
+        <span>Calendar</span>
+    </a>
+
+    <a href="stats.html">
+        <i class="fa-solid fa-chart-simple"></i>
+        <span>Stats</span>
+    </a>
+
+
+    <a href="settings.html">
+        <i class="fa-solid fa-gear"></i>
+        <span>Settings</span>
+    </a>
+
+</nav>
+
+<script src="js/app.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/study.js"></script>
+
+</body>
+</html>

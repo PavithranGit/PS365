@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PS365 - Study Calendar</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/common.css">
+
+    <link rel="stylesheet" href="css/calendar.css">
+
+</head>
+
+<body>
+
+<div class="mobile-container">
+
+    <!-- Header -->
+
+    <header class="app-header">
+
+        <div class="logo">
+
+            📅 <strong>PS365</strong>
+
+        </div>
+
+        <div class="tagline">
+
+            Study Calendar
+
+        </div>
+
+    </header>
+
+    <!-- Month Navigation -->
+
+    <section class="card month-card">
+
+        <button id="prevMonth" class="month-btn">
+
+            <i class="fa-solid fa-chevron-left"></i>
+
+        </button>
+
+        <h2 id="monthYear"></h2>
+
+        <button id="nextMonth" class="month-btn">
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+    </section>
+
+    <!-- Calendar -->
+
+    <section class="card">
+
+        <div class="weekdays">
+
+            <div>Sun</div>
+
+            <div>Mon</div>
+
+            <div>Tue</div>
+
+            <div>Wed</div>
+
+            <div>Thu</div>
+
+            <div>Fri</div>
+
+            <div>Sat</div>
+
+        </div>
+
+        <div id="calendarGrid">
+
+        </div>
+
+    </section>
+
+    <!-- Legend -->
+
+    <section class="card">
+
+        <div class="legend">
+
+            <div>
+
+                <span class="legend-box complete"></span>
+
+                Completed
+
+            </div>
+
+            <div>
+
+                <span class="legend-box partial"></span>
+
+                Partial
+
+            </div>
+
+            <div>
+
+                <span class="legend-box none"></span>
+
+                No Study
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Study Details -->
+
+    <section class="card">
+
+        <h3 id="selectedDate">
+
+            Select a Date
+
+        </h3>
+
+        <div id="studyDetails">
+
+            Click any date to view study details.
+
+        </div>
+
+    </section>
+
+    <!-- Navigation -->
+
+    <nav class="bottom-nav">
+
+        <a href="dashboard.html">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>Home</span>
+
+        </a>
+
+        <a href="study.html">
+
+            <i class="fa-solid fa-book-open"></i>
+
+            <span>Study</span>
+
+        </a>
+
+        <a href="calendar.html" class="active">
+
+            <i class="fa-solid fa-calendar"></i>
+
+            <span>Calendar</span>
+
+        </a>
+
+        <a href="stats.html">
+
+            <i class="fa-solid fa-chart-simple"></i>
+
+            <span>Stats</span>
+
+        </a>
+
+        <a href="settings.html">
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>Settings</span>
+
+        </a>
+
+    </nav>
+
+</div>
+
+<script src="js/app.js"></script>
+
+<script src="js/storage.js"></script>
+
+<script src="js/calendar.js"></script>
+
+</body>
+
+</html>

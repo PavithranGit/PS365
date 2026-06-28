@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PS365 Dashboard</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+<div class="mobile-container">
+
+    <!-- Header -->
+    <header class="app-header">
+
+        <div class="logo">
+            📱 <strong>PS365</strong>
+        </div>
+
+        <div class="tagline">
+            Prepare • Study • Succeed
+        </div>
+
+    </header>
+
+    <!-- Greeting -->
+    <section class="card greeting-card">
+
+        <div class="greeting-icon">
+            🌅
+        </div>
+
+        <div>
+
+            <h2 id="greeting">Good Evening</h2>
+
+            <p id="welcomeMessage">
+                Stay consistent. Every study session counts.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- Exam Tracker -->
+    <section class="card">
+
+        <div class="card-title">
+
+            <i class="fa-solid fa-bullseye"></i>
+
+            <span>Exam Tracker</span>
+
+        </div>
+
+        <!-- Group 1 -->
+
+        <div class="exam-block">
+
+            <div class="exam-row">
+
+                <strong>TNPSC Group 1</strong>
+
+                <span id="group1Days"></span>
+
+            </div>
+
+            <div class="progress">
+
+                <div class="progress-fill group1-fill"></div>
+
+            </div>
+
+            <small>📅 06 September 2026</small>
+
+        </div>
+
+        <!-- Group 2 -->
+
+        <div class="exam-block">
+
+            <div class="exam-row">
+
+                <strong>TNPSC Group 2</strong>
+
+                <span id="group2Days"></span>
+
+            </div>
+
+            <div class="progress">
+
+                <div class="progress-fill group2-fill"></div>
+
+            </div>
+
+            <small>📅 16 October 2026</small>
+
+        </div>
+
+    </section>
+
+    <!-- Today's Goal -->
+
+    <section class="card">
+
+        <div class="card-title">
+
+            <i class="fa-solid fa-list-check"></i>
+
+            <span>Today's Goal</span>
+
+        </div>
+
+        <div class="goal-row">
+
+            <span>📚 Study Hours</span>
+
+            <span id="studyHours">0 / 0 hrs</span>
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-fill hours-fill"></div>
+
+        </div>
+
+        <div class="goal-row">
+
+            <span>📝 MCQs</span>
+
+            <span id="mcqCount">0 / 0</span>
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-fill mcq-fill"></div>
+
+        </div>
+
+        <div class="status-row">
+
+            <span>📖 Revision</span>
+
+            <span class="pending">Pending</span>
+
+        </div>
+
+        <div class="status-row">
+
+            <span>📰 Current Affairs</span>
+
+            <span class="pending">Pending</span>
+
+        </div>
+
+    </section>
+
+    <!-- Motivation -->
+
+    <section class="card quote-card">
+
+        <div class="card-title">
+
+            <i class="fa-solid fa-heart"></i>
+
+            <span>Today's Motivation</span>
+
+        </div>
+
+        <p id="quote">
+
+            "Small progress every day adds up to big success."
+
+        </p>
+
+    </section>
+
+    <!-- Why I'm Preparing -->
+
+    <section class="card">
+
+        <div class="card-title">
+
+            <i class="fa-solid fa-star"></i>
+
+            <span>Why I'm Preparing</span>
+
+        </div>
+
+        <p>
+
+            Every study session brings me one step closer to becoming a TNPSC Officer.
+
+        </p>
+
+    </section>
+
+    <!-- Start Study Button -->
+
+    <button class="study-btn"
+        onclick="window.location.href='study.html'">
+
+        🌸 Start Today's Study
+
+    </button>
+
+    <!-- Bottom Navigation -->
+
+    <nav class="bottom-nav">
+
+        <a href="dashboard.html" class="active">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>Home</span>
+
+        </a>
+
+        <a href="study.html">
+
+            <i class="fa-solid fa-book-open"></i>
+
+            <span>Study</span>
+
+        </a>
+
+        <a href="calendar.html">
+
+            <i class="fa-solid fa-calendar"></i>
+
+            <span>Calendar</span>
+
+        </a>
+
+        <a href="stats.html">
+
+            <i class="fa-solid fa-chart-simple"></i>
+
+            <span>Stats</span>
+
+        </a>
+
+
+        <a href="settings.html">
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>Settings</span>
+
+        </a>
+
+    </nav>
+
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
