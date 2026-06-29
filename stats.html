@@ -10,18 +10,13 @@
 
     <title>PS365 - Statistics</title>
 
-    <!-- Google Font -->
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
-
-    <!-- Font Awesome -->
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <link rel="stylesheet" href="css/common.css">
-
     <link rel="stylesheet" href="css/stats.css">
 
 </head>
@@ -30,135 +25,147 @@
 
 <div class="mobile-container">
 
-    <!-- Header -->
+<header class="app-header">
 
-    <header class="app-header">
+    <div class="logo">
 
-        <div class="logo">
+        📊 <strong>PS365</strong>
 
-            📊 <strong>PS365</strong>
+    </div>
 
-        </div>
+    <div class="tagline">
 
-        <div class="tagline">
+        Study Statistics
 
-            Study Statistics
+    </div>
 
-        </div>
+</header>
 
-    </header>
+<!-- Overview -->
 
-    <!-- Overview -->
+<section class="card">
 
-    <section class="card">
+    <div class="card-title">
 
-        <div class="card-title">
+        <i class="fa-solid fa-chart-column"></i>
 
-            <i class="fa-solid fa-chart-column"></i>
+        Overview
 
-            Overview
+    </div>
 
-        </div>
+    <div class="stats-grid">
 
-        <div class="stats-grid">
+        <div class="stat-box">
 
-            <div class="stat-box">
+            <h2 id="studyDays">0</h2>
 
-                <h2 id="totalHours">0</h2>
-
-                <p>Study Hours</p>
-
-            </div>
-
-            <div class="stat-box">
-
-                <h2 id="totalMcqs">0</h2>
-
-                <p>MCQs</p>
-
-            </div>
-
-            <div class="stat-box">
-
-                <h2 id="studyDays">0</h2>
-
-                <p>Study Days</p>
-
-            </div>
-
-            <div class="stat-box">
-
-                <h2 id="currentStreak">0</h2>
-
-                <p>Current Streak</p>
-
-            </div>
+            <p>Study Days</p>
 
         </div>
 
-    </section>
+        <div class="stat-box">
 
-    <!-- Progress -->
+            <h2 id="totalHours">0</h2>
 
-    <section class="card">
-
-        <div class="card-title">
-
-            <i class="fa-solid fa-medal"></i>
-
-            Achievements
+            <p>Study Hours</p>
 
         </div>
 
-        <div class="achievement-row">
+        <div class="stat-box">
 
-            <span>📖 Revision Completed</span>
+            <h2 id="revisionDays">0</h2>
 
-            <strong id="revisionCount">0</strong>
-
-        </div>
-
-        <div class="achievement-row">
-
-            <span>📰 Current Affairs</span>
-
-            <strong id="currentAffairsCount">0</strong>
+            <p>Revision Days</p>
 
         </div>
 
-        <div class="achievement-row">
+        <div class="stat-box">
 
-            <span>🎯 Mock Tests</span>
+            <h2 id="goalPercent">0%</h2>
 
-            <strong id="mockTestCount">0</strong>
-
-        </div>
-
-    </section>
-
-    <!-- Subject Wise -->
-
-    <section class="card">
-
-        <div class="card-title">
-
-            <i class="fa-solid fa-book"></i>
-
-            Subject Wise Study
+            <p>Goal Achieved</p>
 
         </div>
 
-        <div id="subjectStats">
+    </div>
 
-            <p>No Data Available</p>
+</section>
 
-        </div>
+<!-- Practice Summary -->
 
-    </section>
+<section class="card">
+
+    <div class="card-title">
+
+        <i class="fa-solid fa-book-open"></i>
+
+        Practice Summary
+
+    </div>
+
+    <div class="achievement-row">
+
+        <span>📖 Thirukkural Entries</span>
+
+        <strong id="thirukkuralCount">0</strong>
+
+    </div>
+
+    <div class="achievement-row">
+
+        <span>📘 English Practice</span>
+
+        <strong id="englishCount">0</strong>
+
+    </div>
+
+    <div class="achievement-row">
+
+        <span>🏛 General Studies</span>
+
+        <strong id="gsCount">0</strong>
+
+    </div>
+
+    <div class="achievement-row">
+
+        <span>📰 Current Affairs</span>
+
+        <strong id="currentAffairsCount">0</strong>
+
+    </div>
+
+    <div class="achievement-row">
+
+        <span>🧠 Mental Ability</span>
+
+        <strong id="mentalAbilityCount">0</strong>
+
+    </div>
+
+</section>
+
+<!-- Subject Summary -->
+
+<section class="card">
+
+    <div class="card-title">
+
+        <i class="fa-solid fa-list-check"></i>
+
+        Subject Summary
+
+    </div>
+
+    <div id="subjectStats">
+
+        <p>No Study Data Available</p>
+
+    </div>
+
+</section>
 
 </div>
-
-<!-- Bottom Navigation -->
 
 <nav class="bottom-nav">
 
@@ -174,7 +181,7 @@
 
         <i class="fa-solid fa-book-open"></i>
 
-        <span>Study</span>
+        <span>Journal</span>
 
     </a>
 
@@ -205,9 +212,7 @@
 </nav>
 
 <script src="js/app.js"></script>
-
 <script src="js/storage.js"></script>
-
 <script src="js/stats.js"></script>
 
 </body>

@@ -3,273 +3,445 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
 
-    <title>PS365 Dashboard</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>PS365 Dashboard</title>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link rel="stylesheet" href="css/common.css">
+
 <link rel="stylesheet" href="css/dashboard.css">
+
 </head>
 
 <body>
 
 <div class="mobile-container">
 
-    <!-- Header -->
-    <header class="app-header">
+<!-- ================= HEADER ================= -->
 
-        <div class="logo">
-            📱 <strong>PS365</strong>
-        </div>
+<header class="app-header">
 
-        <div class="tagline">
-            Prepare • Study • Succeed
-        </div>
+<div class="header-top">
 
-    </header>
+<div>
 
-    <!-- Greeting -->
-    <section class="card greeting-card">
+<h1>PS365</h1>
 
-        <div class="greeting-icon">
-            🌅
-        </div>
+<p>TNPSC SMART PREPARATION</p>
 
-        <div>
+</div>
 
-            <h2 id="greeting">Good Evening</h2>
+<div class="header-icon">
 
-            <p id="welcomeMessage">
-                Stay consistent. Every study session counts.
-            </p>
+<i class="fa-solid fa-graduation-cap"></i>
 
-        </div>
+</div>
 
-    </section>
+</div>
 
-    <!-- Exam Tracker -->
-    <section class="card">
+<div class="header-bottom">
 
-        <div class="card-title">
+<span id="currentDate"></span>
 
-            <i class="fa-solid fa-bullseye"></i>
+<span id="currentTime"></span>
 
-            <span>Exam Tracker</span>
+</div>
 
-        </div>
+</header>
 
-        <!-- Group 1 -->
+<!-- ================= GREETING ================= -->
 
-        <div class="exam-block">
+<section class="card greeting-card">
 
-            <div class="exam-row">
+<div class="greeting-left">
 
-                <strong>TNPSC Group 1</strong>
+<img
+src="images/tn-logo.png"
+class="tn-logo"
+alt="Tamil Nadu">
 
-                <span id="group1Days"></span>
+</div>
 
-            </div>
+<div class="greeting-right">
 
-            <div class="progress">
+<h2 id="greeting">
 
-                <div class="progress-fill group1-fill"></div>
+Good Evening
 
-            </div>
+</h2>
 
-            <small>📅 06 September 2026</small>
+<h3 id="studentName">
 
-        </div>
+Saaruja 👋
 
-        <!-- Group 2 -->
+</h3>
 
-        <div class="exam-block">
+<p id="welcomeMessage">
 
-            <div class="exam-row">
+Every study session brings you one step closer to becoming a TNPSC Group I Officer.
 
-                <strong>TNPSC Group 2</strong>
+</p>
 
-                <span id="group2Days"></span>
+<div class="journey-chip">
 
-            </div>
+🔥 Stay Consistent
 
-            <div class="progress">
+</div>
 
-                <div class="progress-fill group2-fill"></div>
+</div>
 
-            </div>
+</section>
 
-            <small>📅 16 October 2026</small>
+<!-- ================= PROGRESS ================= -->
 
-        </div>
+<section class="card">
 
-    </section>
+<div class="section-title">
 
-    <!-- Today's Goal -->
+<i class="fa-solid fa-chart-line"></i>
 
-    <section class="card">
+Today's Progress
 
-        <div class="card-title">
+</div>
 
-            <i class="fa-solid fa-list-check"></i>
+<div class="progress-header">
 
-            <span>Today's Goal</span>
+<span>Study Hours</span>
 
-        </div>
+<strong id="studyHours">
 
-        <div class="goal-row">
+0 / 8 hrs
 
-            <span>📚 Study Hours</span>
+</strong>
 
-            <span id="studyHours">0 / 0 hrs</span>
+</div>
 
-        </div>
+<div class="progress">
 
-        <div class="progress">
+<div class="progress-fill hours-fill"></div>
 
-            <div class="progress-fill hours-fill"></div>
+</div>
 
-        </div>
+<div class="progress-status">
 
-        <div class="goal-row">
+<div class="status-card">
 
-            <span>📝 MCQs</span>
+<i class="fa-solid fa-book"></i>
 
-            <span id="mcqCount">0 / 0</span>
+<h4>
 
-        </div>
+Revision
 
-        <div class="progress">
+</h4>
 
-            <div class="progress-fill mcq-fill"></div>
+<p id="revisionValue">
 
-        </div>
+Pending
 
-        <div class="status-row">
+</p>
 
-            <span>📖 Revision</span>
+</div>
 
-            <span class="pending">Pending</span>
+<div class="status-card">
 
-        </div>
+<i class="fa-solid fa-brain"></i>
 
-        <div class="status-row">
+<h4>
 
-            <span>📰 Current Affairs</span>
+Mental Ability
 
-            <span class="pending">Pending</span>
+</h4>
 
-        </div>
+<p id="mentalValue">
 
-    </section>
+Pending
 
-    <!-- Motivation -->
+</p>
 
-    <section class="card quote-card">
+</div>
 
-        <div class="card-title">
+</div>
 
-            <i class="fa-solid fa-heart"></i>
+</section>
 
-            <span>Today's Motivation</span>
+<!-- ================= COUNTDOWN ================= -->
 
-        </div>
+<section class="card">
 
-        <p id="quote">
+<div class="section-title">
 
-            "Small progress every day adds up to big success."
+<i class="fa-solid fa-hourglass-half"></i>
 
-        </p>
+Exam Countdown
 
-    </section>
+</div>
 
-    <!-- Why I'm Preparing -->
+<div class="countdown-grid">
 
-    <section class="card">
+<div class="count-card">
 
-        <div class="card-title">
+<div class="count-title">
 
-            <i class="fa-solid fa-star"></i>
+GROUP I
 
-            <span>Why I'm Preparing</span>
+</div>
 
-        </div>
+<div class="count-number"
+id="group1Days">
 
-        <p>
+0
 
-            Every study session brings me one step closer to becoming a TNPSC Officer.
+</div>
 
-        </p>
+<div class="count-text">
 
-    </section>
+Days Left
 
-    <!-- Start Study Button -->
+</div>
 
-    <button class="study-btn"
-        onclick="window.location.href='study.html'">
+</div>
 
-        🌸 Start Today's Study
+<div class="count-card">
+
+<div class="count-title">
+
+GROUP II
+
+</div>
+
+<div class="count-number"
+id="group2Days">
+
+0
+
+</div>
+
+<div class="count-text">
+
+Days Left
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= TODAY'S FOCUS ================= -->
+
+<section class="card">
+
+<div class="section-title">
+
+<i class="fa-solid fa-bullseye"></i>
+
+Today's Focus
+
+</div>
+
+<div class="focus-grid">
+
+<div class="focus-box">
+
+<label>📖 Thirukkural</label>
+
+<strong id="thirukkuralValue">-</strong>
+
+</div>
+
+<div class="focus-box">
+
+<label>📘 SA</label>
+
+<strong id="saValue">-</strong>
+
+</div>
+
+<div class="focus-box">
+
+<label>📗 PV</label>
+
+<strong id="pvValue">-</strong>
+
+</div>
+
+<div class="focus-box">
+
+<label>📙 HH</label>
+
+<strong id="hhValue">-</strong>
+
+</div>
+
+<div class="focus-box">
+
+<label>📚 Grammar</label>
+
+<strong id="grammarValue">-</strong>
+
+</div>
+
+<div class="focus-box">
+
+<label>🏛 History</label>
+
+<strong id="historyValue">-</strong>
+
+</div>
+
+<div class="focus-box">
+
+<label>⚖ Polity</label>
+
+<strong id="polityValue">-</strong>
+
+</div>
+
+<div class="focus-box">
+
+<label>📰 Current Affairs</label>
+
+<strong id="caValue">-</strong>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= MOTIVATION ================= -->
+
+<section class="card motivation-card">
+
+    <div class="motivation-header">
+
+        <i class="fa-solid fa-heart"></i>
+
+        <span>Today's Motivation</span>
+
+    </div>
+
+    <h2 id="quote">
+
+        Success is the sum of small efforts repeated every day.
+
+    </h2>
+
+    <p>
+
+        Keep learning. Keep believing. Keep moving forward.
+
+    </p>
+
+</section>
+
+<!-- ================= DREAM ================= -->
+
+<section class="card dream-card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-star"></i>
+
+        My Dream
+
+    </div>
+
+    <p class="dream-text">
+
+        Become a TNPSC Group I Officer and make my family proud through dedication,
+        consistency and hard work.
+
+    </p>
+
+</section>
+
+<!-- ================= QUICK ACTION ================= -->
+
+<section class="card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-bolt"></i>
+
+        Quick Action
+
+    </div>
+
+    <button
+        class="study-btn"
+        onclick="location.href='study.html'">
+
+        <i class="fa-solid fa-book-open"></i>
+
+        Continue Today's Study
 
     </button>
 
-    <!-- Bottom Navigation -->
+</section>
 
-    <nav class="bottom-nav">
+<!-- ================= BOTTOM NAVIGATION ================= -->
 
-        <a href="dashboard.html" class="active">
+<nav class="bottom-nav">
 
-            <i class="fa-solid fa-house"></i>
+    <a href="dashboard.html" class="active">
 
-            <span>Home</span>
+        <i class="fa-solid fa-house"></i>
 
-        </a>
+        <span>Home</span>
 
-        <a href="study.html">
+    </a>
 
-            <i class="fa-solid fa-book-open"></i>
+    <a href="study.html">
 
-            <span>Study</span>
+        <i class="fa-solid fa-book-open"></i>
 
-        </a>
+        <span>Journal</span>
 
-        <a href="calendar.html">
+    </a>
 
-            <i class="fa-solid fa-calendar"></i>
+    <a href="calendar.html">
 
-            <span>Calendar</span>
+        <i class="fa-solid fa-calendar-days"></i>
 
-        </a>
+        <span>Calendar</span>
 
-        <a href="stats.html">
+    </a>
 
-            <i class="fa-solid fa-chart-simple"></i>
+    <a href="stats.html">
 
-            <span>Stats</span>
+        <i class="fa-solid fa-chart-simple"></i>
 
-        </a>
+        <span>Stats</span>
 
+    </a>
 
-        <a href="settings.html">
+    <a href="settings.html">
 
-            <i class="fa-solid fa-gear"></i>
+        <i class="fa-solid fa-gear"></i>
 
-            <span>Settings</span>
+        <span>Settings</span>
 
-        </a>
+    </a>
 
-    </nav>
+</nav>
 
 </div>
 
 <script src="js/app.js"></script>
+
 <script src="js/storage.js"></script>
+
 <script src="js/dashboard.js"></script>
 
 </body>

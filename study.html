@@ -1,181 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PS365 - Today's Study</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/study.css">
-    <link rel="stylesheet" href="css/common.css">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>PS365 - Study Journal</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="css/common.css">
+
+    <link rel="stylesheet"
+          href="css/study.css">
+
 </head>
 
 <body>
 
-<div class="container">
+<div class="mobile-container">
 
-    <header>
-        <h1>📚 Today's Study</h1>
-        <p>Record today's preparation</p>
+    <!-- Header -->
+
+    <header class="app-header">
+
+        <h1>
+
+            📒 Study Journal
+
+        </h1>
+
+        <p>
+
+            Record Today's Preparation
+
+        </p>
+
     </header>
 
-    <main>
+    <!-- Date -->
 
-        <!-- Date -->
+    <section class="card">
 
-        <section class="card">
+        <div class="section-title">
 
-            <h2>Study Date</h2>
+            <i class="fa-solid fa-calendar-days"></i>
 
-            <input type="date" id="studyDate">
+            Study Date
 
-        </section>
+        </div>
 
-        <!-- Study Hours -->
+        <input
+            type="date"
+            id="studyDate">
 
-        <section class="card">
+    </section>
 
-            <h2>Study Hours</h2>
+    <!-- Study Hours -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-clock"></i>
+
+            Study Hours
+
+        </div>
+
+        <input
+            type="number"
+            id="studyHours"
+            min="0"
+            max="24"
+            placeholder="Enter Study Hours">
+
+    </section>
+
+    <!-- Subject -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-book"></i>
+
+            Main Subject
+
+        </div>
+
+        <select id="subject">
+
+            <option value="">Select Subject</option>
+
+            <option>General Tamil</option>
+
+            <option>General English</option>
+
+            <option>History</option>
+
+            <option>Indian Polity</option>
+
+            <option>Indian Economy</option>
+
+            <option>Science</option>
+
+            <option>Geography</option>
+
+            <option>Environment</option>
+
+            <option>Current Affairs</option>
+
+            <option>Mental Ability</option>
+
+        </select>
+
+    </section>
+
+    <!-- Today's Focus -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-bullseye"></i>
+
+            Today's Focus
+
+        </div>
+
+
+                <div class="focus-grid">
+
+            <div class="focus-item">
+
+                <label>📖 Thirukkural</label>
+
+                <input
+                    type="text"
+                    id="thirukkural"
+                    placeholder="391-400">
+
+            </div>
+
+            <div class="focus-item">
+
+                <label>📘 SA (Synonyms & Antonyms)</label>
+
+                <input
+                    type="text"
+                    id="sa"
+                    placeholder="1401-1425">
+
+            </div>
+
+            <div class="focus-item">
+
+                <label>📗 PV (Phrasal Verbs)</label>
+
+                <input
+                    type="text"
+                    id="pv"
+                    placeholder="298-312">
+
+            </div>
+
+            <div class="focus-item">
+
+                <label>📙 HH (Homonyms / Homophones)</label>
+
+                <input
+                    type="text"
+                    id="hh"
+                    placeholder="261-270">
+
+            </div>
+
+            <div class="focus-item">
+
+                <label>📚 Grammar</label>
+
+                <input
+                    type="text"
+                    id="grammar"
+                    placeholder="Tenses">
+
+            </div>
+
+            <div class="focus-item">
+
+                <label>🏛 History</label>
+
+                <input
+                    type="text"
+                    id="history"
+                    placeholder="Sangam Age">
+
+            </div>
+
+            <div class="focus-item">
+
+                <label>⚖️ Polity</label>
+
+                <input
+                    type="text"
+                    id="polity"
+                    placeholder="President">
+
+            </div>
+
+            <div class="focus-item">
+
+                <label>📰 Current Affairs</label>
+
+                <input
+                    type="text"
+                    id="currentAffairTopic"
+                    placeholder="July Week 1">
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Activities -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-list-check"></i>
+
+            Today's Activities
+
+        </div>
+
+        <label class="check-item">
 
             <input
-                type="number"
-                id="studyHours"
-                min="0"
-                max="24"
-                placeholder="Enter study hours">
+                type="checkbox"
+                id="revision">
 
-        </section>
+            Revision Completed
 
-        <!-- Subject -->
+        </label>
 
-        <section class="card">
-
-            <h2>Subject</h2>
-
-            <select id="subject">
-
-                <option value="">Select Subject</option>
-
-                <option>General Tamil</option>
-                <option>General English</option>
-                <option>History</option>
-                <option>Indian Polity</option>
-                <option>Indian Economy</option>
-                <option>Science</option>
-                <option>Geography</option>
-                <option>Current Affairs</option>
-                <option>Aptitude</option>
-                <option>Environment</option>
-
-            </select>
-
-        </section>
-
-        <!-- MCQs -->
-
-        <section class="card">
-
-            <h2>MCQs Solved</h2>
+        <label class="check-item">
 
             <input
-                type="number"
-                id="mcqs"
-                min="0"
-                placeholder="Enter number of MCQs">
+                type="checkbox"
+                id="currentAffairs">
 
-        </section>
+            Current Affairs Completed
 
-        <!-- Checklist -->
+        </label>
 
-        <section class="card">
+        <label class="check-item">
 
-            <h2>Today's Activities</h2>
+            <input
+                type="checkbox"
+                id="mentalAbility">
 
-            <label>
-                <input type="checkbox" id="revision">
-                Revision Completed
-            </label>
+            Mental Ability Practice
 
-            <br><br>
+        </label>
 
-            <label>
-                <input type="checkbox" id="currentAffairs">
-                Current Affairs Completed
-            </label>
+    </section>
 
-            <br><br>
-
-            <label>
-                <input type="checkbox" id="mockTest">
-                Mock Test Completed
-            </label>
-
-        </section>
 
         <!-- Notes -->
 
-        <section class="card">
+    <section class="card">
 
-            <h2>Study Notes</h2>
+        <div class="section-title">
 
-            <textarea
-                id="notes"
-                rows="6"
-                placeholder="Write today's notes..."></textarea>
+            <i class="fa-solid fa-note-sticky"></i>
 
-        </section>
+            Study Notes
 
-        <!-- Buttons -->
+        </div>
 
-        <section class="card">
+        <textarea
+            id="notes"
+            rows="6"
+            placeholder="Write today's study summary..."></textarea>
 
-            <button id="saveBtn">
-                💾 Save Progress
-            </button>
+    </section>
 
-            <button id="resetBtn">
-                🔄 Reset
-            </button>
+    <!-- Actions -->
 
-        </section>
+    <section class="card">
 
-    </main>
+        <div class="section-title">
+
+            <i class="fa-solid fa-bolt"></i>
+
+            Actions
+
+        </div>
+
+        <button id="saveBtn" class="primary-btn">
+
+            <i class="fa-solid fa-floppy-disk"></i>
+
+            Save Progress
+
+        </button>
+
+        <button id="emailBtn" class="secondary-btn">
+
+            <i class="fa-solid fa-envelope"></i>
+
+            Email Today's Report
+
+        </button>
+
+        <button id="resetBtn" class="danger-btn">
+
+            <i class="fa-solid fa-rotate-left"></i>
+
+            Reset
+
+        </button>
+
+    </section>
 
 </div>
+
+<!-- Bottom Navigation -->
 
 <nav class="bottom-nav">
 
     <a href="dashboard.html">
+
         <i class="fa-solid fa-house"></i>
+
         <span>Home</span>
+
     </a>
 
-    <a href="study.html">
+    <a href="study.html" class="active">
+
         <i class="fa-solid fa-book-open"></i>
-        <span>Study</span>
+
+        <span>Journal</span>
+
     </a>
 
     <a href="calendar.html">
-        <i class="fa-solid fa-calendar"></i>
+
+        <i class="fa-solid fa-calendar-days"></i>
+
         <span>Calendar</span>
+
     </a>
 
     <a href="stats.html">
+
         <i class="fa-solid fa-chart-simple"></i>
+
         <span>Stats</span>
+
     </a>
 
-
     <a href="settings.html">
+
         <i class="fa-solid fa-gear"></i>
+
         <span>Settings</span>
+
     </a>
 
 </nav>
 
 <script src="js/app.js"></script>
+
 <script src="js/storage.js"></script>
+
 <script src="js/study.js"></script>
 
 </body>
+
 </html>

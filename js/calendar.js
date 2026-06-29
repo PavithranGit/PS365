@@ -33,19 +33,25 @@ window.addEventListener("load", function () {
 function renderCalendar() {
 
     const monthYear = document.getElementById("monthYear");
+
     const calendarGrid = document.getElementById("calendarGrid");
 
     calendarGrid.innerHTML = "";
 
     const year = currentDate.getFullYear();
+
     const month = currentDate.getMonth();
 
     monthYear.innerHTML = currentDate.toLocaleString("default", {
+
         month: "long",
+
         year: "numeric"
+
     });
 
     const firstDay = new Date(year, month, 1).getDay();
+
     const totalDays = new Date(year, month + 1, 0).getDate();
 
     // Empty Cells
@@ -53,6 +59,7 @@ function renderCalendar() {
     for (let i = 0; i < firstDay; i++) {
 
         const empty = document.createElement("div");
+
         empty.className = "empty";
 
         calendarGrid.appendChild(empty);
@@ -77,30 +84,29 @@ function renderCalendar() {
         // Highlight Today
 
         if (
+
             day === today.getDate() &&
+
             month === today.getMonth() &&
+
             year === today.getFullYear()
+
         ) {
 
             cell.classList.add("today");
 
         }
 
-        // Study Record
-
         const study = getStudyByDate(date);
 
         if (study) {
 
-            const completed =
-                study.studyHours >= APP.dailyHours &&
-                study.mcqs >= APP.dailyMcqs;
-
-            if (completed) {
+            if (study.studyHours >= APP.dailyHours) {
 
                 cell.classList.add("completed");
 
-            } else {
+            }
+            else {
 
                 cell.classList.add("partial");
 
@@ -121,13 +127,16 @@ function renderCalendar() {
 }
 
 // ===============================
-// Show Study Details
+// Study Details
 // ===============================
 
 function showStudy(date) {
 
-    const selectedDate = document.getElementById("selectedDate");
-    const details = document.getElementById("studyDetails");
+    const selectedDate =
+        document.getElementById("selectedDate");
+
+    const details =
+        document.getElementById("studyDetails");
 
     selectedDate.innerHTML = "📅 " + date;
 
@@ -136,7 +145,9 @@ function showStudy(date) {
     if (!study) {
 
         details.innerHTML = `
+
             <p>No study record found.</p>
+
         `;
 
         return;
@@ -145,27 +156,51 @@ function showStudy(date) {
 
     details.innerHTML = `
 
-        <p><strong>📚 Subject:</strong> ${study.subject}</p>
+        <div class="study-summary">
 
-        <p><strong>⏰ Study Hours:</strong> ${study.studyHours}</p>
+            <p><strong>📚 Subject :</strong> ${study.subject || "-"}</p>
 
-        <p><strong>📝 MCQs:</strong> ${study.mcqs}</p>
+            <p><strong>⏰ Study Hours :</strong> ${study.studyHours || 0} hrs</p>
 
-        <p><strong>📖 Revision:</strong>
-            ${study.revision ? "✅ Yes" : "❌ No"}
-        </p>
+            <hr>
 
-        <p><strong>📰 Current Affairs:</strong>
-            ${study.currentAffairs ? "✅ Yes" : "❌ No"}
-        </p>
+            <p><strong>📖 Thirukkural :</strong> ${study.thirukkural || "-"}</p>
 
-        <p><strong>🎯 Mock Test:</strong>
-            ${study.mockTest ? "✅ Yes" : "❌ No"}
-        </p>
+            <hr>
 
-        <p><strong>🗒️ Notes:</strong></p>
+            <h4>📘 English Progress</h4>
 
-        <p>${study.notes || "-"}</p>
+            <p><strong>SA :</strong> ${study.sa || "-"}</p>
+
+            <p><strong>PV :</strong> ${study.pv || "-"}</p>
+
+            <p><strong>HH :</strong> ${study.hh || "-"}</p>
+
+            <p><strong>Grammar :</strong> ${study.grammar || "-"}</p>
+
+            <hr>
+
+            <h4>🏛 General Studies</h4>
+
+            <p><strong>History :</strong> ${study.history || "-"}</p>
+
+            <p><strong>Polity :</strong> ${study.polity || "-"}</p>
+
+            <p><strong>Current Affairs :</strong> ${study.currentAffairs || "-"}</p>
+
+            <hr>
+
+            <p><strong>🧠 Mental Ability :</strong> ${study.mentalAbility || "-"}</p>
+
+            <p><strong>✅ Revision :</strong> ${study.revision ? "Completed" : "Pending"}</p>
+
+            <hr>
+
+            <p><strong>📝 Notes</strong></p>
+
+            <p>${study.notes || "-"}</p>
+
+        </div>
 
     `;
 

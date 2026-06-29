@@ -288,3 +288,119 @@ th{
     margin-bottom:15px;
 
 }
+
+/* ==========================
+   DARK MODE
+========================== */
+
+body{
+
+    transition:.3s;
+
+}
+
+body.dark{
+
+    background:#121212;
+
+    color:#ffffff;
+
+}
+
+body.dark .mobile-container{
+
+    background:#1c1c1c;
+
+}
+
+body.dark .card{
+
+    background:#2a2a2a;
+
+    color:#ffffff;
+
+}
+
+body.dark input,
+body.dark select,
+body.dark textarea{
+
+    background:#333;
+
+    color:#fff;
+
+    border:1px solid #555;
+
+}
+
+body.dark .bottom-nav{
+
+    background:#1e1e1e;
+
+}
+
+body.dark .bottom-nav a{
+
+    color:#ddd;
+
+}
+
+body.dark .card-title{
+
+    color:#8ab4ff;
+
+}
+
+body.dark small{
+
+    color:#ccc;
+
+}
+
+
+/* ==========================
+   DARK MODE
+========================== */
+
+body {
+    transition: background .3s, color .3s;
+}
+
+body.dark {
+    background: #121212;
+    color: #ffffff;
+}
+
+body.dark .mobile-container,
+body.dark .container {
+    background: #1b1b1b;
+}
+
+body.dark .card {
+    background: #262626;
+    color: #ffffff;
+}
+
+body.dark .app-header {
+    background: linear-gradient(135deg,#1e293b,#312e81);
+}
+
+body.dark input,
+body.dark select,
+body.dark textarea {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+body.dark .bottom-nav {
+    background: #1f1f1f;
+}
+
+body.dark .bottom-nav a {
+    color: #d1d5db;
+}
+
+body.dark .card-title {
+    color: #93c5fd;
+}

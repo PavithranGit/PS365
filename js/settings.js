@@ -23,6 +23,10 @@ window.onload = function () {
 
 };
 
+// ===============================
+// Load
+// ===============================
+
 function loadSettings() {
 
     const data = getData();
@@ -33,7 +37,13 @@ function loadSettings() {
     document.getElementById("dailyReminder").checked =
         data.settings.dailyReminder;
 
+    applyDarkMode(data.settings.darkMode);
+
 }
+
+// ===============================
+// Save
+// ===============================
 
 function saveSettings() {
 
@@ -47,9 +57,32 @@ function saveSettings() {
 
     saveData(data);
 
-    alert("Settings Saved.");
+    applyDarkMode(data.settings.darkMode);
 
 }
+
+// ===============================
+// Apply Theme
+// ===============================
+
+function applyDarkMode(enable) {
+
+    if (enable) {
+
+        document.body.classList.add("dark");
+
+    }
+    else {
+
+        document.body.classList.remove("dark");
+
+    }
+
+}
+
+// ===============================
+// Reset
+// ===============================
 
 function resetApplication() {
 
@@ -64,15 +97,22 @@ function resetApplication() {
 
 }
 
+// ===============================
+// Export
+// ===============================
+
 function exportApplicationData() {
 
     const data = JSON.stringify(getData(), null, 2);
 
-    const blob = new Blob([data], { type: "application/json" });
+    const blob =
+        new Blob([data], { type: "application/json" });
 
-    const url = URL.createObjectURL(blob);
+    const url =
+        URL.createObjectURL(blob);
 
-    const a = document.createElement("a");
+    const a =
+        document.createElement("a");
 
     a.href = url;
 
@@ -84,8 +124,12 @@ function exportApplicationData() {
 
 }
 
+// ===============================
+// Import
+// ===============================
+
 function importApplicationData() {
 
-    alert("Import will be implemented in Version 1.1");
+    alert("Coming Soon 🚀");
 
 }

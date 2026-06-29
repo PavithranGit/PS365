@@ -1,107 +1,128 @@
-/* ===========================
-   PS365 Dashboard
-=========================== */
+/*=========================================
+      PS365 PREMIUM DASHBOARD V2
+==========================================*/
 
-/* Header */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#F5F7FC;
+
+    color:#333;
+
+}
+
+/*=========================================
+HEADER
+==========================================*/
 
 .app-header{
 
-    background:linear-gradient(135deg,#4F46E5,#7C3AED);
+    background:linear-gradient(135deg,#5B4BDB,#7C3AED);
 
-    color:white;
+    color:#fff;
 
-    text-align:center;
+    padding:28px 22px 32px;
 
-    padding:25px 20px;
+    border-bottom-left-radius:28px;
 
-    border-radius:0 0 25px 25px;
+    border-bottom-right-radius:28px;
 
-    margin-bottom:20px;
+    box-shadow:0 10px 25px rgba(91,75,219,.35);
 
 }
 
-.logo{
+.header-top{
 
-    font-size:18px;
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.header-top h1{
+
+    font-size:34px;
 
     font-weight:700;
 
-    margin-bottom:6px;
+    letter-spacing:1px;
 
 }
 
-.logo strong{
+.header-top p{
 
-    font-size:24px;
+    margin-top:5px;
 
-}
+    font-size:13px;
 
-.tagline{
+    opacity:.95;
 
-    font-size:15px;
-
-    opacity:.9;
+    letter-spacing:2px;
 
 }
 
-/* ===========================
-   Greeting Card
-=========================== */
+.header-icon{
 
-/* ===========================
-   Greeting Card
-=========================== */
+    width:60px;
 
-.greeting-card{
+    height:60px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.18);
+
     display:flex;
+
+    justify-content:center;
+
     align-items:center;
-    gap:15px;
-    background:linear-gradient(135deg,#7C3AED,#6366F1);
-    color:#fff;
+
+    font-size:26px;
+
 }
 
-.greeting-icon{
-    font-size:42px;
-    flex-shrink:0;
+.header-bottom{
+
+    margin-top:20px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    font-size:14px;
+
+    opacity:.95;
+
 }
 
-.greeting-card div:nth-child(2){
-    flex:1;
-}
-
-#greeting{
-    background:red !important;
-    border:2px solid yellow !important;
-}
-
-#welcomeMessage{
-    background:green !important;
-    border:2px solid yellow !important;
-}
-
-/* ===========================
-   Cards
-=========================== */
+/*=========================================
+COMMON CARD
+==========================================*/
 
 .card{
 
-    background:white;
+    background:#fff;
 
-    border-radius:20px;
+    margin:18px;
 
     padding:20px;
 
-    margin-bottom:18px;
+    border-radius:24px;
 
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
 
 }
 
-/* ===========================
-   Titles
-=========================== */
-
-.card-title{
+.section-title{
 
     display:flex;
 
@@ -109,53 +130,111 @@
 
     gap:10px;
 
-    font-size:22px;
+    font-size:20px;
 
-    font-weight:700;
+    font-weight:600;
 
-    color:#4F46E5;
-
-    margin-bottom:20px;
-
-}
-
-/* ===========================
-   Exam Tracker
-=========================== */
-
-.exam-block{
+    color:#5B4BDB;
 
     margin-bottom:20px;
 
 }
 
-.exam-row{
+/*=========================================
+GREETING
+==========================================*/
+
+.greeting-card{
 
     display:flex;
 
-    justify-content:space-between;
-
     align-items:center;
+
+    gap:18px;
+
+}
+
+.greeting-left{
+
+    flex:0 0 90px;
+
+}
+
+.tn-logo{
+
+    width:80px;
+
+    height:80px;
+
+    object-fit:contain;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    padding:6px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+
+}
+
+.greeting-right{
+
+    flex:1;
+
+}
+
+.greeting-right h2{
+
+    color:#5B4BDB;
+
+    font-size:24px;
+
+    margin-bottom:5px;
+
+}
+
+.greeting-right h3{
+
+    font-size:22px;
 
     margin-bottom:10px;
 
-    font-size:20px;
+}
+
+.greeting-right p{
+
+    color:#666;
+
+    line-height:1.7;
+
+}
+
+.journey-chip{
+
+    display:inline-block;
+
+    margin-top:15px;
+
+    background:#EEF2FF;
+
+    color:#5B4BDB;
+
+    padding:8px 18px;
+
+    border-radius:50px;
+
+    font-size:13px;
 
     font-weight:600;
 
 }
 
-.exam-block small{
+/*=========================================
+PROGRESS
+==========================================*/
 
-    color:#6B7280;
-
-}
-
-/* ===========================
-   Today's Goal
-=========================== */
-
-.goal-row{
+.progress-header{
 
     display:flex;
 
@@ -163,115 +242,294 @@
 
     align-items:center;
 
-    margin:18px 0;
+    margin-bottom:12px;
 
-    font-size:18px;
-
-}
-
-.status-row{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-top:18px;
-
-    font-size:18px;
+    font-size:16px;
 
 }
-
-/* ===========================
-   Progress Bar
-=========================== */
 
 .progress{
 
     width:100%;
 
-    height:10px;
+    height:12px;
 
     background:#E5E7EB;
 
-    border-radius:20px;
+    border-radius:30px;
 
     overflow:hidden;
-
-    margin-top:8px;
 
 }
 
 .progress-fill{
 
-    height:100%;
-
     width:0;
 
-    transition:.5s;
+    height:100%;
+
+    border-radius:30px;
+
+    background:linear-gradient(90deg,#22C55E,#16A34A);
+
+    transition:width .8s;
 
 }
 
-.group1-fill{
+.progress-status{
 
-    background:#22C55E;
+    margin-top:22px;
 
-}
+    display:grid;
 
-.group2-fill{
+    grid-template-columns:1fr 1fr;
 
-    background:#3B82F6;
-
-}
-
-.hours-fill{
-
-    background:#4F46E5;
+    gap:15px;
 
 }
 
-.mcq-fill{
+.status-card{
 
-    background:#7C3AED;
+    background:#F8FAFC;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    text-align:center;
 
 }
 
-/* ===========================
-   Quote
-=========================== */
+.status-card i{
 
-.quote-card p{
+    font-size:22px;
 
-    font-size:17px;
+    color:#5B4BDB;
+
+    margin-bottom:10px;
+
+}
+
+.status-card h4{
+
+    margin-bottom:10px;
+
+}
+
+.status-card p{
+
+    color:#22C55E;
+
+    font-weight:600;
+
+}
+
+
+/*=========================================
+COUNTDOWN
+==========================================*/
+
+.countdown-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+
+}
+
+.count-card{
+
+    background:linear-gradient(135deg,#EEF2FF,#E0E7FF);
+
+    border-radius:22px;
+
+    padding:22px;
+
+    text-align:center;
+
+    transition:.3s;
+
+}
+
+.count-card:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.count-title{
+
+    color:#666;
+
+    font-size:13px;
+
+    letter-spacing:1px;
+
+    font-weight:600;
+
+}
+
+.count-number{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#5B4BDB;
+
+    margin:12px 0;
+
+}
+
+.count-text{
+
+    color:#888;
+
+    font-size:14px;
+
+}
+
+/*=========================================
+FOCUS GRID
+==========================================*/
+
+.focus-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+
+}
+
+.focus-box{
+
+    background:#F8FAFC;
+
+    border-radius:18px;
+
+    padding:15px;
+
+    transition:.3s;
+
+    border:1px solid #EEF2FF;
+
+}
+
+.focus-box:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 6px 15px rgba(91,75,219,.12);
+
+}
+
+.focus-box label{
+
+    display:block;
+
+    color:#777;
+
+    font-size:13px;
+
+    margin-bottom:8px;
+
+}
+
+.focus-box strong{
+
+    color:#5B4BDB;
+
+    font-size:16px;
+
+    font-weight:600;
+
+}
+
+/*=========================================
+MOTIVATION
+==========================================*/
+
+.motivation-card{
+
+    background:linear-gradient(135deg,#5B4BDB,#7C3AED);
+
+    color:#fff;
+
+    text-align:center;
+
+}
+
+.motivation-header{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:15px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+.motivation-card h2{
+
+    font-size:22px;
+
+    line-height:1.5;
+
+    margin-bottom:12px;
+
+}
+
+.motivation-card p{
+
+    opacity:.95;
 
     line-height:1.7;
 
-    color:#555;
+}
 
-    font-style:italic;
+/*=========================================
+DREAM
+==========================================*/
+
+.dream-text{
+
+    color:#666;
+
+    line-height:1.8;
+
+    font-size:15px;
 
 }
 
-/* ===========================
-   Button
-=========================== */
+/*=========================================
+BUTTON
+==========================================*/
 
 .study-btn{
 
-    width:calc(100% - 30px);
-
-    margin:15px;
-
-    background:#4F46E5;
-
-    color:white;
+    width:100%;
 
     border:none;
 
-    border-radius:15px;
+    padding:18px;
 
-    padding:15px;
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#5B4BDB,#7C3AED);
+
+    color:#fff;
 
     font-size:17px;
 
@@ -281,41 +539,51 @@
 
     transition:.3s;
 
+    box-shadow:0 10px 20px rgba(91,75,219,.30);
+
 }
 
 .study-btn:hover{
 
-    background:#4338CA;
+    transform:translateY(-2px);
 
 }
 
-/* ===========================
-   Bottom Navigation
-=========================== */
+.study-btn i{
+
+    margin-right:10px;
+
+}
+
+/*=========================================
+BOTTOM NAVIGATION
+==========================================*/
 
 .bottom-nav{
 
     position:fixed;
 
+    left:0;
+
+    right:0;
+
     bottom:0;
 
-    left:50%;
+    height:70px;
 
-    transform:translateX(-50%);
-
-    width:100%;
-
-    max-width:430px;
-
-    background:white;
+    background:#fff;
 
     display:flex;
 
     justify-content:space-around;
 
-    padding:12px 0;
+    align-items:center;
 
-    box-shadow:0 -2px 10px rgba(0,0,0,.12);
+    border-top:1px solid #E5E7EB;
+
+    box-shadow:0 -5px 15px rgba(0,0,0,.08);
+
+    z-index:999;
 
 }
 
@@ -323,7 +591,7 @@
 
     text-decoration:none;
 
-    color:#6B7280;
+    color:#777;
 
     display:flex;
 
@@ -331,52 +599,135 @@
 
     align-items:center;
 
-    font-size:13px;
+    font-size:12px;
 
-    gap:4px;
+    transition:.3s;
 
 }
 
 .bottom-nav i{
 
-    font-size:20px;
+    font-size:22px;
+
+    margin-bottom:5px;
 
 }
 
 .bottom-nav a.active{
 
-    color:#4F46E5;
-
-    font-weight:700;
+    color:#5B4BDB;
 
 }
 
-/* ===========================
-   Animation
-=========================== */
+/*=========================================
+DARK MODE
+==========================================*/
 
-.card{
+body.dark{
 
-    animation:fadeIn .5s ease;
+    background:#111827;
+
+    color:#fff;
 
 }
 
-@keyframes fadeIn{
+body.dark .card{
 
-    from{
+    background:#1F2937;
 
-        opacity:0;
+    color:#fff;
 
-        transform:translateY(15px);
+}
+
+body.dark .status-card,
+
+body.dark .focus-box{
+
+    background:#374151;
+
+    border:none;
+
+}
+
+body.dark .count-card{
+
+    background:#374151;
+
+}
+
+body.dark .greeting-right p,
+
+body.dark .dream-text{
+
+    color:#D1D5DB;
+
+}
+
+body.dark .journey-chip{
+
+    background:#4338CA;
+
+    color:#fff;
+
+}
+
+body.dark .section-title{
+
+    color:#A5B4FC;
+
+}
+
+body.dark .bottom-nav{
+
+    background:#1F2937;
+
+    border-color:#374151;
+
+}
+
+body.dark .bottom-nav a{
+
+    color:#D1D5DB;
+
+}
+
+body.dark .bottom-nav a.active{
+
+    color:#A5B4FC;
+
+}
+
+/*=========================================
+MOBILE
+==========================================*/
+
+@media(max-width:480px){
+
+    .header-top h1{
+
+        font-size:28px;
 
     }
 
-    to{
+    .greeting-card{
 
-        opacity:1;
+        flex-direction:column;
 
-        transform:translateY(0);
+        text-align:center;
+
+    }
+
+    .countdown-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .focus-grid{
+
+        grid-template-columns:1fr;
 
     }
 
 }
+

@@ -8,31 +8,66 @@ window.addEventListener("load", function () {
 
 });
 
+// ===============================
+// Load Statistics
+// ===============================
+
 function loadStatistics() {
 
     const studies = getAllStudies();
 
     let totalHours = 0;
-    let totalMcqs = 0;
-    let revisionCount = 0;
+
+    let revisionDays = 0;
+
+    let thirukkuralCount = 0;
+
+    let englishCount = 0;
+
+    let gsCount = 0;
+
     let currentAffairsCount = 0;
-    let mockTestCount = 0;
+
+    let mentalAbilityCount = 0;
 
     const subjectMap = {};
 
     studies.forEach(study => {
 
-        totalHours += study.studyHours;
-        totalMcqs += study.mcqs;
+        totalHours += Number(study.studyHours || 0);
 
         if (study.revision)
-            revisionCount++;
+            revisionDays++;
 
-        if (study.currentAffairs)
+        if (study.thirukkural &&
+            study.thirukkural.trim() !== "")
+            thirukkuralCount++;
+
+        if (
+            study.sa ||
+            study.pv ||
+            study.hh ||
+            study.grammar
+        )
+            englishCount++;
+
+        if (
+            study.history ||
+            study.polity
+        )
+            gsCount++;
+
+        if (
+            study.currentAffairs &&
+            study.currentAffairs.trim() !== ""
+        )
             currentAffairsCount++;
 
-        if (study.mockTest)
-            mockTestCount++;
+        if (
+            study.mentalAbility &&
+            study.mentalAbility.trim() !== ""
+        )
+            mentalAbilityCount++;
 
         if (!subjectMap[study.subject]) {
 
@@ -40,46 +75,79 @@ function loadStatistics() {
 
         }
 
-        subjectMap[study.subject] += study.studyHours;
+        subjectMap[study.subject] +=
+            Number(study.studyHours || 0);
 
     });
 
-    // Dashboard Numbers
+    // ===============================
+    // Overview
+    // ===============================
 
-    document.getElementById("totalHours").innerHTML = totalHours;
+    document.getElementById("studyDays").innerHTML =
+        studies.length;
 
-    document.getElementById("totalMcqs").innerHTML = totalMcqs;
+    document.getElementById("totalHours").innerHTML =
+        totalHours;
 
-    document.getElementById("studyDays").innerHTML = studies.length;
+    document.getElementById("revisionDays").innerHTML =
+        revisionDays;
 
-    document.getElementById("revisionCount").innerHTML = revisionCount;
+    // Goal %
 
-    document.getElementById("currentAffairsCount").innerHTML = currentAffairsCount;
+    let goal = 0;
 
-    document.getElementById("mockTestCount").innerHTML = mockTestCount;
+    if (studies.length > 0) {
 
-    // Current Streak
+        goal =
+            Math.round(
+                (totalHours / (studies.length * APP.dailyHours)) * 100
+            );
 
-    document.getElementById("currentStreak").innerHTML =
-        calculateCurrentStreak(studies);
+    }
 
-    // Subject Wise
+    if (goal > 100)
+        goal = 100;
+
+    document.getElementById("goalPercent").innerHTML =
+        goal + "%";
+
+    // ===============================
+    // Practice Summary
+    // ===============================
+
+    document.getElementById("thirukkuralCount").innerHTML =
+        thirukkuralCount;
+
+    document.getElementById("englishCount").innerHTML =
+        englishCount;
+
+    document.getElementById("gsCount").innerHTML =
+        gsCount;
+
+    document.getElementById("currentAffairsCount").innerHTML =
+        currentAffairsCount;
+
+    document.getElementById("mentalAbilityCount").innerHTML =
+        mentalAbilityCount;
 
     loadSubjectStats(subjectMap);
 
 }
 
 // ===============================
-// Subject Statistics
+// Subject Summary
 // ===============================
 
 function loadSubjectStats(subjectMap) {
 
-    const container = document.getElementById("subjectStats");
+    const container =
+        document.getElementById("subjectStats");
 
     container.innerHTML = "";
 
-    const subjects = Object.keys(subjectMap);
+    const subjects =
+        Object.keys(subjectMap);
 
     if (subjects.length === 0) {
 
@@ -90,61 +158,22 @@ function loadSubjectStats(subjectMap) {
 
     }
 
-    subjects.forEach(subject => {
+    subjects
+        .sort()
+        .forEach(subject => {
 
-        container.innerHTML += `
+            container.innerHTML += `
 
-        <div class="subject-item">
+            <div class="subject-item">
 
-            <span>${subject}</span>
+                <span>${subject}</span>
 
-            <strong>${subjectMap[subject]} hrs</strong>
+                <strong>${subjectMap[subject]} hrs</strong>
 
-        </div>
+            </div>
 
-        `;
+            `;
 
-    });
-
-}
-
-// ===============================
-// Current Streak
-// ===============================
-
-function calculateCurrentStreak(studies) {
-
-    if (studies.length === 0)
-        return 0;
-
-    const dates = studies
-        .map(s => s.date)
-        .sort();
-
-    let streak = 1;
-
-    for (let i = dates.length - 1; i > 0; i--) {
-
-        const current = new Date(dates[i]);
-
-        const previous = new Date(dates[i - 1]);
-
-        const diff =
-            (current - previous) / (1000 * 60 * 60 * 24);
-
-        if (diff === 1) {
-
-            streak++;
-
-        }
-        else {
-
-            break;
-
-        }
-
-    }
-
-    return streak;
+        });
 
 }
