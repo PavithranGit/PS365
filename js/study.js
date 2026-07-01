@@ -1,57 +1,110 @@
-//====================================================
+//==================================================
 // PS365 Study Journal V2
-//====================================================
+// Part 1 - Initialization & Topic Manager
+//==================================================
+
+//------------------------------------
+// Global Variables
+//------------------------------------
 
 let studyTopics = [];
-
 let studySessions = [];
 
 let totalSeconds = 0;
-
 let sessionSeconds = 0;
 
 let timer = null;
-
 let timerRunning = false;
 
 let sessionStartTime = null;
 
-//====================================================
+//------------------------------------
+// DOM
+//------------------------------------
+
+const studyDate = document.getElementById("studyDate");
+
+const topicInput = document.getElementById("topicInput");
+
+const topicList = document.getElementById("topicList");
+
+const notes = document.getElementById("notes");
+
+const completedCount = document.getElementById("completedCount");
+
+const topicProgress = document.getElementById("topicProgress");
+
+//------------------------------------
 // Page Load
-//====================================================
+//------------------------------------
 
-window.addEventListener("load", () => {
+window.addEventListener("DOMContentLoaded", initializeStudy);
 
-    const today = new Date().toISOString().split("T")[0];
+function initializeStudy(){
 
-    document.getElementById("studyDate").value = today;
+    const today = new Date()
+        .toISOString()
+        .split("T")[0];
 
-    document.getElementById("addTopicBtn")
-        .addEventListener("click", addTopic);
+    studyDate.value = today;
 
-    document.getElementById("saveBtn")
-        .addEventListener("click", saveStudy);
-
-    document.getElementById("emailBtn")
-        .addEventListener("click", sendEmail);
+    bindEvents();
 
     loadStudy(today);
 
-});
+}
 
-//====================================================
+//------------------------------------
+// Events
+//------------------------------------
+
+function bindEvents(){
+
+    document
+        .getElementById("addTopicBtn")
+        .addEventListener("click", addTopic);
+
+    document
+        .getElementById("saveBtn")
+        .addEventListener("click", saveTodayStudy);
+
+    document
+        .getElementById("emailBtn")
+        .addEventListener("click", sendEmailReport);
+
+    studyDate.addEventListener(
+
+        "change",
+
+        function(){
+
+            loadStudy(this.value);
+
+        }
+
+    );
+
+    notes.addEventListener(
+
+        "keyup",
+
+        autoSave
+
+    );
+
+}
+
+//------------------------------------
 // Add Topic
-//====================================================
+//------------------------------------
 
 function addTopic(){
 
-    const input = document.getElementById("topicInput");
-
-    const value = input.value.trim();
+    const value = topicInput.value.trim();
 
     if(value===""){
 
-        alert("Enter a study topic.");
+        topicInput.focus();
 
         return;
 
@@ -67,31 +120,39 @@ function addTopic(){
 
     });
 
-    input.value="";
+    topicInput.value="";
 
     renderTopics();
 
+    autoSave();
+
 }
 
-//====================================================
+//------------------------------------
 // Render Topics
-//====================================================
+//------------------------------------
 
 function renderTopics(){
 
-    const container = document.getElementById("topicList");
-
-    container.innerHTML="";
+    topicList.innerHTML="";
 
     if(studyTopics.length===0){
 
-        container.innerHTML=
+        topicList.innerHTML=`
 
-        `<div class="empty-session">
+        <div class="empty-state">
 
-            No topics added.
+            <i class="fa-solid fa-book"></i>
 
-        </div>`;
+            <p>
+
+                No study topics added.
+
+            </p>
+
+        </div>
+
+        `;
 
         updateProgress();
 
@@ -101,41 +162,41 @@ function renderTopics(){
 
     studyTopics.forEach(topic=>{
 
-        const row=document.createElement("div");
+        const card=document.createElement("div");
 
-        row.className="topic-item";
+        card.className="topic-item";
 
-        row.innerHTML=`
+        card.innerHTML=`
 
-            <label>
+        <label>
 
-                <input
+            <input
 
-                    type="checkbox"
+                type="checkbox"
 
-                    ${topic.completed?"checked":""}
+                ${topic.completed?"checked":""}
 
-                    onchange="toggleTopic(${topic.id})">
+                onchange="toggleTopic(${topic.id})">
 
-                <span>
+            <span>
 
-                    ${topic.title}
+                ${topic.title}
 
-                </span>
+            </span>
 
-            </label>
+        </label>
 
-            <button
+        <button
 
-                onclick="deleteTopic(${topic.id})">
+            onclick="deleteTopic(${topic.id})">
 
-                <i class="fa-solid fa-trash"></i>
+            <i class="fa-solid fa-trash"></i>
 
-            </button>
+        </button>
 
         `;
 
-        container.appendChild(row);
+        topicList.appendChild(card);
 
     });
 
@@ -143,35 +204,45 @@ function renderTopics(){
 
 }
 
-//====================================================
-// Toggle Topic
-//====================================================
+//------------------------------------
+// Complete Topic
+//------------------------------------
 
 function toggleTopic(id){
 
-    studyTopics=studyTopics.map(topic=>{
+    studyTopics.forEach(topic=>{
 
         if(topic.id===id){
 
-            topic.completed=!topic.completed;
+            topic.completed=
+
+                !topic.completed;
 
         }
 
-        return topic;
-
     });
 
-    updateProgress();
+    renderTopics();
+
+    autoSave();
 
 }
 
-//====================================================
+//------------------------------------
 // Delete Topic
-//====================================================
+//------------------------------------
 
 function deleteTopic(id){
 
-    if(!confirm("Delete this topic?"))
+    if(
+
+        !confirm(
+
+            "Delete this topic?"
+
+        )
+
+    )
 
         return;
 
@@ -179,33 +250,41 @@ function deleteTopic(id){
 
         studyTopics.filter(
 
-            topic=>topic.id!==id
+            t=>t.id!==id
 
         );
 
     renderTopics();
 
+    autoSave();
+
 }
 
-//====================================================
-// Update Progress
-//====================================================
+//------------------------------------
+// Progress
+//------------------------------------
 
 function updateProgress(){
 
-    const total=studyTopics.length;
+    const total=
+
+        studyTopics.length;
 
     const completed=
 
         studyTopics.filter(
 
-            t=>t.completed
+            x=>x.completed
 
         ).length;
 
-    document.getElementById("completedCount").innerHTML=
+    completedCount.innerHTML=
 
-        completed+" / "+total;
+        completed+
+
+        " / "+
+
+        total;
 
     const percent=
 
@@ -213,35 +292,45 @@ function updateProgress(){
 
         ?0
 
-        :(completed/total)*100;
+        :
 
-    document.getElementById("topicProgress").style.width=
+        (completed/total)*100;
+
+    topicProgress.style.width=
 
         percent+"%";
 
 }
 
-//====================================================
-// Study Session Timer
-//====================================================
+//==================================================
+// Part 2 - Study Timer
+//==================================================
 
-document.getElementById("startBtn")
-    .addEventListener("click", startSession);
+//------------------------------------
+// Timer Events
+//------------------------------------
 
-document.getElementById("pauseBtn")
-    .addEventListener("click", pauseSession);
+document
+    .getElementById("startBtn")
+    .addEventListener("click", startStudy);
 
-document.getElementById("resumeBtn")
-    .addEventListener("click", resumeSession);
+document
+    .getElementById("pauseBtn")
+    .addEventListener("click", pauseStudy);
 
-document.getElementById("stopBtn")
-    .addEventListener("click", stopSession);
+document
+    .getElementById("resumeBtn")
+    .addEventListener("click", resumeStudy);
 
-//====================================================
-// Start Session
-//====================================================
+document
+    .getElementById("stopBtn")
+    .addEventListener("click", stopStudy);
 
-function startSession(){
+//------------------------------------
+// Start Study
+//------------------------------------
+
+function startStudy(){
 
     if(timerRunning)
         return;
@@ -250,15 +339,16 @@ function startSession(){
 
     sessionStartTime = new Date();
 
-    document.getElementById("startTime").innerHTML =
-        formatClock(sessionStartTime);
-
-    document.getElementById("endTime").innerHTML = "--";
+    timerRunning = true;
 
     document.getElementById("studyStatus").innerHTML =
         "🟢 Studying";
 
-    timerRunning = true;
+    document.getElementById("startTime").innerHTML =
+        formatTime(sessionStartTime);
+
+    document.getElementById("endTime").innerHTML =
+        "--";
 
     timer = setInterval(function(){
 
@@ -268,17 +358,17 @@ function startSession(){
 
         updateTimer();
 
-        updateGoalProgress();
+        updateGoal();
 
     },1000);
 
 }
 
-//====================================================
+//------------------------------------
 // Pause
-//====================================================
+//------------------------------------
 
-function pauseSession(){
+function pauseStudy(){
 
     if(!timerRunning)
         return;
@@ -292,19 +382,22 @@ function pauseSession(){
 
 }
 
-//====================================================
+//------------------------------------
 // Resume
-//====================================================
+//------------------------------------
 
-function resumeSession(){
+function resumeStudy(){
 
     if(timerRunning)
         return;
 
-    document.getElementById("studyStatus").innerHTML =
-        "🟢 Studying";
+    if(sessionStartTime==null)
+        return;
 
     timerRunning = true;
+
+    document.getElementById("studyStatus").innerHTML =
+        "🟢 Studying";
 
     timer = setInterval(function(){
 
@@ -314,70 +407,76 @@ function resumeSession(){
 
         updateTimer();
 
-        updateGoalProgress();
+        updateGoal();
 
     },1000);
 
 }
 
-//====================================================
+//------------------------------------
 // Stop
-//====================================================
+//------------------------------------
 
-function stopSession(){
+function stopStudy(){
 
-    if(!sessionStartTime)
+    if(sessionStartTime==null)
         return;
 
     clearInterval(timer);
 
     timerRunning = false;
 
-    const end = new Date();
-
-    document.getElementById("endTime").innerHTML =
-        formatClock(end);
+    const endTime = new Date();
 
     document.getElementById("studyStatus").innerHTML =
         "✅ Session Completed";
 
+    document.getElementById("endTime").innerHTML =
+        formatTime(endTime);
+
     studySessions.push({
 
-        start: formatClock(sessionStartTime),
+        start:formatTime(sessionStartTime),
 
-        end: formatClock(end),
+        end:formatTime(endTime),
 
-        duration: sessionSeconds
+        duration:sessionSeconds
 
     });
 
-    renderSessions();
+    renderSessionHistory();
 
     sessionSeconds = 0;
 
+    sessionStartTime = null;
+
+    autoSave();
+
 }
 
-//====================================================
+//------------------------------------
 // Update Timer
-//====================================================
+//------------------------------------
 
 function updateTimer(){
 
     document.getElementById("timerDisplay").innerHTML =
-        formatDuration(totalSeconds);
+        secondsToTime(totalSeconds);
 
     document.getElementById("todayTotal").innerHTML =
-        formatDuration(totalSeconds);
+        secondsToTime(totalSeconds);
 
 }
 
-//====================================================
+//------------------------------------
 // Daily Goal
-//====================================================
+//------------------------------------
 
-function updateGoalProgress(){
+function updateGoal(){
 
-    const goalSeconds = APP.dailyHours * 3600;
+    const goalHours = 8;
+
+    const goalSeconds = goalHours * 3600;
 
     const percent = Math.min(
 
@@ -395,31 +494,39 @@ function updateGoalProgress(){
 
 }
 
-//====================================================
+//------------------------------------
 // Helpers
-//====================================================
+//------------------------------------
 
-function formatDuration(sec){
+function secondsToTime(seconds){
 
-    const h = Math.floor(sec / 3600);
+    const hrs = Math.floor(seconds / 3600);
 
-    const m = Math.floor((sec % 3600) / 60);
+    const mins = Math.floor(
 
-    const s = sec % 60;
+        (seconds % 3600) / 60
+
+    );
+
+    const secs = seconds % 60;
 
     return (
 
-        String(h).padStart(2,"0") + ":" +
+        String(hrs).padStart(2,"0") +
 
-        String(m).padStart(2,"0") + ":" +
+        ":" +
 
-        String(s).padStart(2,"0")
+        String(mins).padStart(2,"0") +
+
+        ":" +
+
+        String(secs).padStart(2,"0")
 
     );
 
 }
 
-function formatClock(date){
+function formatTime(date){
 
     return date.toLocaleTimeString([],{
 
@@ -432,74 +539,109 @@ function formatClock(date){
 }
 
 
-//====================================================
-// Session History
-//====================================================
+//==================================================
+// Part 3 - Session History
+//==================================================
 
-function renderSessions(){
+//------------------------------------
+// Render Session History
+//------------------------------------
+
+function renderSessionHistory(){
 
     const container =
+
         document.getElementById("sessionHistory");
 
     container.innerHTML = "";
 
-    if(studySessions.length === 0){
+    //------------------------------------
 
-        container.innerHTML = `
+    // Empty
 
-        <div class="empty-session">
+    //------------------------------------
+
+    if(studySessions.length===0){
+
+        container.innerHTML=`
+
+        <div class="empty-state">
 
             <i class="fa-regular fa-clock"></i>
 
-            <p>No study sessions yet.</p>
+            <p>
+
+                No study sessions yet.
+
+            </p>
 
         </div>
 
         `;
 
+        updateTimer();
+
         return;
 
     }
 
+    //------------------------------------
+
+    // Sessions
+
+    //------------------------------------
+
     studySessions.forEach((session,index)=>{
 
-        const card = document.createElement("div");
+        const card=document.createElement("div");
 
-        card.className = "session-item";
+        card.className="session-item";
 
-        card.innerHTML = `
+        card.innerHTML=`
 
-            <div>
+        <div>
 
-                <strong>
+            <strong>
 
-                    Session ${index + 1}
+                📚 Session ${index+1}
 
-                </strong>
+            </strong>
 
-                <br>
+            <br>
 
-                <small>
+            <small>
 
-                    ${session.start}
+                ${session.start}
 
-                    →
+                →
 
-                    ${session.end}
+                ${session.end}
 
-                </small>
+            </small>
 
-            </div>
+        </div>
 
-            <div>
+        <div class="text-right">
 
-                <strong>
+            <strong>
 
-                    ${formatDuration(session.duration)}
+                ${secondsToTime(session.duration)}
 
-                </strong>
+            </strong>
 
-            </div>
+            <br>
+
+            <button
+
+                class="delete-session"
+
+                onclick="deleteSession(${index})">
+
+                <i class="fa-solid fa-trash"></i>
+
+            </button>
+
+        </div>
 
         `;
 
@@ -511,136 +653,222 @@ function renderSessions(){
 
 }
 
-//====================================================
-// Today's Total
-//====================================================
-
-function calculateTodayTotal(){
-
-    let total = 0;
-
-    studySessions.forEach(session=>{
-
-        total += session.duration;
-
-    });
-
-    totalSeconds = total;
-
-    document.getElementById("todayTotal").innerHTML =
-
-        formatDuration(total);
-
-    document.getElementById("timerDisplay").innerHTML =
-
-        formatDuration(total);
-
-    updateGoalProgress();
-
-}
-
-//====================================================
+//------------------------------------
 // Delete Session
-//====================================================
+//------------------------------------
 
 function deleteSession(index){
 
-    if(!confirm("Delete this study session?"))
+    if(
+
+        !confirm(
+
+            "Delete this session?"
+
+        )
+
+    )
 
         return;
 
     studySessions.splice(index,1);
 
-    renderSessions();
+    renderSessionHistory();
+
+    autoSave();
 
 }
 
-//====================================================
-// Clear All Sessions
-//====================================================
+//------------------------------------
+// Clear Sessions
+//------------------------------------
 
-function clearSessions(){
+function clearAllSessions(){
 
-    if(!confirm("Clear today's session history?"))
+    if(
+
+        !confirm(
+
+            "Clear today's sessions?"
+
+        )
+
+    )
 
         return;
 
-    studySessions = [];
+    studySessions=[];
 
-    totalSeconds = 0;
+    totalSeconds=0;
 
-    sessionSeconds = 0;
+    sessionSeconds=0;
 
-    renderSessions();
+    sessionStartTime=null;
+
+    timerRunning=false;
+
+    clearInterval(timer);
 
     updateTimer();
 
-    updateGoalProgress();
+    updateGoal();
 
-    document.getElementById("studyStatus").innerHTML =
-        "⚪ Ready to Study";
+    renderSessionHistory();
 
-    document.getElementById("startTime").innerHTML = "--";
+    document.getElementById("studyStatus").innerHTML=
 
-    document.getElementById("endTime").innerHTML = "--";
+        "⚪ Ready";
+
+    document.getElementById("startTime").innerHTML="--";
+
+    document.getElementById("endTime").innerHTML="--";
+
+    autoSave();
 
 }
 
-//====================================================
-// Restore Session History
-//====================================================
+//------------------------------------
+// Calculate Today's Total
+//------------------------------------
+
+function calculateTodayTotal(){
+
+    totalSeconds=0;
+
+    studySessions.forEach(session=>{
+
+        totalSeconds+=session.duration;
+
+    });
+
+    updateTimer();
+
+    updateGoal();
+
+}
+
+//------------------------------------
+// Restore Sessions
+//------------------------------------
 
 function restoreSessions(savedSessions){
 
-    studySessions = savedSessions || [];
+    studySessions=savedSessions||[];
 
-    renderSessions();
+    renderSessionHistory();
 
 }
 
-//====================================================
-// Save Study
-//====================================================
+//------------------------------------
+// Statistics
+//------------------------------------
 
-function saveStudy(){
+function getCompletedTopics(){
 
-    const study = {
+    return studyTopics.filter(
 
-        date: document.getElementById("studyDate").value,
+        topic=>topic.completed
 
-        totalSeconds: totalSeconds,
+    ).length;
 
-        totalHours: Number((totalSeconds / 3600).toFixed(2)),
+}
 
-        topics: studyTopics,
+function getPendingTopics(){
 
-        sessions: studySessions,
+    return studyTopics.filter(
 
-        notes: document.getElementById("notes").value,
+        topic=>!topic.completed
 
-        lastUpdated: new Date().toISOString()
+    ).length;
+
+}
+
+function getStudyHours(){
+
+    return Number(
+
+        (totalSeconds/3600)
+
+        .toFixed(2)
+
+    );
+
+}
+
+//------------------------------------
+// Refresh UI
+//------------------------------------
+
+function refreshStudyPage(){
+
+    renderTopics();
+
+    renderSessionHistory();
+
+    updateProgress();
+
+    updateTimer();
+
+    updateGoal();
+
+}
+
+//==================================================
+// Part 4 - Storage
+//==================================================
+
+//------------------------------------
+// Save Today's Study
+//------------------------------------
+
+function saveTodayStudy(){
+
+    const study={
+
+        date:studyDate.value,
+
+        totalSeconds:totalSeconds,
+
+        totalHours:getStudyHours(),
+
+        topics:studyTopics,
+
+        sessions:studySessions,
+
+        notes:notes.value,
+
+        lastUpdated:new Date().toISOString()
 
     };
 
+    // storage.js
     saveStudy(study);
 
-    alert("✅ Study saved successfully.");
+    showToast(
+
+        "Study saved successfully",
+
+        "success"
+
+    );
 
 }
 
-//====================================================
+//------------------------------------
 // Load Study
-//====================================================
+//------------------------------------
 
 function loadStudy(date){
 
-    const study = getStudyByDate(date);
+    const study=
 
-    //----------------------------------
+        getStudyByDate(date);
+
+    //--------------------------------
 
     // New Day
 
-    //----------------------------------
+    //--------------------------------
 
     if(!study){
 
@@ -652,85 +880,65 @@ function loadStudy(date){
 
         sessionSeconds=0;
 
-        renderTopics();
+        timerRunning=false;
 
-        renderSessions();
+        sessionStartTime=null;
 
-        updateTimer();
+        notes.value="";
 
-        updateGoalProgress();
-
-        document.getElementById("notes").value="";
-
-        document.getElementById("studyStatus").innerHTML=
-            "⚪ Ready to Study";
-
-        document.getElementById("startTime").innerHTML="--";
-
-        document.getElementById("endTime").innerHTML="--";
+        refreshStudyPage();
 
         return;
 
     }
 
-    //----------------------------------
+    //--------------------------------
 
     // Restore
 
-    //----------------------------------
+    //--------------------------------
 
-    studyTopics = study.topics || [];
+    studyTopics=
 
-    studySessions = study.sessions || [];
+        study.topics||[];
 
-    totalSeconds = study.totalSeconds || 0;
+    studySessions=
 
-    document.getElementById("notes").value =
-        study.notes || "";
+        study.sessions||[];
 
-    renderTopics();
+    totalSeconds=
 
-    renderSessions();
+        study.totalSeconds||0;
 
-    updateTimer();
+    notes.value=
 
-    updateGoalProgress();
+        study.notes||"";
+
+    refreshStudyPage();
 
 }
 
-//====================================================
-// Change Date
-//====================================================
-
-document.getElementById("studyDate")
-
-.addEventListener("change",function(){
-
-    loadStudy(this.value);
-
-});
-
-//====================================================
+//------------------------------------
 // Auto Save
-//====================================================
+//------------------------------------
 
 function autoSave(){
 
-    const study = {
+    const study={
 
-        date: document.getElementById("studyDate").value,
+        date:studyDate.value,
 
-        totalSeconds: totalSeconds,
+        totalSeconds:totalSeconds,
 
-        totalHours: Number((totalSeconds / 3600).toFixed(2)),
+        totalHours:getStudyHours(),
 
-        topics: studyTopics,
+        topics:studyTopics,
 
-        sessions: studySessions,
+        sessions:studySessions,
 
-        notes: document.getElementById("notes").value,
+        notes:notes.value,
 
-        lastUpdated: new Date().toISOString()
+        lastUpdated:new Date().toISOString()
 
     };
 
@@ -738,181 +946,401 @@ function autoSave(){
 
 }
 
-//====================================================
-// Auto Save Events
-//====================================================
+//------------------------------------
+// Save Every Minute
+//------------------------------------
 
-document.getElementById("notes")
+setInterval(function(){
 
-.addEventListener("keyup",autoSave);
+    if(
 
-window.addEventListener("beforeunload",autoSave);
+        timerRunning ||
 
-//====================================================
-// Initial Load
-//====================================================
+        studyTopics.length>0 ||
 
-loadStudy(
+        notes.value.trim()!==''
 
-    new Date()
+    ){
 
-    .toISOString()
+        autoSave();
 
-    .split("T")[0]
+    }
+
+},60000);
+
+//------------------------------------
+// Save Before Closing
+//------------------------------------
+
+window.addEventListener(
+
+    "beforeunload",
+
+    function(){
+
+        autoSave();
+
+    }
 
 );
 
-//====================================================
-// Email Report
-//====================================================
+//------------------------------------
+// Export Today's Study
+//------------------------------------
 
-document.getElementById("emailBtn")
-    .addEventListener("click", sendEmailReport);
+function exportStudy(){
 
-function sendEmailReport(){
+    const study={
 
-    const date =
-        document.getElementById("studyDate").value;
+        date:studyDate.value,
 
-    const notes =
-        document.getElementById("notes").value || "-";
+        totalSeconds,
 
-    //-------------------------------------
-    // Completed
-    //-------------------------------------
+        topics:studyTopics,
 
-    let completed = "";
+        sessions:studySessions,
 
-    let pending = "";
+        notes:notes.value
 
-    studyTopics.forEach(topic=>{
+    };
 
-        if(topic.completed){
+    const blob=new Blob(
 
-            completed += "✅ " + topic.title + "\n";
+        [
 
-        }else{
+            JSON.stringify(
 
-            pending += "❌ " + topic.title + "\n";
+                study,
 
+                null,
 
+                2
 
+            )
 
+        ],
+
+        {
+
+            type:
+
+            "application/json"
 
         }
 
-    });
+    );
 
-    if(completed==="")
-        completed="None\n";
+    const url=
 
-    if(pending==="")
-        pending="None\n";
+        URL.createObjectURL(blob);
 
-    //-------------------------------------
-    // Session History
-    //-------------------------------------
+    const a=
 
-    let sessions = "";
+        document.createElement("a");
 
-    studySessions.forEach((session,index)=>{
+    a.href=url;
 
-        sessions +=
+    a.download=
 
-        `Session ${index+1}
+        studyDate.value+
 
-${session.start} → ${session.end}
+        "-study.json";
 
-Duration : ${formatDuration(session.duration)}
+    a.click();
 
-----------------------------
+    URL.revokeObjectURL(url);
 
-`;
+}
 
-    });
+//------------------------------------
+// Import Study
+//------------------------------------
 
-    if(sessions==="")
+function importStudy(file){
 
-        sessions="No Sessions\n";
+    const reader=new FileReader();
 
-    //-------------------------------------
-    // Statistics
-    //-------------------------------------
+    reader.onload=function(e){
 
-    const completedCount =
+        const study=
 
-        studyTopics.filter(t=>t.completed).length;
+            JSON.parse(
 
-    const totalCount = studyTopics.length;
+                e.target.result
 
-    //-------------------------------------
-    // Email Body
-    //-------------------------------------
+            );
 
-    const subject =
+        saveStudy(study);
 
-        `📚 PS365 Study Report - ${date}`;
+        loadStudy(
 
-    const body =
+            study.date
 
-`PS365 DAILY STUDY REPORT
+        );
 
-==================================
+        showToast(
+
+            "Study Imported",
+
+            "success"
+
+        );
+
+    };
+
+    reader.readAsText(file);
+
+}
+
+//==================================================
+// Part 5 - Email & Sync
+//==================================================
+
+//------------------------------------
+// Email Report
+//------------------------------------
+
+function sendEmailReport(){
+
+    saveTodayStudy();
+
+    const completed=
+
+        studyTopics
+
+        .filter(t=>t.completed)
+
+        .map(t=>"✅ "+t.title)
+
+        .join("\n");
+
+    const pending=
+
+        studyTopics
+
+        .filter(t=>!t.completed)
+
+        .map(t=>"❌ "+t.title)
+
+        .join("\n");
+
+    const sessions=
+
+        studySessions.map((s,index)=>
+
+`Session ${index+1}
+
+${s.start} → ${s.end}
+
+Duration : ${secondsToTime(s.duration)}
+
+`).join("\n");
+
+    const subject=
+
+`📚 PS365 Study Report - ${studyDate.value}`;
+
+    const body=
+
+`PS365 DAILY REPORT
+
+================================
 
 📅 Date
 
-${date}
+${studyDate.value}
 
-==================================
+================================
 
 ⏱ Total Study Time
 
-${formatDuration(totalSeconds)}
+${secondsToTime(totalSeconds)}
 
-==================================
+================================
 
-📊 Progress
+📋 Topics
 
-Topics Completed
+Completed : ${getCompletedTopics()}
 
-${completedCount} / ${totalCount}
+Pending : ${getPendingTopics()}
 
-==================================
+================================
 
-✅ COMPLETED TOPICS
+✅ Completed
 
-${completed}
+${completed || "None"}
 
-==================================
+================================
 
-❌ PENDING TOPICS
+❌ Pending
 
-${pending}
+${pending || "None"}
 
-==================================
+================================
 
-📖 SESSION HISTORY
+📜 Sessions
 
-${sessions}
+${sessions || "No Sessions"}
 
-==================================
+================================
 
-📝 NOTES
+📝 Notes
 
-${notes}
+${notes.value || "-"}
 
-==================================
+================================
 
-Generated from PS365
+Generated by PS365 ❤️`;
 
-Keep Learning ❤️`;
+    //--------------------------------
 
-    //-------------------------------------
-    // Open Mail
-    //-------------------------------------
+    // Change Your Email Here
+
+    //--------------------------------
+
+    const email =
+
+        "pavithrandevo@gmail.com";
 
     window.location.href=
 
-`mailto:pavithrandevo@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+}
+
+//==================================================
+// Dashboard Sync
+//==================================================
+
+function syncDashboard(){
+
+    localStorage.setItem(
+
+        "dashboardRefresh",
+
+        Date.now()
+
+    );
+
+}
+
+//==================================================
+// Calendar Sync
+//==================================================
+
+function syncCalendar(){
+
+    localStorage.setItem(
+
+        "calendarRefresh",
+
+        Date.now()
+
+    );
+
+}
+
+//==================================================
+// Statistics Sync
+//==================================================
+
+function syncStats(){
+
+    localStorage.setItem(
+
+        "statsRefresh",
+
+        Date.now()
+
+    );
+
+}
+
+//==================================================
+// Refresh Everything
+//==================================================
+
+function refreshApplication(){
+
+    syncDashboard();
+
+    syncCalendar();
+
+    syncStats();
+
+}
+
+//==================================================
+// Save + Refresh
+//==================================================
+
+function saveEverything(){
+
+    saveTodayStudy();
+
+    refreshApplication();
+
+}
+
+//==================================================
+// Keyboard Shortcut
+// Ctrl + S
+//==================================================
+
+document.addEventListener(
+
+    "keydown",
+
+    function(e){
+
+        if(
+
+            e.ctrlKey &&
+
+            e.key==="s"
+
+        ){
+
+            e.preventDefault();
+
+            saveEverything();
+
+        }
+
+    }
+
+);
+
+//==================================================
+// Auto Refresh
+//==================================================
+
+window.addEventListener(
+
+    "storage",
+
+    function(){
+
+        refreshStudyPage();
+
+    }
+
+);
+
+//==================================================
+// Final Initialization
+//==================================================
+
+refreshStudyPage();
+
+console.log(
+
+    "✅ PS365 Study Module Loaded"
+
+);
+
+function showToast(message, type = "success") {
+
+    alert(message);
 
 }
