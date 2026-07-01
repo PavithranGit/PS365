@@ -1,22 +1,24 @@
-//======================================
-// PS365 PREMIUM DASHBOARD
-//======================================
+//==============================================
+// PS365 Dashboard V2
+//==============================================
 
-window.addEventListener("load", function () {
+window.addEventListener("load", () => {
 
     loadGreeting();
 
+    loadDateTime();
+
     loadCountdown();
 
-    loadTodayProgress();
+    loadDashboard();
 
-    startClock();
+    setInterval(loadDateTime, 1000);
 
 });
 
-//======================================
+//==============================================
 // Greeting
-//======================================
+//==============================================
 
 function loadGreeting() {
 
@@ -30,61 +32,47 @@ function loadGreeting() {
         greeting = "Good Afternoon";
 
     document.getElementById("greeting").innerHTML =
-        greeting;
-
-    document.getElementById("studentName").innerHTML =
-        APP.userName + " 👋";
-
-    document.getElementById("welcomeMessage").innerHTML =
-        "Every study session brings you one step closer to becoming a TNPSC Group I Officer.";
+        greeting + ", " + APP.userName + " 👋";
 
 }
 
-//======================================
-// Live Clock
-//======================================
+//==============================================
+// Date & Time
+//==============================================
 
-function startClock() {
-
-    updateClock();
-
-    setInterval(updateClock,1000);
-
-}
-
-function updateClock() {
+function loadDateTime() {
 
     const now = new Date();
 
     document.getElementById("currentDate").innerHTML =
-        now.toLocaleDateString("en-IN",{
+        now.toLocaleDateString("en-IN", {
 
-            weekday:"long",
+            weekday: "long",
 
-            day:"2-digit",
+            day: "numeric",
 
-            month:"long",
+            month: "long",
 
-            year:"numeric"
+            year: "numeric"
 
         });
 
     document.getElementById("currentTime").innerHTML =
-        now.toLocaleTimeString("en-IN",{
+        now.toLocaleTimeString("en-IN", {
 
-            hour:"2-digit",
+            hour: "2-digit",
 
-            minute:"2-digit",
+            minute: "2-digit",
 
-            second:"2-digit"
+            second: "2-digit"
 
         });
 
 }
 
-//======================================
+//==============================================
 // Countdown
-//======================================
+//==============================================
 
 function loadCountdown() {
 
@@ -105,98 +93,157 @@ function getDays(date) {
     const diff = exam - today;
 
     return Math.max(
-        Math.ceil(diff / (1000 * 60 * 60 * 24)),
-        0
+        0,
+        Math.ceil(diff / (1000 * 60 * 60 * 24))
     );
 
 }
 
-//======================================
-// Today's Progress
-//======================================
+//==============================================
+// Dashboard
+//==============================================
 
-function loadTodayProgress() {
+function loadDashboard() {
 
     const study = getTodayStudy();
 
     if (!study) {
 
         document.getElementById("studyHours").innerHTML =
-            "0 / " + APP.dailyHours + " hrs";
+            "00h 00m";
 
-        document.querySelector(".hours-fill").style.width =
-            "0%";
+        document.getElementById("studyStatus").innerHTML =
+            "Ready";
 
-        setText("thirukkuralValue","-");
-        setText("saValue","-");
-        setText("pvValue","-");
-        setText("hhValue","-");
-        setText("grammarValue","-");
-        setText("historyValue","-");
-        setText("polityValue","-");
-        setText("caValue","-");
+        document.getElementById("completedTopics").innerHTML =
+            "0";
 
-        setText("mentalValue","Pending");
+        document.getElementById("topicCount").innerHTML =
+            "0 / 0";
 
-        setText("revisionValue","Pending");
+        document.getElementById("todayTopics").innerHTML =
+            `
+            <div class="empty-topics">
+
+                <i class="fa-solid fa-book-open"></i>
+
+                <p>No study topics added today.</p>
+
+            </div>
+            `;
+
+        document.querySelector(".hours-fill").style.width = "0%";
+
+        document.getElementById("topicProgressBar").style.width = "0%";
 
         return;
 
     }
 
-    // Study Hours
+    //-----------------------------------
+    // Study Time
+    //-----------------------------------
+
+    const totalSeconds = study.studySeconds || 0;
+
+    const hrs = Math.floor(totalSeconds / 3600);
+
+    const mins = Math.floor((totalSeconds % 3600) / 60);
 
     document.getElementById("studyHours").innerHTML =
-        study.studyHours + " / " + APP.dailyHours + " hrs";
 
-    const percent =
+        String(hrs).padStart(2, "0") +
+
+        "h " +
+
+        String(mins).padStart(2, "0") +
+
+        "m";
+
+    //-----------------------------------
+    // Goal Progress
+    //-----------------------------------
+
+    const hourPercent =
+
         Math.min(
+
             (study.studyHours / APP.dailyHours) * 100,
+
             100
+
         );
 
     document.querySelector(".hours-fill").style.width =
-        percent + "%";
+        hourPercent + "%";
 
-    // Today's Focus
+    //-----------------------------------
+    // Topics
+    //-----------------------------------
 
-    setText("thirukkuralValue",study.thirukkural);
+    const topics = study.topics || [];
 
-    setText("saValue",study.sa);
+    const completed =
+        topics.filter(t => t.completed).length;
 
-    setText("pvValue",study.pv);
+    document.getElementById("completedTopics").innerHTML =
+        completed;
 
-    setText("hhValue",study.hh);
+    document.getElementById("topicCount").innerHTML =
+        completed + " / " + topics.length;
 
-    setText("grammarValue",study.grammar);
+    const topicPercent =
 
-    setText("historyValue",study.history);
+        topics.length === 0
 
-    setText("polityValue",study.polity);
+        ? 0
 
-    setText("caValue",study.currentAffairs);
+        : (completed / topics.length) * 100;
 
-    setText(
-        "mentalValue",
-        study.mentalAbility || "Pending"
-    );
+    document.getElementById("topicProgressBar").style.width =
+        topicPercent + "%";
 
-    setText(
-        "revisionValue",
-        study.revision ? "Completed" : "Pending"
-    );
+    //-----------------------------------
+    // Status
+    //-----------------------------------
 
-}
+    let status = "🟢 Ready";
 
-//======================================
-// Helper
-//======================================
+    if (totalSeconds > 0)
+        status = "📚 Studied";
 
-function setText(id,value){
+    if (completed === topics.length && topics.length > 0)
+        status = "✅ Completed";
 
-    document.getElementById(id).innerHTML =
-        value && value !== ""
-        ? value
-        : "-";
+    document.getElementById("studyStatus").innerHTML =
+        status;
+
+    //-----------------------------------
+    // Topic List
+    //-----------------------------------
+
+    let html = "";
+
+    topics.forEach(topic => {
+
+        html += `
+
+        <div class="topic-row">
+
+            <span>
+
+                ${topic.completed ? "✅" : "⬜"}
+
+                ${topic.title}
+
+            </span>
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById("todayTopics").innerHTML = html;
 
 }

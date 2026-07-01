@@ -3,24 +3,24 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <title>PS365 - Study Journal</title>
+<title>PS365 - Study Journal</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-    <link rel="stylesheet"
-          href="css/common.css">
+<link rel="stylesheet"
+href="css/common.css">
 
-    <link rel="stylesheet"
-          href="css/study.css">
+<link rel="stylesheet"
+href="css/study.css">
 
 </head>
 
@@ -28,315 +28,439 @@
 
 <div class="mobile-container">
 
-    <!-- Header -->
+<!-- ================= HEADER ================= -->
 
-    <header class="app-header">
+<header class="app-header">
 
-        <h1>
+<div class="header-top">
 
-            📒 Study Journal
+<div>
 
-        </h1>
+<h1>
 
-        <p>
+📚 Study Journal
 
-            Record Today's Preparation
+</h1>
 
-        </p>
+<p>
 
-    </header>
+Plan • Study • Complete
 
-    <!-- Date -->
-
-    <section class="card">
-
-        <div class="section-title">
-
-            <i class="fa-solid fa-calendar-days"></i>
-
-            Study Date
-
-        </div>
-
-        <input
-            type="date"
-            id="studyDate">
-
-    </section>
-
-    <!-- Study Hours -->
-
-    <section class="card">
-
-        <div class="section-title">
-
-            <i class="fa-solid fa-clock"></i>
-
-            Study Hours
-
-        </div>
-
-        <input
-            type="number"
-            id="studyHours"
-            min="0"
-            max="24"
-            placeholder="Enter Study Hours">
-
-    </section>
-
-    <!-- Subject -->
-
-    <section class="card">
-
-        <div class="section-title">
-
-            <i class="fa-solid fa-book"></i>
-
-            Main Subject
-
-        </div>
-
-        <select id="subject">
-
-            <option value="">Select Subject</option>
-
-            <option>General Tamil</option>
-
-            <option>General English</option>
-
-            <option>History</option>
-
-            <option>Indian Polity</option>
-
-            <option>Indian Economy</option>
-
-            <option>Science</option>
-
-            <option>Geography</option>
-
-            <option>Environment</option>
-
-            <option>Current Affairs</option>
-
-            <option>Mental Ability</option>
-
-        </select>
-
-    </section>
-
-    <!-- Today's Focus -->
-
-    <section class="card">
-
-        <div class="section-title">
-
-            <i class="fa-solid fa-bullseye"></i>
-
-            Today's Focus
-
-        </div>
-
-
-                <div class="focus-grid">
-
-            <div class="focus-item">
-
-                <label>📖 Thirukkural</label>
-
-                <input
-                    type="text"
-                    id="thirukkural"
-                    placeholder="391-400">
-
-            </div>
-
-            <div class="focus-item">
-
-                <label>📘 SA (Synonyms & Antonyms)</label>
-
-                <input
-                    type="text"
-                    id="sa"
-                    placeholder="1401-1425">
-
-            </div>
-
-            <div class="focus-item">
-
-                <label>📗 PV (Phrasal Verbs)</label>
-
-                <input
-                    type="text"
-                    id="pv"
-                    placeholder="298-312">
-
-            </div>
-
-            <div class="focus-item">
-
-                <label>📙 HH (Homonyms / Homophones)</label>
-
-                <input
-                    type="text"
-                    id="hh"
-                    placeholder="261-270">
-
-            </div>
-
-            <div class="focus-item">
-
-                <label>📚 Grammar</label>
-
-                <input
-                    type="text"
-                    id="grammar"
-                    placeholder="Tenses">
-
-            </div>
-
-            <div class="focus-item">
-
-                <label>🏛 History</label>
-
-                <input
-                    type="text"
-                    id="history"
-                    placeholder="Sangam Age">
-
-            </div>
-
-            <div class="focus-item">
-
-                <label>⚖️ Polity</label>
-
-                <input
-                    type="text"
-                    id="polity"
-                    placeholder="President">
-
-            </div>
-
-            <div class="focus-item">
-
-                <label>📰 Current Affairs</label>
-
-                <input
-                    type="text"
-                    id="currentAffairTopic"
-                    placeholder="July Week 1">
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- Activities -->
-
-    <section class="card">
-
-        <div class="section-title">
-
-            <i class="fa-solid fa-list-check"></i>
-
-            Today's Activities
-
-        </div>
-
-        <label class="check-item">
-
-            <input
-                type="checkbox"
-                id="revision">
-
-            Revision Completed
-
-        </label>
-
-        <label class="check-item">
-
-            <input
-                type="checkbox"
-                id="currentAffairs">
-
-            Current Affairs Completed
-
-        </label>
-
-        <label class="check-item">
-
-            <input
-                type="checkbox"
-                id="mentalAbility">
-
-            Mental Ability Practice
-
-        </label>
-
-    </section>
-
-
-        <!-- Notes -->
-
-    <section class="card">
-
-        <div class="section-title">
-
-            <i class="fa-solid fa-note-sticky"></i>
-
-            Study Notes
-
-        </div>
-
-        <textarea
-            id="notes"
-            rows="6"
-            placeholder="Write today's study summary..."></textarea>
-
-    </section>
-
-    <!-- Actions -->
-
-    <section class="card">
-
-        <div class="section-title">
-
-            <i class="fa-solid fa-bolt"></i>
-
-            Actions
-
-        </div>
-
-        <button id="saveBtn" class="primary-btn">
-
-            <i class="fa-solid fa-floppy-disk"></i>
-
-            Save Progress
-
-        </button>
-
-        <button id="emailBtn" class="secondary-btn">
-
-            <i class="fa-solid fa-envelope"></i>
-
-            Email Today's Report
-
-        </button>
-
-        <button id="resetBtn" class="danger-btn">
-
-            <i class="fa-solid fa-rotate-left"></i>
-
-            Reset
-
-        </button>
-
-    </section>
+</p>
 
 </div>
 
-<!-- Bottom Navigation -->
+<div class="header-icon">
+
+<i class="fa-solid fa-book-open-reader"></i>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- ================= DATE ================= -->
+
+<section class="card">
+
+<div class="section-title">
+
+<i class="fa-solid fa-calendar-days"></i>
+
+Study Date
+
+</div>
+
+<input
+
+type="date"
+
+id="studyDate">
+
+</section>
+
+<!-- ================= TODAY'S STUDY PLAN ================= -->
+
+<section class="card">
+
+<div class="section-title">
+
+<i class="fa-solid fa-list-check"></i>
+
+Today's Study Plan
+
+</div>
+
+<div class="add-topic-container">
+
+<input
+
+type="text"
+
+id="topicInput"
+
+placeholder="Example : Thirukkural 391-400">
+
+<button
+
+id="addTopicBtn">
+
+<i class="fa-solid fa-plus"></i>
+
+</button>
+
+</div>
+
+<div class="quick-topics">
+
+<button class="chip">
+
+📖 Thirukkural
+
+</button>
+
+<button class="chip">
+
+📘 English
+
+</button>
+
+<button class="chip">
+
+🏛 History
+
+</button>
+
+<button class="chip">
+
+⚖ Polity
+
+</button>
+
+<button class="chip">
+
+🌍 Geography
+
+</button>
+
+<button class="chip">
+
+💰 Economy
+
+</button>
+
+<button class="chip">
+
+📰 Current Affairs
+
+</button>
+
+<button class="chip">
+
+🧠 Mental Ability
+
+</button>
+
+</div>
+
+<div
+
+id="topicList"
+
+class="topic-list">
+
+<!-- Dynamic Topics -->
+
+</div>
+
+</section>
+
+<!-- ================= STUDY SESSION ================= -->
+
+<section class="card">
+
+<div class="section-title">
+
+<i class="fa-solid fa-stopwatch"></i>
+
+Study Session
+
+</div>
+
+<div
+
+class="timer-card">
+
+<div
+
+class="timer-display"
+
+id="timerDisplay">
+
+00:00:00
+
+</div>
+
+<div
+
+class="study-status"
+
+id="studyStatus">
+
+⚪ Ready to Study
+
+</div>
+
+<div
+
+class="session-info">
+
+<div>
+
+<label>
+
+Started
+
+</label>
+
+<strong id="startTime">
+
+--
+
+</strong>
+
+</div>
+
+<div>
+
+<label>
+
+Ended
+
+</label>
+
+<strong id="endTime">
+
+--
+
+</strong>
+
+</div>
+
+</div>
+
+<div
+
+class="timer-buttons">
+
+<button id="startBtn">
+
+▶ Start
+
+</button>
+
+<button id="pauseBtn">
+
+⏸ Pause
+
+</button>
+
+<button id="resumeBtn">
+
+▶ Resume
+
+</button>
+
+<button id="stopBtn">
+
+⏹ Stop
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= SESSION HISTORY ================= -->
+
+<section class="card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-clock-rotate-left"></i>
+
+        Today's Session History
+
+    </div>
+
+    <div id="sessionHistory" class="session-history">
+
+        <div class="empty-session">
+
+            <i class="fa-regular fa-clock"></i>
+
+            <p>
+
+                No study sessions yet.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="total-study">
+
+        <span>
+
+            Total Study Today
+
+        </span>
+
+        <strong id="todayTotal">
+
+            00:00:00
+
+        </strong>
+
+    </div>
+
+</section>
+
+<!-- ================= TODAY'S PROGRESS ================= -->
+
+<section class="card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-chart-line"></i>
+
+        Today's Progress
+
+    </div>
+
+    <div class="progress-row">
+
+        <span>
+
+            Topics Completed
+
+        </span>
+
+        <strong id="completedCount">
+
+            0 / 0
+
+        </strong>
+
+    </div>
+
+    <div class="progress">
+
+        <div
+
+            id="topicProgress"
+
+            class="progress-fill">
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="progress-row">
+
+        <span>
+
+            Daily Goal
+
+        </span>
+
+        <strong id="goalPercent">
+
+            0%
+
+        </strong>
+
+    </div>
+
+    <div class="progress">
+
+        <div
+
+            id="goalProgress"
+
+            class="progress-fill">
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= STUDY NOTES ================= -->
+
+<section class="card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-note-sticky"></i>
+
+        Study Notes
+
+    </div>
+
+    <textarea
+
+        id="notes"
+
+        rows="6"
+
+        placeholder="Write today's learning summary...">
+
+    </textarea>
+
+</section>
+
+<!-- ================= ACTIONS ================= -->
+
+<section class="card">
+
+    <div class="action-buttons">
+
+        <button
+
+            id="saveBtn"
+
+            class="primary-btn">
+
+            <i class="fa-solid fa-floppy-disk"></i>
+
+            Save Study
+
+        </button>
+
+        <button
+
+            id="emailBtn"
+
+            class="secondary-btn">
+
+            <i class="fa-solid fa-envelope"></i>
+
+            Email Report
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ================= BOTTOM NAVIGATION ================= -->
 
 <nav class="bottom-nav">
 
@@ -344,7 +468,11 @@
 
         <i class="fa-solid fa-house"></i>
 
-        <span>Home</span>
+        <span>
+
+            Home
+
+        </span>
 
     </a>
 
@@ -352,7 +480,11 @@
 
         <i class="fa-solid fa-book-open"></i>
 
-        <span>Journal</span>
+        <span>
+
+            Study
+
+        </span>
 
     </a>
 
@@ -360,15 +492,23 @@
 
         <i class="fa-solid fa-calendar-days"></i>
 
-        <span>Calendar</span>
+        <span>
+
+            Calendar
+
+        </span>
 
     </a>
 
     <a href="stats.html">
 
-        <i class="fa-solid fa-chart-simple"></i>
+        <i class="fa-solid fa-chart-column"></i>
 
-        <span>Stats</span>
+        <span>
+
+            Stats
+
+        </span>
 
     </a>
 
@@ -376,11 +516,17 @@
 
         <i class="fa-solid fa-gear"></i>
 
-        <span>Settings</span>
+        <span>
+
+            Settings
+
+        </span>
 
     </a>
 
 </nav>
+
+</div>
 
 <script src="js/app.js"></script>
 

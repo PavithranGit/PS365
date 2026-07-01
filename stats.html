@@ -3,21 +3,24 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <title>PS365 - Statistics</title>
+<title>PS365 Statistics</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/stats.css">
+<link rel="stylesheet"
+href="css/common.css">
+
+<link rel="stylesheet"
+href="css/stats.css">
 
 </head>
 
@@ -25,147 +28,455 @@
 
 <div class="mobile-container">
 
+<!-- ================= HEADER ================= -->
+
 <header class="app-header">
 
-    <div class="logo">
+<div class="header-top">
 
-        📊 <strong>PS365</strong>
+<div>
 
-    </div>
+<h1>
 
-    <div class="tagline">
+📊 Statistics
 
-        Study Statistics
+</h1>
 
-    </div>
+<p>
+
+Track your preparation journey
+
+</p>
+
+</div>
+
+<div class="header-icon">
+
+<i class="fa-solid fa-chart-column"></i>
+
+</div>
+
+</div>
 
 </header>
 
-<!-- Overview -->
+<!-- ================= OVERVIEW ================= -->
 
 <section class="card">
 
-    <div class="card-title">
+<div class="section-title">
 
-        <i class="fa-solid fa-chart-column"></i>
+<i class="fa-solid fa-chart-line"></i>
 
-        Overview
+Overview
 
-    </div>
+</div>
 
-    <div class="stats-grid">
+<div class="stats-grid">
 
-        <div class="stat-box">
+<div class="stat-card">
 
-            <h2 id="studyDays">0</h2>
+<h2 id="studyDays">
 
-            <p>Study Days</p>
+0
 
-        </div>
+</h2>
 
-        <div class="stat-box">
+<p>
 
-            <h2 id="totalHours">0</h2>
+Study Days
 
-            <p>Study Hours</p>
+</p>
 
-        </div>
+</div>
 
-        <div class="stat-box">
+<div class="stat-card">
 
-            <h2 id="revisionDays">0</h2>
+<h2 id="totalHours">
 
-            <p>Revision Days</p>
+00h 00m
 
-        </div>
+</h2>
 
-        <div class="stat-box">
+<p>
 
-            <h2 id="goalPercent">0%</h2>
+Study Time
 
-            <p>Goal Achieved</p>
+</p>
 
-        </div>
+</div>
 
-    </div>
+<div class="stat-card">
+
+<h2 id="currentStreak">
+
+0
+
+</h2>
+
+<p>
+
+Current Streak
+
+</p>
+
+</div>
+
+<div class="stat-card">
+
+<h2 id="completionRate">
+
+0%
+
+</h2>
+
+<p>
+
+Completion
+
+</p>
+
+</div>
+
+</div>
 
 </section>
 
-<!-- Practice Summary -->
+<!-- ================= STUDY SUMMARY ================= -->
 
 <section class="card">
 
-    <div class="card-title">
+<div class="section-title">
 
-        <i class="fa-solid fa-book-open"></i>
+<i class="fa-solid fa-book-open"></i>
 
-        Practice Summary
+Study Summary
 
-    </div>
+</div>
 
-    <div class="achievement-row">
+<div class="summary-list">
 
-        <span>📖 Thirukkural Entries</span>
+<div class="summary-row">
 
-        <strong id="thirukkuralCount">0</strong>
+<span>
 
-    </div>
+📋 Topics Planned
 
-    <div class="achievement-row">
+</span>
 
-        <span>📘 English Practice</span>
+<strong id="plannedTopics">
 
-        <strong id="englishCount">0</strong>
+0
 
-    </div>
+</strong>
 
-    <div class="achievement-row">
+</div>
 
-        <span>🏛 General Studies</span>
+<div class="summary-row">
 
-        <strong id="gsCount">0</strong>
+<span>
 
-    </div>
+✅ Topics Completed
 
-    <div class="achievement-row">
+</span>
 
-        <span>📰 Current Affairs</span>
+<strong id="completedTopics">
 
-        <strong id="currentAffairsCount">0</strong>
+0
 
-    </div>
+</strong>
 
-    <div class="achievement-row">
+</div>
 
-        <span>🧠 Mental Ability</span>
+<div class="summary-row">
 
-        <strong id="mentalAbilityCount">0</strong>
+<span>
 
-    </div>
+📜 Study Sessions
+
+</span>
+
+<strong id="totalSessions">
+
+0
+
+</strong>
+
+</div>
+
+<div class="summary-row">
+
+<span>
+
+🏆 Best Study Day
+
+</span>
+
+<strong id="bestDay">
+
+-
+
+</strong>
+
+</div>
+
+<div class="summary-row">
+
+<span>
+
+⏱ Average / Day
+
+</span>
+
+<strong id="averageStudy">
+
+00h 00m
+
+</strong>
+
+</div>
+
+</div>
 
 </section>
 
-<!-- Subject Summary -->
+<!-- ================= TOPIC STATISTICS ================= -->
 
 <section class="card">
 
-    <div class="card-title">
+    <div class="section-title">
 
         <i class="fa-solid fa-list-check"></i>
 
-        Subject Summary
+        Topic Statistics
 
     </div>
 
     <div id="subjectStats">
 
-        <p>No Study Data Available</p>
+        <div class="empty-state">
+
+            <i class="fa-solid fa-book-open"></i>
+
+            <p>
+
+                No study data available.
+
+            </p>
+
+        </div>
 
     </div>
 
 </section>
 
-</div>
+<!-- ================= GOAL PROGRESS ================= -->
+
+<section class="card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-bullseye"></i>
+
+        Daily Goal
+
+    </div>
+
+    <div class="summary-row">
+
+        <span>
+
+            Goal
+
+        </span>
+
+        <strong>
+
+            8 Hours
+
+        </strong>
+
+    </div>
+
+    <div class="progress">
+
+        <div
+
+            class="progress-fill"
+
+            id="goalProgressBar">
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="summary-row">
+
+        <span>
+
+            Achievement
+
+        </span>
+
+        <strong id="goalAchieved">
+
+            0%
+
+        </strong>
+
+    </div>
+
+</section>
+
+<!-- ================= ACHIEVEMENTS ================= -->
+
+<section class="card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-trophy"></i>
+
+        Achievements
+
+    </div>
+
+    <div class="achievement-grid">
+
+        <div class="achievement-card">
+
+            🔥
+
+            <h4 id="streakBadge">
+
+                Beginner
+
+            </h4>
+
+            <small>
+
+                Study Streak
+
+            </small>
+
+        </div>
+
+        <div class="achievement-card">
+
+            📚
+
+            <h4 id="studyBadge">
+
+                Learner
+
+            </h4>
+
+            <small>
+
+                Study Time
+
+            </small>
+
+        </div>
+
+        <div class="achievement-card">
+
+            ✅
+
+            <h4 id="completionBadge">
+
+                Focused
+
+            </h4>
+
+            <small>
+
+                Completion
+
+            </small>
+
+        </div>
+
+        <div class="achievement-card">
+
+            🏆
+
+            <h4 id="consistencyBadge">
+
+                Consistent
+
+            </h4>
+
+            <small>
+
+                Performance
+
+            </small>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= MOTIVATION ================= -->
+
+<section class="card motivation-card">
+
+    <div class="motivation-header">
+
+        <i class="fa-solid fa-heart"></i>
+
+        <span>
+
+            Keep Going
+
+        </span>
+
+    </div>
+
+    <h2>
+
+        Every study session brings you closer to your dream.
+
+    </h2>
+
+    <p>
+
+        Consistency beats perfection. Keep learning every day.
+
+    </p>
+
+</section>
+
+<!-- ================= QUICK ACTION ================= -->
+
+<section class="card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-bolt"></i>
+
+        Quick Action
+
+    </div>
+
+    <button
+
+        class="study-btn"
+
+        onclick="location.href='study.html'">
+
+        <i class="fa-solid fa-book-open"></i>
+
+        Continue Today's Study
+
+    </button>
+
+</section>
+
+<!-- ================= BOTTOM NAVIGATION ================= -->
 
 <nav class="bottom-nav">
 
@@ -173,7 +484,11 @@
 
         <i class="fa-solid fa-house"></i>
 
-        <span>Home</span>
+        <span>
+
+            Home
+
+        </span>
 
     </a>
 
@@ -181,23 +496,35 @@
 
         <i class="fa-solid fa-book-open"></i>
 
-        <span>Journal</span>
+        <span>
+
+            Study
+
+        </span>
 
     </a>
 
     <a href="calendar.html">
 
-        <i class="fa-solid fa-calendar"></i>
+        <i class="fa-solid fa-calendar-days"></i>
 
-        <span>Calendar</span>
+        <span>
+
+            Calendar
+
+        </span>
 
     </a>
 
     <a href="stats.html" class="active">
 
-        <i class="fa-solid fa-chart-simple"></i>
+        <i class="fa-solid fa-chart-column"></i>
 
-        <span>Stats</span>
+        <span>
+
+            Stats
+
+        </span>
 
     </a>
 
@@ -205,14 +532,22 @@
 
         <i class="fa-solid fa-gear"></i>
 
-        <span>Settings</span>
+        <span>
+
+            Settings
+
+        </span>
 
     </a>
 
 </nav>
 
+</div>
+
 <script src="js/app.js"></script>
+
 <script src="js/storage.js"></script>
+
 <script src="js/stats.js"></script>
 
 </body>

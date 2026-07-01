@@ -1,12 +1,12 @@
-// ===============================
-// PS365 Storage Manager
-// ===============================
+//==============================================
+// PS365 Storage Manager V2
+//==============================================
 
 const STORAGE_KEY = "ps365Data";
 
-// ===============================
+//==============================================
 // Default Data
-// ===============================
+//==============================================
 
 const defaultData = {
 
@@ -22,63 +22,76 @@ const defaultData = {
 
 };
 
-// ===============================
-// Initialize
-// ===============================
+//==============================================
+// Initialize Storage
+//==============================================
 
-function initializeStorage() {
+function initializeStorage(){
 
-    if (!localStorage.getItem(STORAGE_KEY)) {
+    if(!localStorage.getItem(STORAGE_KEY)){
 
         localStorage.setItem(
+
             STORAGE_KEY,
+
             JSON.stringify(defaultData)
+
         );
 
     }
 
 }
 
-// ===============================
-// Get Complete Data
-// ===============================
+//==============================================
+// Get Data
+//==============================================
 
-function getData() {
+function getData(){
 
-    return JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return JSON.parse(
 
-}
+        localStorage.getItem(STORAGE_KEY)
 
-// ===============================
-// Save Complete Data
-// ===============================
-
-function saveData(data) {
-
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(data)
     );
 
 }
 
-// ===============================
-// Save Study
-// ===============================
+//==============================================
+// Save Data
+//==============================================
 
-function saveStudy(study) {
+function saveData(data){
+
+    localStorage.setItem(
+
+        STORAGE_KEY,
+
+        JSON.stringify(data)
+
+    );
+
+}
+
+//==============================================
+// Save Study
+//==============================================
+
+function saveStudy(study){
 
     const data = getData();
 
-    const index =
-        data.studyLogs.findIndex(x => x.date === study.date);
+    const index = data.studyLogs.findIndex(
 
-    if (index >= 0) {
+        item => item.date === study.date
+
+    );
+
+    if(index >= 0){
 
         data.studyLogs[index] = study;
 
     }
-    else {
+    else{
 
         data.studyLogs.push(study);
 
@@ -88,94 +101,191 @@ function saveStudy(study) {
 
 }
 
-// ===============================
+//==============================================
 // Get Study By Date
-// ===============================
+//==============================================
 
-function getStudyByDate(date) {
+function getStudyByDate(date){
 
     const data = getData();
 
-    return data.studyLogs.find(x => x.date === date);
+    return data.studyLogs.find(
+
+        item => item.date === date
+
+    );
 
 }
 
-// ===============================
-// Today's Study
-// ===============================
+//==============================================
+// Get All Studies
+//==============================================
 
-function getTodayStudy() {
-
-    const today =
-        new Date().toISOString().split("T")[0];
-
-    return getStudyByDate(today);
-
-}
-
-// ===============================
-// All Studies
-// ===============================
-
-function getAllStudies() {
+function getAllStudies(){
 
     return getData().studyLogs;
 
 }
 
-// ===============================
-// Reset
-// ===============================
+//==============================================
+// Get Today's Study
+//==============================================
 
-function resetData() {
+function getTodayStudy(){
 
-    localStorage.removeItem(STORAGE_KEY);
+    const today = new Date()
+
+        .toISOString()
+
+        .split("T")[0];
+
+    return getStudyByDate(today);
+
+}
+
+//==============================================
+// Delete Study
+//==============================================
+
+function deleteStudy(date){
+
+    const data = getData();
+
+    data.studyLogs =
+
+        data.studyLogs.filter(
+
+            item => item.date !== date
+
+        );
+
+    saveData(data);
+
+}
+
+//==============================================
+// Reset All Data
+//==============================================
+
+function resetData(){
+
+    localStorage.removeItem(
+
+        STORAGE_KEY
+
+    );
 
     initializeStorage();
 
 }
 
-// ===============================
-// Statistics Helpers
-// ===============================
+//==============================================
+// Export Data
+//==============================================
 
-function getTotalStudyHours() {
+function exportData(){
 
-    return getAllStudies().reduce(
-        (sum, item) => sum + (item.studyHours || 0),
-        0
+    return JSON.stringify(
+
+        getData(),
+
+        null,
+
+        2
+
     );
 
 }
 
-function getRevisionDays() {
+//==============================================
+// Import Data
+//==============================================
 
-    return getAllStudies().filter(
-        x => x.revision
-    ).length;
+function importData(json){
 
-}
+    saveData(
 
-function getMentalAbilityDays() {
+        JSON.parse(json)
 
-    return getAllStudies().filter(
-        x => x.mentalAbility &&
-             x.mentalAbility.trim() !== ""
-    ).length;
+    );
 
 }
 
-function getCurrentAffairsDays() {
+//==============================================
+// Get Total Study Time
+//==============================================
 
-    return getAllStudies().filter(
-        x => x.currentAffairs &&
-             x.currentAffairs.trim() !== ""
-    ).length;
+function getTotalStudySeconds(){
+
+    const studies = getAllStudies();
+
+    let total = 0;
+
+    studies.forEach(study=>{
+
+        total += study.studySeconds || 0;
+
+    });
+
+    return total;
 
 }
 
-// ===============================
+//==============================================
+// Get Total Completed Topics
+//==============================================
+
+function getCompletedTopics(){
+
+    const studies = getAllStudies();
+
+    let completed = 0;
+
+    studies.forEach(study=>{
+
+        if(!study.topics)
+            return;
+
+        study.topics.forEach(topic=>{
+
+            if(topic.completed)
+
+                completed++;
+
+        });
+
+    });
+
+    return completed;
+
+}
+
+//==============================================
+// Get Total Topics
+//==============================================
+
+function getTotalTopics(){
+
+    const studies = getAllStudies();
+
+    let total = 0;
+
+    studies.forEach(study=>{
+
+        total += study.topics
+            ? study.topics.length
+            : 0;
+
+    });
+
+    return total;
+
+}
+
+//==============================================
 // Initialize
-// ===============================
+//==============================================
 
 initializeStorage();
+
+console.log("PS365 Storage V2 Loaded.");

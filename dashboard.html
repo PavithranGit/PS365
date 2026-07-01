@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>PS365 Dashboard</title>
 
@@ -66,7 +65,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 <img
 src="images/tn-logo.png"
 class="tn-logo"
-alt="Tamil Nadu">
+alt="Tamil Nadu Logo">
 
 </div>
 
@@ -74,17 +73,17 @@ alt="Tamil Nadu">
 
 <h2 id="greeting">
 
-Good Evening
+Good Morning
 
 </h2>
 
-<h3 id="studentName">
+<h3>
 
 Saaruja 👋
 
 </h3>
 
-<p id="welcomeMessage">
+<p>
 
 Every study session brings you one step closer to becoming a TNPSC Group I Officer.
 
@@ -100,7 +99,7 @@ Every study session brings you one step closer to becoming a TNPSC Group I Offic
 
 </section>
 
-<!-- ================= PROGRESS ================= -->
+<!-- ================= TODAY'S PROGRESS ================= -->
 
 <section class="card">
 
@@ -114,11 +113,15 @@ Today's Progress
 
 <div class="progress-header">
 
-<span>Study Hours</span>
+<span>
+
+⏱ Study Time
+
+</span>
 
 <strong id="studyHours">
 
-0 / 8 hrs
+00h 00m
 
 </strong>
 
@@ -126,25 +129,29 @@ Today's Progress
 
 <div class="progress">
 
-<div class="progress-fill hours-fill"></div>
+<div class="progress-fill hours-fill">
 
 </div>
+
+</div>
+
+<br>
 
 <div class="progress-status">
 
 <div class="status-card">
 
-<i class="fa-solid fa-book"></i>
+<i class="fa-solid fa-clock"></i>
 
 <h4>
 
-Revision
+Study Status
 
 </h4>
 
-<p id="revisionValue">
+<p id="studyStatus">
 
-Pending
+Ready
 
 </p>
 
@@ -152,17 +159,17 @@ Pending
 
 <div class="status-card">
 
-<i class="fa-solid fa-brain"></i>
+<i class="fa-solid fa-list-check"></i>
 
 <h4>
 
-Mental Ability
+Completed
 
 </h4>
 
-<p id="mentalValue">
+<p id="completedTopics">
 
-Pending
+0
 
 </p>
 
@@ -172,152 +179,129 @@ Pending
 
 </section>
 
-<!-- ================= COUNTDOWN ================= -->
+<!-- ================= TODAY'S STUDY ================= -->
 
 <section class="card">
 
-<div class="section-title">
+    <div class="section-title">
 
-<i class="fa-solid fa-hourglass-half"></i>
+        <i class="fa-solid fa-list-check"></i>
 
-Exam Countdown
+        Today's Study
 
-</div>
+    </div>
 
-<div class="countdown-grid">
+    <div class="progress-header">
 
-<div class="count-card">
+        <span>
 
-<div class="count-title">
+            📋 Topics Progress
 
-GROUP I
+        </span>
 
-</div>
+        <strong id="topicCount">
 
-<div class="count-number"
-id="group1Days">
+            0 / 0
 
-0
+        </strong>
 
-</div>
+    </div>
 
-<div class="count-text">
+    <div class="progress">
 
-Days Left
+        <div class="progress-fill"
 
-</div>
+             id="topicProgressBar">
 
-</div>
+        </div>
 
-<div class="count-card">
+    </div>
 
-<div class="count-title">
+    <br>
 
-GROUP II
+    <div id="todayTopics" class="topic-list">
 
-</div>
+        <div class="empty-topics">
 
-<div class="count-number"
-id="group2Days">
+            <i class="fa-solid fa-book-open"></i>
 
-0
+            <p>
 
-</div>
+                No study topics added today.
 
-<div class="count-text">
+            </p>
 
-Days Left
+        </div>
 
-</div>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
-<!-- ================= TODAY'S FOCUS ================= -->
+<!-- ================= EXAM COUNTDOWN ================= -->
 
 <section class="card">
 
-<div class="section-title">
+    <div class="section-title">
 
-<i class="fa-solid fa-bullseye"></i>
+        <i class="fa-solid fa-hourglass-half"></i>
 
-Today's Focus
+        Exam Countdown
 
-</div>
+    </div>
 
-<div class="focus-grid">
+    <div class="countdown-grid">
 
-<div class="focus-box">
+        <div class="count-card">
 
-<label>📖 Thirukkural</label>
+            <div class="count-title">
 
-<strong id="thirukkuralValue">-</strong>
+                TNPSC GROUP I
 
-</div>
+            </div>
 
-<div class="focus-box">
+            <div class="count-number"
 
-<label>📘 SA</label>
+                 id="group1Days">
 
-<strong id="saValue">-</strong>
+                0
 
-</div>
+            </div>
 
-<div class="focus-box">
+            <div class="count-text">
 
-<label>📗 PV</label>
+                Days Left
 
-<strong id="pvValue">-</strong>
+            </div>
 
-</div>
+        </div>
 
-<div class="focus-box">
+        <div class="count-card">
 
-<label>📙 HH</label>
+            <div class="count-title">
 
-<strong id="hhValue">-</strong>
+                TNPSC GROUP II
 
-</div>
+            </div>
 
-<div class="focus-box">
+            <div class="count-number"
 
-<label>📚 Grammar</label>
+                 id="group2Days">
 
-<strong id="grammarValue">-</strong>
+                0
 
-</div>
+            </div>
 
-<div class="focus-box">
+            <div class="count-text">
 
-<label>🏛 History</label>
+                Days Left
 
-<strong id="historyValue">-</strong>
+            </div>
 
-</div>
+        </div>
 
-<div class="focus-box">
-
-<label>⚖ Polity</label>
-
-<strong id="polityValue">-</strong>
-
-</div>
-
-<div class="focus-box">
-
-<label>📰 Current Affairs</label>
-
-<strong id="caValue">-</strong>
-
-</div>
-
-</div>
+    </div>
 
 </section>
-
 
 <!-- ================= MOTIVATION ================= -->
 
@@ -327,7 +311,11 @@ Today's Focus
 
         <i class="fa-solid fa-heart"></i>
 
-        <span>Today's Motivation</span>
+        <span>
+
+            Today's Motivation
+
+        </span>
 
     </div>
 
@@ -339,13 +327,14 @@ Today's Focus
 
     <p>
 
-        Keep learning. Keep believing. Keep moving forward.
+        Don't count the days.
+        Make the days count.
 
     </p>
 
 </section>
 
-<!-- ================= DREAM ================= -->
+<!-- ================= MY DREAM ================= -->
 
 <section class="card dream-card">
 
@@ -359,8 +348,8 @@ Today's Focus
 
     <p class="dream-text">
 
-        Become a TNPSC Group I Officer and make my family proud through dedication,
-        consistency and hard work.
+        Become a TNPSC Group I Officer through dedication,
+        discipline and consistency.
 
     </p>
 
@@ -406,7 +395,7 @@ Today's Focus
 
         <i class="fa-solid fa-book-open"></i>
 
-        <span>Journal</span>
+        <span>Study</span>
 
     </a>
 

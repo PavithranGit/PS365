@@ -1,0 +1,731 @@
+/*==========================================
+PS365 Study Journal V2
+==========================================*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#f4f7fc;
+
+    color:#222;
+
+}
+
+.mobile-container{
+
+    max-width:480px;
+
+    margin:auto;
+
+    padding:16px 16px 90px;
+
+}
+
+/*==========================================
+Header
+==========================================*/
+
+.app-header{
+
+    background:linear-gradient(135deg,#5B4BDB,#7C4DFF);
+
+    color:#fff;
+
+    padding:22px;
+
+    border-radius:22px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 8px 25px rgba(91,75,219,.25);
+
+}
+
+.header-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.header-top h1{
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+
+.header-top p{
+
+    margin-top:4px;
+
+    opacity:.9;
+
+    font-size:14px;
+
+}
+
+.header-icon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.15);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:28px;
+
+}
+
+/*==========================================
+Cards
+==========================================*/
+
+.card{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:18px;
+
+    margin-bottom:18px;
+
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+
+}
+
+.section-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    color:#5B4BDB;
+
+    margin-bottom:18px;
+
+}
+
+/*==========================================
+Date
+==========================================*/
+
+#studyDate{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #ddd;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+    outline:none;
+
+}
+
+/*==========================================
+Add Topic
+==========================================*/
+
+.add-topic-container{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:15px;
+
+}
+
+#topicInput{
+
+    flex:1;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    border:1px solid #ddd;
+
+    outline:none;
+
+    font-size:15px;
+
+}
+
+#addTopicBtn{
+
+    width:55px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#5B4BDB;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+}
+
+/*==========================================
+Quick Chips
+==========================================*/
+
+.quick-topics{
+
+    display:flex;
+
+    gap:10px;
+
+    overflow-x:auto;
+
+    margin-bottom:18px;
+
+    padding-bottom:6px;
+
+}
+
+.quick-topics::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+.chip{
+
+    border:none;
+
+    background:#ede9ff;
+
+    color:#5B4BDB;
+
+    padding:10px 16px;
+
+    border-radius:30px;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.chip:hover{
+
+    background:#5B4BDB;
+
+    color:#fff;
+
+}
+
+/*==========================================
+Topic List
+==========================================*/
+
+.topic-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.topic-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#fafafa;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    border:1px solid #ececec;
+
+}
+
+.topic-item label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+}
+
+.topic-item input{
+
+    width:20px;
+
+    height:20px;
+
+}
+
+.topic-item button{
+
+    border:none;
+
+    background:none;
+
+    color:#ff4d4d;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+}
+
+/*==========================================
+Study Session
+==========================================*/
+
+.timer-card{
+
+    text-align:center;
+
+}
+
+.timer-display{
+
+    font-size:48px;
+
+    font-weight:700;
+
+    color:#5B4BDB;
+
+    letter-spacing:3px;
+
+    margin:20px 0;
+
+}
+
+.study-status{
+
+    display:inline-block;
+
+    background:#F3F0FF;
+
+    color:#5B4BDB;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+
+}
+
+.session-info{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+.session-info div{
+
+    background:#f8f9ff;
+
+    padding:14px;
+
+    border-radius:14px;
+
+}
+
+.session-info label{
+
+    display:block;
+
+    font-size:13px;
+
+    color:#777;
+
+    margin-bottom:5px;
+
+}
+
+.session-info strong{
+
+    font-size:16px;
+
+}
+
+.timer-buttons{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:12px;
+
+}
+
+.timer-buttons button{
+
+    border:none;
+
+    border-radius:14px;
+
+    padding:14px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+#startBtn{
+
+    background:#4CAF50;
+
+    color:#fff;
+
+}
+
+#pauseBtn{
+
+    background:#FF9800;
+
+    color:#fff;
+
+}
+
+#resumeBtn{
+
+    background:#2196F3;
+
+    color:#fff;
+
+}
+
+#stopBtn{
+
+    background:#F44336;
+
+    color:#fff;
+
+}
+
+.timer-buttons button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+}
+
+/*==========================================
+Session History
+==========================================*/
+
+.session-history{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.session-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#F8F9FF;
+
+    padding:14px;
+
+    border-radius:14px;
+
+}
+
+.empty-session{
+
+    text-align:center;
+
+    color:#888;
+
+    padding:20px;
+
+}
+
+.empty-session i{
+
+    font-size:30px;
+
+    margin-bottom:10px;
+
+}
+
+.total-study{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:15px;
+
+    padding-top:15px;
+
+    border-top:1px solid #eee;
+
+    font-size:17px;
+
+    font-weight:600;
+
+}
+
+/*==========================================
+Progress
+==========================================*/
+
+.progress-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:10px;
+
+    font-weight:600;
+
+}
+
+.progress{
+
+    width:100%;
+
+    height:12px;
+
+    background:#ECECEC;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+}
+
+.progress-fill{
+
+    width:0;
+
+    height:100%;
+
+    background:linear-gradient(90deg,#5B4BDB,#7C4DFF);
+
+    transition:.4s;
+
+}
+
+/*==========================================
+Notes
+==========================================*/
+
+#notes{
+
+    width:100%;
+
+    border:1px solid #ddd;
+
+    border-radius:14px;
+
+    padding:15px;
+
+    resize:none;
+
+    font-size:15px;
+
+    outline:none;
+
+}
+
+/*==========================================
+Buttons
+==========================================*/
+
+.action-buttons{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.primary-btn,
+
+.secondary-btn{
+
+    border:none;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+.primary-btn{
+
+    background:#5B4BDB;
+
+    color:#fff;
+
+}
+
+.secondary-btn{
+
+    background:#E8F0FE;
+
+    color:#1565C0;
+
+}
+
+/*==========================================
+Dark Mode
+==========================================*/
+
+body.dark{
+
+    background:#121212;
+
+    color:#fff;
+
+}
+
+body.dark .card{
+
+    background:#1E1E1E;
+
+}
+
+body.dark #studyDate,
+
+body.dark #topicInput,
+
+body.dark #notes{
+
+    background:#2B2B2B;
+
+    color:#fff;
+
+    border:1px solid #444;
+
+}
+
+body.dark .topic-item{
+
+    background:#2B2B2B;
+
+    border-color:#444;
+
+}
+
+body.dark .session-info div{
+
+    background:#2B2B2B;
+
+}
+
+body.dark .progress{
+
+    background:#333;
+
+}
+
+/*==========================================
+Responsive
+==========================================*/
+
+@media(max-width:480px){
+
+    .timer-display{
+
+        font-size:38px;
+
+    }
+
+    .timer-buttons{
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+    .session-info{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

@@ -1,112 +1,169 @@
-// ===============================
-// PS365 Calendar Module
-// ===============================
+//====================================================
+// PS365 Calendar V2
+//====================================================
 
-let currentDate = new Date();
+let currentMonth = new Date();
 
-window.addEventListener("load", function () {
+//====================================================
+// Initialize
+//====================================================
+
+window.addEventListener("load", () => {
 
     renderCalendar();
 
-    document.getElementById("prevMonth").addEventListener("click", function () {
+    document.getElementById("prevMonth")
+        .addEventListener("click", previousMonth);
 
-        currentDate.setMonth(currentDate.getMonth() - 1);
-
-        renderCalendar();
-
-    });
-
-    document.getElementById("nextMonth").addEventListener("click", function () {
-
-        currentDate.setMonth(currentDate.getMonth() + 1);
-
-        renderCalendar();
-
-    });
+    document.getElementById("nextMonth")
+        .addEventListener("click", nextMonth);
 
 });
 
-// ===============================
+//====================================================
+// Month Navigation
+//====================================================
+
+function previousMonth(){
+
+    currentMonth.setMonth(
+
+        currentMonth.getMonth()-1
+
+    );
+
+    renderCalendar();
+
+}
+
+function nextMonth(){
+
+    currentMonth.setMonth(
+
+        currentMonth.getMonth()+1
+
+    );
+
+    renderCalendar();
+
+}
+
+//====================================================
 // Render Calendar
-// ===============================
+//====================================================
 
-function renderCalendar() {
+function renderCalendar(){
 
-    const monthYear = document.getElementById("monthYear");
+    const grid =
+        document.getElementById("calendarGrid");
 
-    const calendarGrid = document.getElementById("calendarGrid");
+    grid.innerHTML="";
 
-    calendarGrid.innerHTML = "";
+    const year =
+        currentMonth.getFullYear();
 
-    const year = currentDate.getFullYear();
+    const month =
+        currentMonth.getMonth();
 
-    const month = currentDate.getMonth();
+    document.getElementById("monthYear").innerHTML=
 
-    monthYear.innerHTML = currentDate.toLocaleString("default", {
+        currentMonth.toLocaleString("default",{
 
-        month: "long",
+            month:"long",
 
-        year: "numeric"
+            year:"numeric"
 
-    });
+        });
 
-    const firstDay = new Date(year, month, 1).getDay();
+    const firstDay=
+        new Date(year,month,1).getDay();
 
-    const totalDays = new Date(year, month + 1, 0).getDate();
+    const totalDays=
+        new Date(year,month+1,0).getDate();
+
+    //------------------------------------
 
     // Empty Cells
 
-    for (let i = 0; i < firstDay; i++) {
+    //------------------------------------
 
-        const empty = document.createElement("div");
+    for(let i=0;i<firstDay;i++){
 
-        empty.className = "empty";
+        const div=document.createElement("div");
 
-        calendarGrid.appendChild(empty);
+        div.className="empty";
+
+        grid.appendChild(div);
 
     }
 
-    const today = new Date();
+    //------------------------------------
 
-    // Calendar Days
+    // Days
 
-    for (let day = 1; day <= totalDays; day++) {
+    //------------------------------------
 
-        const cell = document.createElement("div");
+    const today=new Date();
 
-        cell.className = "day";
+    for(let day=1;day<=totalDays;day++){
 
-        cell.innerHTML = day;
+        const cell=document.createElement("div");
 
-        const date =
-            `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+        cell.className="day";
 
-        // Highlight Today
+        cell.innerHTML=day;
 
-        if (
+        const date=
 
-            day === today.getDate() &&
+`${year}-${String(month+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
 
-            month === today.getMonth() &&
+        //------------------------------------
 
-            year === today.getFullYear()
+        // Today
 
-        ) {
+        //------------------------------------
+
+        if(
+
+            day===today.getDate() &&
+
+            month===today.getMonth() &&
+
+            year===today.getFullYear()
+
+        ){
 
             cell.classList.add("today");
 
         }
 
-        const study = getStudyByDate(date);
+        //------------------------------------
 
-        if (study) {
+        // Study Record
 
-            if (study.studyHours >= APP.dailyHours) {
+        //------------------------------------
+
+        const study=getStudyByDate(date);
+
+        if(study){
+
+            const completed=
+
+                study.topics.filter(
+
+                    t=>t.completed
+
+                ).length;
+
+            if(completed===study.topics.length
+
+                && study.topics.length>0){
 
                 cell.classList.add("completed");
 
             }
-            else {
+
+            else{
 
                 cell.classList.add("partial");
 
@@ -114,39 +171,64 @@ function renderCalendar() {
 
         }
 
-        cell.addEventListener("click", function () {
+        //------------------------------------
+
+        // Click
+
+        //------------------------------------
+
+        cell.addEventListener("click",()=>{
 
             showStudy(date);
 
         });
 
-        calendarGrid.appendChild(cell);
+        grid.appendChild(cell);
 
     }
 
 }
 
-// ===============================
-// Study Details
-// ===============================
 
-function showStudy(date) {
+//====================================================
+// Show Study Details
+//====================================================
 
-    const selectedDate =
+function showStudy(date){
+
+    const title =
         document.getElementById("selectedDate");
 
     const details =
         document.getElementById("studyDetails");
 
-    selectedDate.innerHTML = "📅 " + date;
+    title.innerHTML =
+        "📅 " + date;
 
-    const study = getStudyByDate(date);
+    const study =
+        getStudyByDate(date);
 
-    if (!study) {
+    //-------------------------------------
+
+    // No Record
+
+    //-------------------------------------
+
+    if(!study){
 
         details.innerHTML = `
 
-            <p>No study record found.</p>
+        <div class="empty-session">
+
+            <i class="fa-regular fa-calendar-xmark"></i>
+
+            <p>
+
+                No study record found.
+
+            </p>
+
+        </div>
 
         `;
 
@@ -154,54 +236,416 @@ function showStudy(date) {
 
     }
 
-    details.innerHTML = `
+    //-------------------------------------
 
-        <div class="study-summary">
+    // Calculate
 
-            <p><strong>📚 Subject :</strong> ${study.subject || "-"}</p>
+    //-------------------------------------
 
-            <p><strong>⏰ Study Hours :</strong> ${study.studyHours || 0} hrs</p>
+    const topics = study.topics || [];
 
-            <hr>
+    const sessions = study.sessions || [];
 
-            <p><strong>📖 Thirukkural :</strong> ${study.thirukkural || "-"}</p>
+    const completed =
+        topics.filter(t=>t.completed).length;
 
-            <hr>
+    const pending =
+        topics.length - completed;
 
-            <h4>📘 English Progress</h4>
+    const percent =
+        topics.length===0
 
-            <p><strong>SA :</strong> ${study.sa || "-"}</p>
+        ?0
 
-            <p><strong>PV :</strong> ${study.pv || "-"}</p>
+        :Math.round((completed/topics.length)*100);
 
-            <p><strong>HH :</strong> ${study.hh || "-"}</p>
+    //-------------------------------------
 
-            <p><strong>Grammar :</strong> ${study.grammar || "-"}</p>
+    // Topics
 
-            <hr>
+    //-------------------------------------
 
-            <h4>🏛 General Studies</h4>
+    let topicHtml="";
 
-            <p><strong>History :</strong> ${study.history || "-"}</p>
+    topics.forEach(topic=>{
 
-            <p><strong>Polity :</strong> ${study.polity || "-"}</p>
+        topicHtml += `
 
-            <p><strong>Current Affairs :</strong> ${study.currentAffairs || "-"}</p>
+        <div class="topic-item">
 
-            <hr>
+            <span>
 
-            <p><strong>🧠 Mental Ability :</strong> ${study.mentalAbility || "-"}</p>
+                ${topic.completed ? "✅" : "⬜"}
 
-            <p><strong>✅ Revision :</strong> ${study.revision ? "Completed" : "Pending"}</p>
+                ${topic.title}
 
-            <hr>
-
-            <p><strong>📝 Notes</strong></p>
-
-            <p>${study.notes || "-"}</p>
+            </span>
 
         </div>
+
+        `;
+
+    });
+
+    //-------------------------------------
+
+    // Sessions
+
+    //-------------------------------------
+
+    let sessionHtml="";
+
+    sessions.forEach((session,index)=>{
+
+        sessionHtml += `
+
+        <div class="session-item">
+
+            <div>
+
+                <strong>
+
+                    Session ${index+1}
+
+                </strong>
+
+                <br>
+
+                <small>
+
+                    ${session.start}
+
+                    →
+
+                    ${session.end}
+
+                </small>
+
+            </div>
+
+            <strong>
+
+                ${formatDuration(session.duration)}
+
+            </strong>
+
+        </div>
+
+        `;
+
+    });
+
+    if(sessionHtml===""){
+
+        sessionHtml =
+
+        "<p>No study sessions.</p>";
+
+    }
+
+    //-------------------------------------
+
+    // Display
+
+    //-------------------------------------
+
+    details.innerHTML = `
+
+    <div class="progress-row">
+
+        <span>
+
+            ⏱ Study Time
+
+        </span>
+
+        <strong>
+
+            ${formatDuration(study.totalSeconds || 0)}
+
+        </strong>
+
+    </div>
+
+    <div class="progress-row">
+
+        <span>
+
+            📋 Topics
+
+        </span>
+
+        <strong>
+
+            ${completed} / ${topics.length}
+
+        </strong>
+
+    </div>
+
+    <div class="progress">
+
+        <div
+
+            class="progress-fill"
+
+            style="width:${percent}%">
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <h4>
+
+        📚 Topics
+
+    </h4>
+
+    ${topicHtml}
+
+    <br>
+
+    <h4>
+
+        ⏱ Session History
+
+    </h4>
+
+    ${sessionHtml}
+
+    <br>
+
+    <h4>
+
+        📝 Notes
+
+    </h4>
+
+    <p>
+
+        ${study.notes || "-"}
+
+    </p>
 
     `;
 
 }
+
+//====================================================
+// Monthly Summary
+//====================================================
+
+function loadMonthlySummary(){
+
+    const studies = getAllStudies();
+
+    const year = currentMonth.getFullYear();
+
+    const month = currentMonth.getMonth();
+
+    let totalStudySeconds = 0;
+
+    let totalTopics = 0;
+
+    let completedTopics = 0;
+
+    let studyDays = 0;
+
+    let bestDay = null;
+
+    let bestDuration = 0;
+
+    studies.forEach(study=>{
+
+        const date = new Date(study.date);
+
+        if(
+
+            date.getFullYear() !== year ||
+
+            date.getMonth() !== month
+
+        ){
+
+            return;
+
+        }
+
+        studyDays++;
+
+        totalStudySeconds +=
+
+            study.totalSeconds || 0;
+
+        if(study.topics){
+
+            totalTopics += study.topics.length;
+
+            completedTopics +=
+
+                study.topics.filter(
+
+                    t=>t.completed
+
+                ).length;
+
+        }
+
+        if(
+
+            (study.totalSeconds || 0)
+
+            > bestDuration
+
+        ){
+
+            bestDuration =
+
+                study.totalSeconds || 0;
+
+            bestDay = study.date;
+
+        }
+
+    });
+
+    //----------------------------------
+
+    // Current Streak
+
+    //----------------------------------
+
+    const streak = calculateStreak(studies);
+
+    //----------------------------------
+
+    // Console (Future Dashboard Widget)
+
+    //----------------------------------
+
+    console.log({
+
+        studyDays,
+
+        totalStudySeconds,
+
+        completedTopics,
+
+        totalTopics,
+
+        streak,
+
+        bestDay
+
+    });
+
+}
+
+//====================================================
+// Current Streak
+//====================================================
+
+function calculateStreak(studies){
+
+    if(studies.length===0)
+
+        return 0;
+
+    const dates = studies
+
+        .map(x=>x.date)
+
+        .sort()
+
+        .reverse();
+
+    let streak = 0;
+
+    let current = new Date();
+
+    current.setHours(0,0,0,0);
+
+    for(const date of dates){
+
+        const d = new Date(date);
+
+        d.setHours(0,0,0,0);
+
+        const diff =
+
+            (current-d)
+
+            /(1000*60*60*24);
+
+        if(diff===0 || diff===1){
+
+            streak++;
+
+            current=d;
+
+        }else{
+
+            break;
+
+        }
+
+    }
+
+    return streak;
+
+}
+
+//====================================================
+// Best Study Day
+//====================================================
+
+function getBestStudyDay(){
+
+    const studies = getAllStudies();
+
+    let best = null;
+
+    studies.forEach(study=>{
+
+        if(
+
+            !best ||
+
+            (study.totalSeconds||0)
+
+            >
+
+            (best.totalSeconds||0)
+
+        ){
+
+            best = study;
+
+        }
+
+    });
+
+    return best;
+
+}
+
+//====================================================
+// Refresh Calendar
+//====================================================
+
+function refreshCalendar(){
+
+    renderCalendar();
+
+    loadMonthlySummary();
+
+}
+
+//====================================================
+// Initial Summary
+//====================================================
+
+loadMonthlySummary();
+
