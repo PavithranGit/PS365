@@ -795,6 +795,10 @@ function sendEmailReport(){
 
             pending += "❌ " + topic.title + "\n";
 
+
+
+
+
         }
 
     });
@@ -909,6 +913,6 @@ Keep Learning ❤️`;
 
     window.location.href=
 
-`mailto:YOUR_EMAIL@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+`mailto:pavithrandevo@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
 }
