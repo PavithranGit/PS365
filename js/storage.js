@@ -223,7 +223,7 @@ function getTotalStudySeconds(){
 
     studies.forEach(study=>{
 
-        total += study.studySeconds || 0;
+     total += study.totalSeconds || 0;
 
     });
 
