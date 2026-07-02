@@ -1180,7 +1180,7 @@ window.addEventListener(
 // Final UI Refresh
 //==================================================
 
-refreshStudyPage();
+// refreshStudyPage();
 
 console.log(
 
