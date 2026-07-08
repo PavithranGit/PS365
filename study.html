@@ -8,7 +8,14 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>PS365 - Study Journal</title>
+<title>PS365 • Focus Session</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
 rel="stylesheet">
@@ -28,7 +35,9 @@ href="css/study.css">
 
 <div class="mobile-container">
 
-<!-- ================= HEADER ================= -->
+<!--====================================
+HEADER
+=====================================-->
 
 <header class="app-header">
 
@@ -38,13 +47,13 @@ href="css/study.css">
 
 <h1>
 
-📚 Study Journal
+🍅 Focus Session
 
 </h1>
 
 <p>
 
-Plan • Study • Complete
+TNPSC Smart Preparation
 
 </p>
 
@@ -60,27 +69,40 @@ Plan • Study • Complete
 
 </header>
 
-<!-- ================= DATE ================= -->
+<!--====================================
+TODAY
+=====================================-->
 
-<section class="card">
+<section class="card today-card">
 
-<div class="section-title">
+<div class="today-left">
 
-<i class="fa-solid fa-calendar-days"></i>
+<h3 id="todayDate">
 
-Study Date
+07 July 2026
+
+</h3>
+
+<p>
+
+Stay Consistent.
+One Session at a Time.
+
+</p>
 
 </div>
 
-<input
+<div class="today-right">
 
-type="date"
+🔥
 
-id="studyDate">
+</div>
 
 </section>
 
-<!-- ================= TODAY'S STUDY PLAN ================= -->
+<!--====================================
+TODAY'S TOPICS
+=====================================-->
 
 <section class="card">
 
@@ -88,11 +110,11 @@ id="studyDate">
 
 <i class="fa-solid fa-list-check"></i>
 
-Today's Study Plan
+Today's Topics
 
 </div>
 
-<div class="add-topic-container">
+<div class="topic-input-row">
 
 <input
 
@@ -100,7 +122,7 @@ type="text"
 
 id="topicInput"
 
-placeholder="Example : Thirukkural 391-400">
+placeholder="Add today's topic">
 
 <button
 
@@ -112,139 +134,113 @@ id="addTopicBtn">
 
 </div>
 
-<div class="quick-topics">
-
-<button class="chip">
-
-📖 Thirukkural
-
-</button>
-
-<button class="chip">
-
-📘 English
-
-</button>
-
-<button class="chip">
-
-🏛 History
-
-</button>
-
-<button class="chip">
-
-⚖ Polity
-
-</button>
-
-<button class="chip">
-
-🌍 Geography
-
-</button>
-
-<button class="chip">
-
-💰 Economy
-
-</button>
-
-<button class="chip">
-
-📰 Current Affairs
-
-</button>
-
-<button class="chip">
-
-🧠 Mental Ability
-
-</button>
-
-</div>
-
 <div
 
 id="topicList"
 
 class="topic-list">
 
-<!-- Dynamic Topics -->
+<!-- Dynamic -->
 
 </div>
 
 </section>
 
-<!-- ================= STUDY SESSION ================= -->
+<!--====================================
+POMODORO MODE
+=====================================-->
 
 <section class="card">
 
 <div class="section-title">
 
+<i class="fa-solid fa-clock"></i>
+
+Focus Mode
+
+</div>
+
+<div class="mode-grid">
+
+<button
+
+class="mode-btn active"
+
+data-study="25"
+
+data-break="5">
+
+🍅
+
+25 / 5
+
+</button>
+
+<button
+
+class="mode-btn"
+
+data-study="50"
+
+data-break="10">
+
+📚
+
+50 / 10
+
+</button>
+
+<button
+
+class="mode-btn"
+
+data-study="90"
+
+data-break="15">
+
+🎯
+
+90 / 15
+
+</button>
+
+</div>
+
+</section>
+
+<!--====================================
+FOCUS TIMER
+=====================================-->
+
+<section class="card timer-card">
+
+<div class="section-title">
+
 <i class="fa-solid fa-stopwatch"></i>
 
-Study Session
+Current Focus
 
 </div>
 
 <div
 
-class="timer-card">
+class="current-topic"
 
-<div
+id="currentTopic">
 
-class="timer-display"
-
-id="timerDisplay">
-
-00:00:00
+No Topic Selected
 
 </div>
 
-<div
-
-class="study-status"
-
-id="studyStatus">
-
-⚪ Ready to Study
-
-</div>
+<div class="timer-circle">
 
 <div
 
-class="session-info">
+id="timerDisplay"
 
-<div>
+class="timer-text">
 
-<label>
-
-Started
-
-</label>
-
-<strong id="startTime">
-
---
-
-</strong>
-
-</div>
-
-<div>
-
-<label>
-
-Ended
-
-</label>
-
-<strong id="endTime">
-
---
-
-</strong>
+25:00
 
 </div>
 
@@ -252,85 +248,59 @@ Ended
 
 <div
 
-class="timer-buttons">
+id="sessionStatus"
 
-<button id="startBtn">
+class="session-status">
 
-▶ Start
+Ready to Start
+
+</div>
+
+<div class="timer-buttons">
+
+<button
+
+id="startBtn"
+
+class="primary-btn">
+
+<i class="fa-solid fa-play"></i>
+
+Start
 
 </button>
 
-<button id="pauseBtn">
+<button
 
-⏸ Pause
+id="pauseBtn"
 
-</button>
+class="secondary-btn">
 
-<button id="resumeBtn">
+<i class="fa-solid fa-pause"></i>
 
-▶ Resume
-
-</button>
-
-<button id="stopBtn">
-
-⏹ Stop
+Pause
 
 </button>
 
-</div>
+<button
+
+id="resetBtn"
+
+class="danger-btn">
+
+<i class="fa-solid fa-rotate-left"></i>
+
+Reset
+
+</button>
 
 </div>
 
 </section>
 
-<!-- ================= SESSION HISTORY ================= -->
-
-<section class="card">
-
-    <div class="section-title">
-
-        <i class="fa-solid fa-clock-rotate-left"></i>
-
-        Today's Session History
-
-    </div>
-
-    <div id="sessionHistory" class="session-history">
-
-        <div class="empty-session">
-
-            <i class="fa-regular fa-clock"></i>
-
-            <p>
-
-                No study sessions yet.
-
-            </p>
-
-        </div>
-
-    </div>
-
-    <div class="total-study">
-
-        <span>
-
-            Total Study Today
-
-        </span>
-
-        <strong id="todayTotal">
-
-            00:00:00
-
-        </strong>
-
-    </div>
-
-</section>
-
-<!-- ================= TODAY'S PROGRESS ================= -->
+<!--====================================
+TODAY'S PROGRESS
+=====================================-->
 
 <section class="card">
 
@@ -342,49 +312,79 @@ class="timer-buttons">
 
     </div>
 
-    <div class="progress-row">
+    <div class="progress-grid">
 
-        <span>
+        <div class="progress-box">
 
-            Topics Completed
+            <div class="progress-icon">
 
-        </span>
+                🍅
 
-        <strong id="completedCount">
+            </div>
 
-            0 / 0
+            <h2 id="sessionCount">
 
-        </strong>
+                0
 
-    </div>
+            </h2>
 
-    <div class="progress">
+            <p>
 
-        <div
+                Sessions
 
-            id="topicProgress"
+            </p>
 
-            class="progress-fill">
+        </div>
+
+        <div class="progress-box">
+
+            <div class="progress-icon">
+
+                ⏱
+
+            </div>
+
+            <h2 id="studyTime">
+
+                00:00
+
+            </h2>
+
+            <p>
+
+                Focus Time
+
+            </p>
+
+        </div>
+
+        <div class="progress-box">
+
+            <div class="progress-icon">
+
+                ✅
+
+            </div>
+
+            <h2 id="completedTopics">
+
+                0
+
+            </h2>
+
+            <p>
+
+                Completed
+
+            </p>
 
         </div>
 
     </div>
 
-    <br>
+    <div class="progress-title">
 
-    <div class="progress-row">
-
-        <span>
-
-            Daily Goal
-
-        </span>
-
-        <strong id="goalPercent">
-
-            0%
-
-        </strong>
+        Daily Goal
 
     </div>
 
@@ -400,9 +400,59 @@ class="timer-buttons">
 
     </div>
 
+    <div class="goal-text">
+
+        <span>
+
+            0%
+
+        </span>
+
+        <span id="goalLabel">
+
+            0 / 8 Sessions
+
+        </span>
+
+    </div>
+
 </section>
 
-<!-- ================= STUDY NOTES ================= -->
+<!--====================================
+BREAK TIMER
+=====================================-->
+
+<section class="card break-card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-mug-hot"></i>
+
+        Break Time
+
+    </div>
+
+    <div
+
+        id="breakTimer"
+
+        class="break-display">
+
+        05:00
+
+    </div>
+
+    <p id="breakStatus">
+
+        Complete a focus session to start your break.
+
+    </p>
+
+</section>
+
+<!--====================================
+NOTES
+=====================================-->
 
 <section class="card">
 
@@ -410,7 +460,7 @@ class="timer-buttons">
 
         <i class="fa-solid fa-note-sticky"></i>
 
-        Study Notes
+        Quick Notes
 
     </div>
 
@@ -420,13 +470,79 @@ class="timer-buttons">
 
         rows="6"
 
-        placeholder="Write today's learning summary...">
+        placeholder="Write important points, shortcuts, formulas, revision notes...">
 
     </textarea>
 
 </section>
 
-<!-- ================= ACTIONS ================= -->
+<!--====================================
+TODAY SUMMARY
+=====================================-->
+
+<section class="card summary-card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-medal"></i>
+
+        Today's Summary
+
+    </div>
+
+    <div class="summary-row">
+
+        <span>
+
+            Current Topic
+
+        </span>
+
+        <strong id="summaryTopic">
+
+            -
+
+        </strong>
+
+    </div>
+
+    <div class="summary-row">
+
+        <span>
+
+            Remaining Topics
+
+        </span>
+
+        <strong id="remainingTopics">
+
+            0
+
+        </strong>
+
+    </div>
+
+    <div class="summary-row">
+
+        <span>
+
+            Productivity
+
+        </span>
+
+        <strong id="productivity">
+
+            Excellent 🚀
+
+        </strong>
+
+    </div>
+
+</section>
+
+<!--====================================
+ACTION BUTTONS
+=====================================-->
 
 <section class="card">
 
@@ -440,7 +556,7 @@ class="timer-buttons">
 
             <i class="fa-solid fa-floppy-disk"></i>
 
-            Save Study
+            Save Progress
 
         </button>
 
@@ -460,72 +576,198 @@ class="timer-buttons">
 
 </section>
 
-<!-- ================= BOTTOM NAVIGATION ================= -->
+<!--====================================
+MOTIVATION
+=====================================-->
+
+<section class="card motivation-card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-fire"></i>
+
+        Today's Motivation
+
+    </div>
+
+    <h2 id="dailyQuote">
+
+        Success is the sum of small efforts repeated every day.
+
+    </h2>
+
+    <p>
+
+        One Pomodoro at a time.
+        One topic at a time.
+        One step closer to becoming a TNPSC Officer.
+
+    </p>
+
+</section>
+
+<!--====================================
+FINISH TODAY
+=====================================-->
+
+<section class="card finish-card">
+
+    <button
+
+        id="finishDayBtn"
+
+        class="finish-btn">
+
+        <i class="fa-solid fa-circle-check"></i>
+
+        Finish Today's Study
+
+    </button>
+
+</section>
+
+<!--====================================
+NOTIFICATION MODAL
+=====================================-->
+
+<div
+
+id="notificationModal"
+
+class="notification-modal">
+
+<div class="notification-card">
+
+<div class="notification-icon">
+
+🎉
+
+</div>
+
+<h2 id="notificationTitle">
+
+Session Completed!
+
+</h2>
+
+<p id="notificationMessage">
+
+Take a 5 minute break.
+
+</p>
+
+<button
+
+id="notificationBtn"
+
+class="primary-btn">
+
+Continue
+
+</button>
+
+</div>
+
+</div>
+
+<!--====================================
+AUDIO
+=====================================-->
+
+<audio
+
+id="bellSound"
+
+preload="auto">
+
+<source
+
+src="audio/bell.mp3"
+
+type="audio/mpeg">
+
+</audio>
+
+<!--====================================
+BOTTOM NAVIGATION
+=====================================-->
 
 <nav class="bottom-nav">
 
-    <a href="dashboard.html">
+<a
 
-        <i class="fa-solid fa-house"></i>
+href="dashboard.html">
 
-        <span>
+<i class="fa-solid fa-house"></i>
 
-            Home
+<span>
 
-        </span>
+Home
 
-    </a>
+</span>
 
-    <a href="study.html" class="active">
+</a>
 
-        <i class="fa-solid fa-book-open"></i>
+<a
 
-        <span>
+href="study.html"
 
-            Study
+class="active">
 
-        </span>
+<i class="fa-solid fa-book-open"></i>
 
-    </a>
+<span>
 
-    <a href="calendar.html">
+Study
 
-        <i class="fa-solid fa-calendar-days"></i>
+</span>
 
-        <span>
+</a>
 
-            Calendar
+<a
 
-        </span>
+href="calendar.html">
 
-    </a>
+<i class="fa-solid fa-calendar-days"></i>
 
-    <a href="stats.html">
+<span>
 
-        <i class="fa-solid fa-chart-column"></i>
+Calendar
 
-        <span>
+</span>
 
-            Stats
+</a>
 
-        </span>
+<a
 
-    </a>
+href="stats.html">
 
-    <a href="settings.html">
+<i class="fa-solid fa-chart-simple"></i>
 
-        <i class="fa-solid fa-gear"></i>
+<span>
 
-        <span>
+Stats
 
-            Settings
+</span>
 
-        </span>
+</a>
 
-    </a>
+<a
+
+href="settings.html">
+
+<i class="fa-solid fa-gear"></i>
+
+<span>
+
+Settings
+
+</span>
+
+</a>
 
 </nav>
-
+s
 </div>
 
 <script src="js/app.js"></script>
