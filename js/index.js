@@ -22,7 +22,7 @@ function loadGreeting() {
 
     if (typeof getProfile === "function") {
 
-        const profile =APP.userName
+        const profile = getProfile();
 
         if (profile.name && profile.name.trim() !== "") {
             name = profile.name;
@@ -88,7 +88,7 @@ function loadQuote() {
 
 function loadCountdown() {
 
-    const examDate = new Date("2026-09-06");
+    const examDate = new Date(APP.group1Exam);
 
     const today = new Date();
 

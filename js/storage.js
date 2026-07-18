@@ -326,6 +326,12 @@ function getAllStudyLogs(){
 // Get Today's Study
 //======================================================
 
+function getTodayStudy(){
+
+    return getStudyLog(getTodayDate());
+
+}
+
 function getStudyLog(date){
 
     const data=getData();
@@ -873,6 +879,12 @@ function updateStatistics(){
 //======================================================
 // Weekly Planner
 //======================================================
+
+function getProfile(){
+
+    return getData().profile;
+
+}
 
 function getWeeklyPlanner(){
 

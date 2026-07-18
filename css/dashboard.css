@@ -559,34 +559,6 @@ BUTTON
 BOTTOM NAVIGATION
 ==========================================*/
 
-.bottom-nav{
-
-    position:fixed;
-
-    left:0;
-
-    right:0;
-
-    bottom:0;
-
-    height:70px;
-
-    background:#fff;
-
-    display:flex;
-
-    justify-content:space-around;
-
-    align-items:center;
-
-    border-top:1px solid #E5E7EB;
-
-    box-shadow:0 -5px 15px rgba(0,0,0,.08);
-
-    z-index:999;
-
-}
-
 .bottom-nav a{
 
     text-decoration:none;

@@ -12,7 +12,7 @@ const APP = {
 
     examName: "TNPSC Group 1",
 
-    group1Exam: "2026-09-06",
+    group1Exam: "2026-09-27",
 
     group2Exam: "2026-10-22",
 

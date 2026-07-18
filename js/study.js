@@ -11,7 +11,7 @@
 
 const MODES={
 
-    5:{study:5,break:1},
+    1:{study:1,break:1},
 
     25:{study:25,break:5},
 
@@ -151,6 +151,10 @@ const motivationSound=
 
     document.getElementById("motivationSound");
 
+const breakEndSound=
+
+    document.getElementById("breakEndSound");
+
 const notificationModal=
 
     document.getElementById("notificationModal");
@@ -176,10 +180,48 @@ document.addEventListener(
 );
 
 //======================================================
+// Greeting
+//======================================================
+
+function loadGreeting(){
+
+    const hour=
+
+        new Date().getHours();
+
+    let greeting=
+
+        "Good Evening";
+
+    if(hour<12)
+
+        greeting="Good Morning";
+
+    else if(hour<17)
+
+        greeting="Good Afternoon";
+
+    const greetingEl=
+
+        document.getElementById("greeting");
+
+    if(greetingEl){
+
+        greetingEl.innerHTML=
+
+            greeting+" 👋";
+
+    }
+
+}
+
+//======================================================
 // Initialize Study
 //======================================================
 
 function initializeStudy(){
+
+    loadGreeting();
 
     loadToday();
 
@@ -2331,6 +2373,8 @@ function completeSession(){
 
     else{
 
+        playBreakEnd();
+
         isBreak=false;
 
         timerDuration=
@@ -2512,6 +2556,24 @@ function playMotivation(){
     motivationSound.currentTime=0;
 
     motivationSound.play()
+
+    .catch(()=>{});
+
+}
+
+//======================================================
+// Break End Song
+//======================================================
+
+function playBreakEnd(){
+
+    if(!breakEndSound)
+
+        return;
+
+    breakEndSound.currentTime=0;
+
+    breakEndSound.play()
 
     .catch(()=>{});
 

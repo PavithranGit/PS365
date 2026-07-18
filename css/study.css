@@ -87,6 +87,68 @@ Welcome Card
 
 }
 
+.quote-highlight{
+
+    position:relative;
+
+    margin-top:14px;
+
+    padding:16px 18px 16px 20px;
+
+    background:rgba(255,255,255,.14);
+
+    border-left:4px solid #FFD166;
+
+    border-radius:14px;
+
+    backdrop-filter:blur(2px);
+
+}
+
+.quote-icon{
+
+    position:absolute;
+
+    top:10px;
+
+    right:14px;
+
+    font-size:16px;
+
+    opacity:.35;
+
+}
+
+.quote-tamil{
+
+    font-size:17px;
+
+    font-weight:700;
+
+    color:#FFFFFF;
+
+    line-height:1.6;
+
+    margin-bottom:6px;
+
+}
+
+.quote-translation{
+
+    font-size:13px;
+
+    font-weight:500;
+
+    font-style:italic;
+
+    color:#FFE9A8;
+
+    opacity:1;
+
+    line-height:1.5;
+
+}
+
 .welcome-emoji{
 
     width:70px;
