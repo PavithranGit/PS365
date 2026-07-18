@@ -1,13 +1,17 @@
-//==================================================
-// PS365 V5 Study Module
-// Part 1 - Initialization
-//==================================================
+//======================================================
+// PS365 Study Module V8
+// Part 1 - Foundation
+//======================================================
 
-//------------------------------------------
+"use strict";
+
+//======================================================
 // Pomodoro Modes
-//------------------------------------------
+//======================================================
 
-const MODES = {
+const MODES={
+
+    5:{study:5,break:1},
 
     25:{study:25,break:5},
 
@@ -17,61 +21,151 @@ const MODES = {
 
 };
 
-//------------------------------------------
-// Application State
-//------------------------------------------
+//======================================================
+// Global State
+//======================================================
 
-let selectedMode = 25;
+let selectedMode=25;
 
-let timer = null;
+let timer=null;
 
-let isRunning = false;
+let isRunning=false;
 
-let isBreak = false;
+let isPaused=false;
 
-let remainingSeconds = MODES[25].study * 60;
+let isBreak=false;
 
-let completedSessions = 0;
+let remainingSeconds=
 
-let totalStudySeconds = 0;
+    MODES[25].study*60;
 
-let todayStudy = null;
+let timerDuration=
 
-let todayTopics = [];
+    MODES[25].study*60;
 
-let currentTopic = null;
+let timerStartedAt=null;
 
-//------------------------------------------
+let completedSessions=0;
+
+let totalStudySeconds=0;
+
+let todayStudy=null;
+
+let todayTopics=[];
+
+let currentTopic=null;
+
+let weeklyPlanner={};
+
+let selectedWeekDay="Monday";
+
+//======================================================
 // DOM
-//------------------------------------------
+//======================================================
 
-const todayDate=document.getElementById("todayDate");
+const todayDate=
 
-const topicInput=document.getElementById("topicInput");
+    document.getElementById("todayDate");
 
-const topicList=document.getElementById("topicList");
+const topicInput=
 
-const timerDisplay=document.getElementById("timerDisplay");
+    document.getElementById("topicInput");
 
-const sessionStatus=document.getElementById("sessionStatus");
+const topicList=
 
-const currentTopicLabel=document.getElementById("currentTopic");
+    document.getElementById("topicList");
 
-const notes=document.getElementById("notes");
+const timerDisplay=
 
-const sessionCount=document.getElementById("sessionCount");
+    document.getElementById("timerDisplay");
 
-const studyTime=document.getElementById("studyTime");
+const sessionStatus=
 
-const completedTopics=document.getElementById("completedTopics");
+    document.getElementById("sessionStatus");
 
-const goalProgress=document.getElementById("goalProgress");
+const currentTopicLabel=
 
-const goalLabel=document.getElementById("goalLabel");
+    document.getElementById("currentTopic");
 
-//------------------------------------------
+const notes=
+
+    document.getElementById("notes");
+
+const sessionCount=
+
+    document.getElementById("sessionCount");
+
+const studyTime=
+
+    document.getElementById("studyTime");
+
+const completedTopics=
+
+    document.getElementById("completedTopics");
+
+const goalProgress=
+
+    document.getElementById("goalProgress");
+
+const goalLabel=
+
+    document.getElementById("goalLabel");
+
+const summaryTopic=
+
+    document.getElementById("summaryTopic");
+
+const remainingTopics=
+
+    document.getElementById("remainingTopics");
+
+const productivity=
+
+    document.getElementById("productivity");
+
+const breakTimer=
+
+    document.getElementById("breakTimer");
+
+const breakStatus=
+
+    document.getElementById("breakStatus");
+
+const weeklyTaskInput=
+
+    document.getElementById("weeklyTaskInput");
+
+const weeklyTaskList=
+
+    document.getElementById("weeklyTaskList");
+
+const selectedDayLabel=
+
+    document.getElementById("selectedDay");
+
+const bellSound=
+
+    document.getElementById("bellSound");
+
+const motivationSound=
+
+    document.getElementById("motivationSound");
+
+const notificationModal=
+
+    document.getElementById("notificationModal");
+
+const notificationTitle=
+
+    document.getElementById("notificationTitle");
+
+const notificationMessage=
+
+    document.getElementById("notificationMessage");
+
+//======================================================
 // Initialize
-//------------------------------------------
+//======================================================
 
 document.addEventListener(
 
@@ -81,9 +175,15 @@ document.addEventListener(
 
 );
 
+//======================================================
+// Initialize Study
+//======================================================
+
 function initializeStudy(){
 
     loadToday();
+
+    loadWeeklyPlanner();
 
     bindEvents();
 
@@ -91,93 +191,216 @@ function initializeStudy(){
 
     renderTopics();
 
+    renderWeeklyPlanner();
+
     updateDashboard();
+
+    restoreCurrentTopic();
+
+    restoreRunningTimer();
 
     loadQuote();
 
+    updateGoal();
+
+    updateProductivity();
+
+    updateTimer();
+
 }
 
-//------------------------------------------
-// Today's Date
-//------------------------------------------
+//======================================================
+// Load Today's Study
+//======================================================
 
 function loadToday(){
 
-    const today=new Date();
+    const today=
 
-    const date=today.toISOString().split("T")[0];
-
-    todayDate.innerHTML=
-
-        today.toLocaleDateString(
-
-            "en-IN",
-
-            {
-
-                day:"2-digit",
-
-                month:"long",
-
-                year:"numeric"
-
-            }
-
-        );
-
-    //--------------------------------------
-
-    // Read Existing Data
-
-    //--------------------------------------
+        getTodayDate();
 
     todayStudy=
 
-        getStudyByDate(date);
+        getStudyLog(today);
 
-    if(todayStudy){
+    if(!todayStudy){
 
-        todayTopics=
+        todayStudy={
 
-            todayStudy.topics||[];
+            date:today,
 
-        totalStudySeconds=
+            topics:[],
 
-            todayStudy.totalSeconds||0;
+            sessions:0,
 
-        completedSessions=
+            totalSeconds:0,
 
-            todayStudy.sessions||0;
+            notes:""
+
+        };
+
+    }
+
+    todayTopics=
+
+        todayStudy.topics||[];
+
+    completedSessions=
+
+        todayStudy.sessions||0;
+
+    totalStudySeconds=
+
+        todayStudy.totalSeconds||0;
+
+    if(notes)
 
         notes.value=
 
             todayStudy.notes||"";
 
-    }
+    if(todayDate){
 
-    else{
+        todayDate.innerHTML=
 
-        todayTopics=[];
+            new Date()
 
-        completedSessions=0;
+            .toLocaleDateString(
 
-        totalStudySeconds=0;
+                "en-IN",
+
+                {
+
+                    day:"2-digit",
+
+                    month:"long",
+
+                    year:"numeric"
+
+                }
+
+            );
 
     }
 
 }
 
-//------------------------------------------
-// Events
-//------------------------------------------
+//======================================================
+// Load Weekly Planner
+//======================================================
+
+function loadWeeklyPlanner(){
+
+    weeklyPlanner=
+
+        getWeeklyPlanner();
+
+}
+
+//======================================================
+// Save Today's Study
+//======================================================
+
+function saveTodayStudy(){
+
+    todayStudy.topics=
+
+        todayTopics;
+
+    todayStudy.sessions=
+
+        completedSessions;
+
+    todayStudy.totalSeconds=
+
+        totalStudySeconds;
+
+    todayStudy.notes=
+
+        notes
+
+        ?notes.value
+
+        :"";
+
+    saveStudyLog(
+
+        todayStudy
+
+    );
+
+    syncApplication();
+
+}
+
+//======================================================
+// Helpers
+//======================================================
+
+function formatDuration(seconds){
+
+    const hrs=
+
+        Math.floor(
+
+            seconds/3600
+
+        );
+
+    const mins=
+
+        Math.floor(
+
+            (
+
+                seconds%3600
+
+            )/60
+
+        );
+
+    return(
+
+        String(hrs)
+
+        .padStart(2,"0")
+
+        +
+
+        ":"
+
+        +
+
+        String(mins)
+
+        .padStart(2,"0")
+
+    );
+
+}
+
+console.log(
+
+    "✅ Study V8 Part 1 Loaded"
+
+);
+
+//======================================================
+// Part 2A
+// Event Binding
+//======================================================
 
 function bindEvents(){
+
+    //----------------------------------
+    // Topics
+    //----------------------------------
 
     document
 
     .getElementById("addTopicBtn")
 
-    .addEventListener(
+    ?.addEventListener(
 
         "click",
 
@@ -185,11 +408,33 @@ function bindEvents(){
 
     );
 
+    topicInput?.addEventListener(
+
+        "keydown",
+
+        function(e){
+
+            if(e.key==="Enter"){
+
+                e.preventDefault();
+
+                addTopic();
+
+            }
+
+        }
+
+    );
+
+    //----------------------------------
+    // Timer
+    //----------------------------------
+
     document
 
     .getElementById("startBtn")
 
-    .addEventListener(
+    ?.addEventListener(
 
         "click",
 
@@ -201,7 +446,7 @@ function bindEvents(){
 
     .getElementById("pauseBtn")
 
-    .addEventListener(
+    ?.addEventListener(
 
         "click",
 
@@ -213,7 +458,7 @@ function bindEvents(){
 
     .getElementById("resetBtn")
 
-    .addEventListener(
+    ?.addEventListener(
 
         "click",
 
@@ -221,11 +466,15 @@ function bindEvents(){
 
     );
 
+    //----------------------------------
+    // Save
+    //----------------------------------
+
     document
 
     .getElementById("saveBtn")
 
-    .addEventListener(
+    ?.addEventListener(
 
         "click",
 
@@ -235,21 +484,9 @@ function bindEvents(){
 
     document
 
-    .getElementById("emailBtn")
-
-    .addEventListener(
-
-        "click",
-
-        sendEmailReport
-
-    );
-
-    document
-
     .getElementById("finishDayBtn")
 
-    .addEventListener(
+    ?.addEventListener(
 
         "click",
 
@@ -257,10 +494,36 @@ function bindEvents(){
 
     );
 
+    document
+
+    .getElementById("emailBtn")
+
+    ?.addEventListener(
+
+        "click",
+
+        sendEmailReport
+
+    );
+
+    //----------------------------------
+    // Notes
     //----------------------------------
 
-    // Pomodoro Modes
+    notes?.addEventListener(
 
+        "input",
+
+        function(){
+
+            saveTodayStudy();
+
+        }
+
+    );
+
+    //----------------------------------
+    // Pomodoro Modes
     //----------------------------------
 
     document
@@ -275,9 +538,13 @@ function bindEvents(){
 
             function(){
 
+                if(isRunning)
+
+                    return;
+
                 selectMode(
 
-                    parseInt(
+                    Number(
 
                         this.dataset.study
 
@@ -291,61 +558,1016 @@ function bindEvents(){
 
     });
 
+    //----------------------------------
+    // Weekly Planner Days
+    //----------------------------------
+
+    document
+
+    .querySelectorAll(".planner-day")
+
+    .forEach(btn=>{
+
+        btn.addEventListener(
+
+            "click",
+
+            function(){
+
+                document
+
+                .querySelectorAll(
+
+                    ".planner-day"
+
+                )
+
+                .forEach(
+
+                    x=>x.classList.remove(
+
+                        "active"
+
+                    )
+
+                );
+
+                this.classList.add(
+
+                    "active"
+
+                );
+
+                selectedWeekDay=
+
+                    this.dataset.day;
+
+                renderWeeklyPlanner();
+
+            }
+
+        );
+
+    });
+
+    //----------------------------------
+    // Weekly Add
+    //----------------------------------
+
+    document
+
+    .getElementById(
+
+        "addWeeklyTaskBtn"
+
+    )
+
+    ?.addEventListener(
+
+        "click",
+
+        addWeeklyTaskUI
+
+    );
+
 }
 
-//------------------------------------------
-// Select Mode
-//------------------------------------------
+//======================================================
+// Part 2B
+// Topic Management
+//======================================================
+
+//======================================================
+// Add Topic
+//======================================================
+
+function addTopic(){
+
+    const title=
+
+        topicInput.value.trim();
+
+    if(title===""){
+
+        topicInput.focus();
+
+        return;
+
+    }
+
+    const topic={
+
+        id:Date.now(),
+
+        title:title,
+
+        completed:false,
+
+        createdOn:now(),
+
+        completedOn:null,
+
+        sessions:0
+
+    };
+
+    todayTopics.push(topic);
+
+    topicInput.value="";
+
+    if(!currentTopic){
+
+        currentTopic=topic;
+
+    }
+
+    saveTodayStudy();
+
+    renderTopics();
+
+    updateDashboard();
+
+}
+
+//======================================================
+// Render Topics
+//======================================================
+
+function renderTopics(){
+
+    if(!topicList)
+
+        return;
+
+    topicList.innerHTML="";
+
+    if(todayTopics.length===0){
+
+        topicList.innerHTML=
+
+        `
+
+        <div class="empty-state">
+
+            <i class="fa-solid fa-book-open"></i>
+
+            <p>No Topics Added</p>
+
+        </div>
+
+        `;
+
+        currentTopicLabel.innerHTML=
+
+            "No Topic Selected";
+
+        return;
+
+    }
+
+    todayTopics.forEach(topic=>{
+
+        const div=
+
+            document.createElement("div");
+
+        div.className="topic-item";
+
+        div.innerHTML=
+
+        `
+
+        <label>
+
+            <input
+
+                type="checkbox"
+
+                ${topic.completed?"checked":""}
+
+            >
+
+            <span class="${topic.completed?"completed":""}">
+
+                ${topic.title}
+
+            </span>
+
+        </label>
+
+        <button class="delete-btn">
+
+            <i class="fa-solid fa-trash"></i>
+
+        </button>
+
+        `;
+
+        div
+
+        .querySelector("input")
+
+        .addEventListener(
+
+            "change",
+
+            ()=>toggleTopic(topic.id)
+
+        );
+
+        div
+
+        .querySelector(".delete-btn")
+
+        .addEventListener(
+
+            "click",
+
+            ()=>deleteTopic(topic.id)
+
+        );
+
+        topicList.appendChild(div);
+
+    });
+
+    restoreCurrentTopic();
+
+}
+
+//======================================================
+// Render Weekly Planner
+//======================================================
+
+function renderWeeklyPlanner(){
+
+    if(selectedDayLabel){
+
+        selectedDayLabel.innerHTML=
+
+            selectedWeekDay+" Plan";
+
+    }
+
+    if(!weeklyTaskList)
+
+        return;
+
+    const tasks=
+
+        getWeeklyTasks(selectedWeekDay);
+
+    weeklyTaskList.innerHTML="";
+
+    if(tasks.length===0){
+
+        weeklyTaskList.innerHTML=
+
+        `
+
+        <div class="empty-state">
+
+            <i class="fa-solid fa-calendar-day"></i>
+
+            <p>No Tasks Planned</p>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+    tasks.forEach(task=>{
+
+        const div=
+
+            document.createElement("div");
+
+        div.className="topic-item";
+
+        div.innerHTML=
+
+        `
+
+        <label>
+
+            <input
+
+                type="checkbox"
+
+                ${task.completed?"checked":""}
+
+            >
+
+            <span class="${task.completed?"completed":""}">
+
+                ${task.title}
+
+            </span>
+
+        </label>
+
+        <button class="delete-btn">
+
+            <i class="fa-solid fa-trash"></i>
+
+        </button>
+
+        `;
+
+        div
+
+        .querySelector("input")
+
+        .addEventListener(
+
+            "change",
+
+            function(){
+
+                updateWeeklyTask(
+
+                    selectedWeekDay,
+
+                    task.id,
+
+                    this.checked
+
+                );
+
+                renderWeeklyPlanner();
+
+            }
+
+        );
+
+        div
+
+        .querySelector(".delete-btn")
+
+        .addEventListener(
+
+            "click",
+
+            function(){
+
+                if(
+
+                    !confirm(
+
+                        "Delete this task?"
+
+                    )
+
+                )
+
+                return;
+
+                deleteWeeklyTask(
+
+                    selectedWeekDay,
+
+                    task.id
+
+                );
+
+                renderWeeklyPlanner();
+
+            }
+
+        );
+
+        weeklyTaskList.appendChild(div);
+
+    });
+
+}
+
+//======================================================
+// Add Weekly Task (UI)
+//======================================================
+
+function addWeeklyTaskUI(){
+
+    if(!weeklyTaskInput)
+
+        return;
+
+    const title=
+
+        weeklyTaskInput.value.trim();
+
+    if(title===""){
+
+        weeklyTaskInput.focus();
+
+        return;
+
+    }
+
+    addWeeklyTask(
+
+        selectedWeekDay,
+
+        title
+
+    );
+
+    weeklyTaskInput.value="";
+
+    renderWeeklyPlanner();
+
+}
+
+//======================================================
+// Toggle Topic
+//======================================================
+
+function toggleTopic(id){
+
+    const topic=
+
+        todayTopics.find(
+
+            x=>x.id===id
+
+        );
+
+    if(!topic)
+
+        return;
+
+    topic.completed=
+
+        !topic.completed;
+
+    topic.completedOn=
+
+        topic.completed
+
+        ?now()
+
+        :null;
+
+    restoreCurrentTopic();
+
+    saveTodayStudy();
+
+    renderTopics();
+
+    updateDashboard();
+
+}
+
+//======================================================
+// Delete Topic
+//======================================================
+
+function deleteTopic(id){
+
+    if(
+
+        !confirm(
+
+            "Delete this topic?"
+
+        )
+
+    )
+
+    return;
+
+    todayTopics=
+
+        todayTopics.filter(
+
+            x=>x.id!==id
+
+        );
+
+    restoreCurrentTopic();
+
+    saveTodayStudy();
+
+    renderTopics();
+
+    updateDashboard();
+
+}
+
+//======================================================
+// Restore Current Topic
+//======================================================
+
+function restoreCurrentTopic(){
+
+    currentTopic=
+
+        todayTopics.find(
+
+            x=>!x.completed
+
+        ) || null;
+
+    if(currentTopicLabel){
+
+        currentTopicLabel.innerHTML=
+
+            currentTopic
+
+            ?currentTopic.title
+
+            :"🎉 All Topics Completed";
+
+    }
+
+}
+
+//======================================================
+// Helpers
+//======================================================
+
+function getCompletedTopicCount(){
+
+    return todayTopics.filter(
+
+        x=>x.completed
+
+    ).length;
+
+}
+
+function getRemainingTopicCount(){
+
+    return todayTopics.filter(
+
+        x=>!x.completed
+
+    ).length;
+
+}
+
+console.log(
+
+    "✅ Part 2B Loaded"
+
+);
+
+//======================================================
+// Part 2C
+// Dashboard Engine
+//======================================================
+
+//======================================================
+// Dashboard
+//======================================================
+
+function updateDashboard(){
+
+    //----------------------------------
+
+    // Sessions
+
+    //----------------------------------
+
+    if(sessionCount){
+
+        sessionCount.innerHTML=
+
+            completedSessions;
+
+    }
+
+    //----------------------------------
+
+    // Study Time
+
+    //----------------------------------
+
+    if(studyTime){
+
+        studyTime.innerHTML=
+
+            formatDuration(
+
+                totalStudySeconds
+
+            );
+
+    }
+
+    //----------------------------------
+
+    // Completed Topics
+
+    //----------------------------------
+
+    const completed=
+
+        getCompletedTopicCount();
+
+    const remaining=
+
+        getRemainingTopicCount();
+
+    if(completedTopics){
+
+        completedTopics.innerHTML=
+
+            completed;
+
+    }
+
+    //----------------------------------
+
+    // Remaining
+
+    //----------------------------------
+
+    if(remainingTopics){
+
+        remainingTopics.innerHTML=
+
+            remaining;
+
+    }
+
+    //----------------------------------
+
+    // Summary
+
+    //----------------------------------
+
+    if(summaryTopic){
+
+        summaryTopic.innerHTML=
+
+            currentTopic
+
+            ?
+
+            currentTopic.title
+
+            :
+
+            "🎉 All Topics Completed";
+
+    }
+
+    //----------------------------------
+
+    updateGoal();
+
+    updateProductivity();
+
+}
+
+//======================================================
+// Goal
+//======================================================
+
+function updateGoal(){
+
+    const total=
+
+        todayTopics.length;
+
+    const completed=
+
+        getCompletedTopicCount();
+
+    let percent=0;
+
+    if(total>0){
+
+        percent=Math.round(
+
+            (
+
+                completed/
+
+                total
+
+            )*100
+
+        );
+
+    }
+
+    if(goalProgress){
+
+        goalProgress.style.width=
+
+            percent+"%";
+
+    }
+
+    const goalText=
+
+        document.querySelector(
+
+            ".goal-text span:first-child"
+
+        );
+
+    if(goalText){
+
+        goalText.innerHTML=
+
+            percent+"%";
+
+    }
+
+    if(goalLabel){
+
+        goalLabel.innerHTML=
+
+            completed+
+
+            " / "+
+
+            total+
+
+            " Topics";
+
+    }
+
+}
+
+//======================================================
+// Productivity
+//======================================================
+
+function updateProductivity(){
+
+    if(!productivity)
+
+        return;
+
+    const percent=
+
+        todayTopics.length===0
+
+        ?0
+
+        :Math.round(
+
+            (
+
+                getCompletedTopicCount()
+
+                /
+
+                todayTopics.length
+
+            )*100
+
+        );
+
+    let text=
+
+        "🌱 Getting Started";
+
+    if(percent>=25)
+
+        text="🙂 Good";
+
+    if(percent>=50)
+
+        text="💪 Great";
+
+    if(percent>=75)
+
+        text="🚀 Excellent";
+
+    if(percent===100)
+
+        text="🏆 Outstanding";
+
+    productivity.innerHTML=text;
+
+}
+
+//======================================================
+// Quote
+//======================================================
+
+const DAILY_QUOTES=[
+
+    "Success is built one Pomodoro at a time.",
+
+    "Discipline beats motivation.",
+
+    "Consistency creates champions.",
+
+    "Small daily improvements create big results.",
+
+    "One session today is success tomorrow.",
+
+    "Stay focused.",
+
+    "Never skip today's study.",
+
+    "Consistency wins every exam."
+
+];
+
+function loadQuote(){
+
+    const box=
+
+        document.getElementById(
+
+            "dailyQuote"
+
+        );
+
+    if(!box)
+
+        return;
+
+    const index=
+
+        new Date().getDate()
+
+        %
+
+        DAILY_QUOTES.length;
+
+    box.innerHTML=
+
+        DAILY_QUOTES[index];
+
+}
+
+//======================================================
+// Finish Day
+//======================================================
+
+function finishDay(){
+
+    saveTodayStudy();
+
+    showNotification(
+
+        "🎉 Great Work!",
+
+        "Today's study has been saved."
+
+    );
+
+}
+
+//======================================================
+// Send Email Report
+//======================================================
+
+function sendEmailReport(){
+
+    saveTodayStudy();
+
+    const profile=
+
+        getData().profile||{};
+
+    const topicLines=
+
+        todayTopics.length===0
+
+        ?"No topics added today."
+
+        :todayTopics.map(t=>
+
+            (t.completed?"[Done] ":"[Pending] ")
+
+            +t.title
+
+            +" - "
+
+            +t.sessions
+
+            +" session(s)"
+
+        ).join("\n");
+
+    const subject=
+
+        "PS365 Study Report - "
+
+        +getTodayDate();
+
+    const body=
+
+        "Name: "+(profile.name||"-")+"\n"+
+
+        "Exam: "+(profile.exam||"-")+"\n\n"+
+
+        "Sessions Completed: "+completedSessions+"\n"+
+
+        "Total Study Time: "+
+
+            formatDuration(totalStudySeconds)+"\n\n"+
+
+        "Topics:\n"+topicLines;
+
+    const mailtoLink=
+
+        "mailto:?subject="
+
+        +encodeURIComponent(subject)
+
+        +"&body="
+
+        +encodeURIComponent(body);
+
+    window.location.href=
+
+        mailtoLink;
+
+}
+
+//======================================================
+// Auto Save
+//======================================================
+
+setInterval(function(){
+
+    saveTodayStudy();
+
+},60000);
+
+window.addEventListener(
+
+    "beforeunload",
+
+    saveTodayStudy
+
+);
+
+console.log(
+
+    "✅ Part 2C Loaded"
+
+);
+
+//======================================================
+// Part 3A
+// Timer Foundation
+//======================================================
+
+//======================================================
+// Select Pomodoro Mode
+//======================================================
 
 function selectMode(mode){
+
+    if(isRunning)
+
+        return;
 
     selectedMode=mode;
 
     isBreak=false;
 
-    remainingSeconds=
+    timerDuration=
 
         MODES[mode].study*60;
 
+    remainingSeconds=
+
+        timerDuration;
+
     document
 
-    .querySelectorAll(".mode-btn")
+        .querySelectorAll(".mode-btn")
 
-    .forEach(btn=>{
+        .forEach(btn=>{
 
-        btn.classList.remove(
+            btn.classList.remove("active");
 
-            "active"
+            if(
 
-        );
+                Number(btn.dataset.study)
 
-        if(
+                ===mode
 
-            parseInt(
+            ){
 
-                btn.dataset.study
+                btn.classList.add("active");
 
-            )===mode
+            }
 
-        ){
-
-            btn.classList.add(
-
-                "active"
-
-            );
-
-        }
-
-    });
+        });
 
     updateTimer();
 
 }
 
-//------------------------------------------
-// Update Timer
-//------------------------------------------
+//======================================================
+// Update Timer Display
+//======================================================
 
 function updateTimer(){
 
@@ -361,419 +1583,118 @@ function updateTimer(){
 
         remainingSeconds%60;
 
-    timerDisplay.innerHTML=
+    if(timerDisplay){
 
-        String(mins).padStart(2,"0")
+        timerDisplay.innerHTML=
 
-        +":"
+            String(mins)
 
-        +
+            .padStart(2,"0")
 
-        String(secs).padStart(2,"0");
+            +
 
-}
+            ":"
 
-//==================================================
-// Part 2 - Topics & Save
-//==================================================
+            +
 
-//--------------------------------------
-// Add Topic
-//--------------------------------------
+            String(secs)
 
-function addTopic(){
-
-    const title = topicInput.value.trim();
-
-    if(title===""){
-
-        topicInput.focus();
-
-        return;
+            .padStart(2,"0");
 
     }
 
-    todayTopics.push({
+    //----------------------------------
+    // Break Timer
+    //----------------------------------
 
-        id:Date.now(),
+    if(breakTimer){
 
-        title:title,
+        if(isBreak){
 
-        completed:false,
+            breakTimer.innerHTML=
 
-        created:new Date().toISOString()
+                String(mins)
 
-    });
+                .padStart(2,"0")
 
-    topicInput.value="";
+                +
 
-    if(currentTopic===null){
+                ":"
 
-        currentTopic=todayTopics[0];
+                +
 
-    }
+                String(secs)
 
-    renderTopics();
+                .padStart(2,"0");
 
-    updateDashboard();
+        }
 
-    saveTodayStudy();
+        else{
 
-}
+            breakTimer.innerHTML=
 
-//--------------------------------------
-// Render Topics
-//--------------------------------------
+                "00:00";
 
-function renderTopics(){
-
-    topicList.innerHTML="";
-
-    if(todayTopics.length===0){
-
-        topicList.innerHTML=`
-
-        <div class="empty-state">
-
-            <i class="fa-solid fa-book-open"></i>
-
-            <p>
-
-                No topics added today.
-
-            </p>
-
-        </div>
-
-        `;
-
-        currentTopicLabel.innerHTML="No Topic Selected";
-
-        return;
+        }
 
     }
 
-    todayTopics.forEach(topic=>{
+    //----------------------------------
+    // Circle Progress
+    //----------------------------------
 
-        topicList.innerHTML+=`
+    const circle=
 
-        <div class="topic-item">
+        document.querySelector(
 
-            <label>
-
-                <input
-
-                    type="checkbox"
-
-                    ${topic.completed?"checked":""}
-
-                    onchange="toggleTopic(${topic.id})">
-
-                <span class="${
-                    topic.completed?"completed":""
-                }">
-
-                    ${topic.title}
-
-                </span>
-
-            </label>
-
-            <button
-
-                class="delete-btn"
-
-                onclick="deleteTopic(${topic.id})">
-
-                <i class="fa-solid fa-trash"></i>
-
-            </button>
-
-        </div>
-
-        `;
-
-    });
-
-    if(currentTopic){
-
-        currentTopicLabel.innerHTML=
-
-            currentTopic.title;
-
-    }
-
-}
-
-//--------------------------------------
-// Complete Topic
-//--------------------------------------
-
-function toggleTopic(id){
-
-    const topic=
-
-        todayTopics.find(
-
-            t=>t.id===id
+            ".timer-circle"
 
         );
 
-    if(!topic)
-        return;
+    if(circle){
 
-    topic.completed=
-
-        !topic.completed;
-
-    //----------------------------------
-
-    // Next Topic
-
-    //----------------------------------
-
-    if(topic.completed){
-
-        const next=
-
-            todayTopics.find(
-
-                t=>!t.completed
-
-            );
-
-        currentTopic=
-
-            next||null;
-
-    }
-
-    renderTopics();
-
-    updateDashboard();
-
-    saveTodayStudy();
-
-}
-
-//--------------------------------------
-// Delete Topic
-//--------------------------------------
-
-function deleteTopic(id){
-
-    if(!confirm(
-
-        "Delete this topic?"
-
-    )) return;
-
-    todayTopics=
-
-        todayTopics.filter(
-
-            t=>t.id!==id
-
-        );
-
-    if(
-
-        currentTopic &&
-
-        currentTopic.id===id
-
-    ){
-
-        currentTopic=
-
-            todayTopics.find(
-
-                t=>!t.completed
-
-            )||null;
-
-    }
-
-    renderTopics();
-
-    updateDashboard();
-
-    saveTodayStudy();
-
-}
-
-//--------------------------------------
-// Save Today's Study
-//--------------------------------------
-
-function saveTodayStudy(){
-
-    const today=
-
-        new Date()
-
-        .toISOString()
-
-        .split("T")[0];
-
-    saveStudy({
-
-        date:today,
-
-        totalSeconds:totalStudySeconds,
-
-        totalHours:
-
-        Number(
+        const percent=
 
             (
 
-                totalStudySeconds
+                remainingSeconds/
 
-                /3600
+                timerDuration
 
-            ).toFixed(2)
+            )*100;
 
-        ),
+        circle.style.background=
 
-        sessions:completedSessions,
-
-        topics:todayTopics,
-
-        notes:notes.value,
-
-        updatedOn:
-
-        new Date()
-
-        .toISOString()
-
-    });
-
-    syncApplication();
-
-}
-
-//--------------------------------------
-// Dashboard
-//--------------------------------------
-
-function updateDashboard(){
-
-    const completed=
-
-        todayTopics.filter(
-
-            t=>t.completed
-
-        ).length;
-
-    completedTopics.innerHTML=
-
-        completed;
-
-    sessionCount.innerHTML=
-
-        completedSessions;
-
-    studyTime.innerHTML=
-
-        formatDuration(
-
-            totalStudySeconds
-
-        );
-
-    const percent=
-
-        todayTopics.length===0
-
-        ?0
-
-        :Math.round(
-
-            (
-
-                completed/
-
-                todayTopics.length
-
-            )*100
-
-        );
-
-    goalProgress.style.width=
-
-        percent+"%";
-
-    goalLabel.innerHTML=
-
-        completed+
-
-        " / "+
-
-        todayTopics.length+
-
-        " Topics";
-
-    const remaining=
-
-        document.getElementById(
-
-            "remainingTopics"
-
-        );
-
-    if(remaining){
-
-        remaining.innerHTML=
-
-            todayTopics.length-
-
-            completed;
+        `conic-gradient(
+            #6C63FF ${percent}%,
+            #E5E7EB ${percent}%
+        )`;
 
     }
 
-    const summary=
-
-        document.getElementById(
-
-            "summaryTopic"
-
-        );
-
-    if(summary){
-
-        summary.innerHTML=
-
-            currentTopic
-
-            ?currentTopic.title
-
-            :"🎉 All Completed";
-
-    }
-
-    updateProductivity();
-
 }
 
-//==================================================
-// Part 3 - Pomodoro Engine
-//==================================================
-
-//--------------------------------------
+//======================================================
 // Start Timer
-//--------------------------------------
+//======================================================
 
 function startTimer(){
 
     if(isRunning)
+
         return;
 
-    if(todayTopics.length===0){
+    if(
 
-        alert("Please add a study topic first.");
+        todayTopics.length===0
+
+    ){
+
+        alert(
+
+            "Please add a study topic."
+
+        );
 
         return;
 
@@ -781,17 +1702,15 @@ function startTimer(){
 
     if(currentTopic===null){
 
-        currentTopic=
+        restoreCurrentTopic();
 
-            todayTopics.find(
+        if(currentTopic===null){
 
-                t=>!t.completed
+            alert(
+
+                "All topics completed."
 
             );
-
-        if(!currentTopic){
-
-            alert("All topics are completed.");
 
             return;
 
@@ -807,220 +1726,652 @@ function startTimer(){
 
         isBreak
 
-        ? "☕ Break Time"
+        ?
 
-        : "🍅 Focus Session";
+        "☕ Break Time"
+
+        :
+
+        "🍅 Focus Session";
 
     isRunning=true;
 
+    isPaused=false;
+
+    timerStartedAt=
+
+        Date.now()
+
+        -
+
+        (
+
+            (
+
+                timerDuration
+
+                -
+
+                remainingSeconds
+
+            )
+
+            *1000
+
+        );
+
     document
 
-        .querySelector(".timer-circle")
+        .querySelector(
 
-        .classList.add("running");
+            ".timer-circle"
 
-    timer=setInterval(
+        )
 
-        timerTick,
+        ?.classList
 
-        1000
-
-    );
-
-}
-
-//--------------------------------------
-// Timer Tick
-//--------------------------------------
-
-function timerTick(){
-
-    if(remainingSeconds>0){
-
-        remainingSeconds--;
-
-        updateTimer();
-
-        return;
-
-    }
+        .add("running");
 
     clearInterval(timer);
 
-    isRunning=false;
+    timer=
 
-    document
+        setInterval(
 
-        .querySelector(".timer-circle")
+            timerTick,
 
-        .classList.remove("running");
+            1000
 
-    completeSession();
+        );
+
+    saveRunningTimer({
+
+        mode:selectedMode,
+
+        isBreak:isBreak,
+
+        remainingSeconds:remainingSeconds,
+
+        timerDuration:timerDuration,
+
+        timerStartedAt:timerStartedAt,
+
+        currentTopic:
+
+            currentTopic
+
+            ?currentTopic.id
+
+            :null
+
+    });
 
 }
 
-//--------------------------------------
-// Pause
-//--------------------------------------
+console.log(
 
-function pauseTimer(){
+    "✅ Part 3A Loaded"
+
+);
+
+
+//======================================================
+// Part 3B
+// Timer Engine
+//======================================================
+
+//======================================================
+// Timer Tick
+//======================================================
+
+function timerTick(){
 
     if(!isRunning)
         return;
 
-    clearInterval(timer);
+    const elapsed=
 
-    isRunning=false;
+        Math.floor(
 
-    document
+            (
 
-        .querySelector(".timer-circle")
+                Date.now()
 
-        .classList.remove("running");
+                -
 
-    sessionStatus.innerHTML=
+                timerStartedAt
 
-        "⏸ Paused";
+            )/1000
 
-}
+        );
 
-//--------------------------------------
-// Reset
-//--------------------------------------
+    remainingSeconds=
 
-function resetTimer(){
+        timerDuration-
 
-    clearInterval(timer);
+        elapsed;
 
-    isRunning=false;
+    //----------------------------------
 
-    document
+    if(remainingSeconds<=0){
 
-        .querySelector(".timer-circle")
+        remainingSeconds=0;
 
-        .classList.remove("running");
+        updateTimer();
 
-    if(isBreak){
+        clearInterval(timer);
 
-        remainingSeconds=
+        timer=null;
 
-            MODES[selectedMode]
+        isRunning=false;
 
-            .break*60;
+        completeSession();
 
-    }
-
-    else{
-
-        remainingSeconds=
-
-            MODES[selectedMode]
-
-            .study*60;
+        return;
 
     }
 
     updateTimer();
 
+    saveRunningTimer({
+
+        mode:selectedMode,
+
+        isBreak:isBreak,
+
+        remainingSeconds,
+
+        timerDuration,
+
+        timerStartedAt,
+
+        currentTopic:
+
+            currentTopic
+
+            ?currentTopic.id
+
+            :null
+
+    });
+
+}
+
+//======================================================
+// Pause Timer
+//======================================================
+
+function pauseTimer(){
+
+    if(!isRunning)
+
+        return;
+
+    clearInterval(timer);
+
+    timer=null;
+
+    isRunning=false;
+
+    isPaused=true;
+
+    sessionStatus.innerHTML=
+
+        "⏸ Paused";
+
+    saveRunningTimer({
+
+        mode:selectedMode,
+
+        isBreak,
+
+        remainingSeconds,
+
+        timerDuration,
+
+        timerStartedAt,
+
+        paused:true,
+
+        currentTopic:
+
+            currentTopic
+
+            ?currentTopic.id
+
+            :null
+
+    });
+
+}
+
+//======================================================
+// Reset Timer
+//======================================================
+
+function resetTimer(){
+
+    clearInterval(timer);
+
+    timer=null;
+
+    isRunning=false;
+
+    isPaused=false;
+
+    timerStartedAt=null;
+
+    if(isBreak){
+
+        timerDuration=
+
+            MODES[selectedMode].break*60;
+
+    }
+
+    else{
+
+        timerDuration=
+
+            MODES[selectedMode].study*60;
+
+    }
+
+    remainingSeconds=
+
+        timerDuration;
+
     sessionStatus.innerHTML=
 
         "Ready";
 
+    updateTimer();
+
+    clearRunningTimer();
+
 }
 
-//--------------------------------------
-// Session Complete
-//--------------------------------------
+//======================================================
+// Restore Running Timer
+//======================================================
+
+function restoreRunningTimer(){
+
+    const running=
+
+        getRunningTimer();
+
+    if(!running)
+
+        return;
+
+    selectedMode=
+
+        running.mode;
+
+    isBreak=
+
+        running.isBreak;
+
+    timerDuration=
+
+        running.timerDuration;
+
+    timerStartedAt=
+
+        running.timerStartedAt;
+
+    remainingSeconds=
+
+        running.remainingSeconds;
+
+    //----------------------------------
+
+    // Restore Topic
+
+    //----------------------------------
+
+    if(
+
+        running.currentTopic
+
+    ){
+
+        currentTopic=
+
+            todayTopics.find(
+
+                x=>
+
+                x.id===
+
+                running.currentTopic
+
+            ) || null;
+
+    }
+
+    //----------------------------------
+
+    if(
+
+        running.paused
+
+    ){
+
+        isPaused=true;
+
+        updateTimer();
+
+        sessionStatus.innerHTML=
+
+            "⏸ Paused";
+
+        return;
+
+    }
+
+    //----------------------------------
+
+    // Continue Running
+
+    //----------------------------------
+
+    const elapsed=
+
+        Math.floor(
+
+            (
+
+                Date.now()
+
+                -
+
+                timerStartedAt
+
+            )/1000
+
+        );
+
+    remainingSeconds=
+
+        timerDuration-
+
+        elapsed;
+
+    if(
+
+        remainingSeconds<=0
+
+    ){
+
+        remainingSeconds=0;
+
+        completeSession();
+
+        return;
+
+    }
+
+    isRunning=true;
+
+    timer=
+
+        setInterval(
+
+            timerTick,
+
+            1000
+
+        );
+
+    updateTimer();
+
+}
+
+//======================================================
+// Auto Save Running Timer
+//======================================================
+
+setInterval(function(){
+
+    if(isRunning){
+
+        saveRunningTimer({
+
+            mode:selectedMode,
+
+            isBreak,
+
+            remainingSeconds,
+
+            timerDuration,
+
+            timerStartedAt,
+
+            currentTopic:
+
+                currentTopic
+
+                ?currentTopic.id
+
+                :null
+
+        });
+
+    }
+
+},5000);
+
+//======================================================
+// Recover After Sleep
+//======================================================
+
+window.addEventListener(
+
+    "focus",
+
+    restoreRunningTimer
+
+);
+
+document.addEventListener(
+
+    "visibilitychange",
+
+    function(){
+
+        if(
+
+            !document.hidden
+
+        ){
+
+            restoreRunningTimer();
+
+        }
+
+    }
+
+);
+
+console.log(
+
+    "✅ Part 3B Loaded"
+
+);
+
+
+//======================================================
+// Part 3C
+// Session Completion Engine
+//======================================================
+
+let pomodoroCycle=0;
+
+//======================================================
+// Complete Session
+//======================================================
 
 function completeSession(){
 
     playBell();
 
     //----------------------------------
-
-    // Focus Completed
-
+    // Focus Session Completed
     //----------------------------------
 
     if(!isBreak){
+
+        playMotivation();
 
         completedSessions++;
 
         totalStudySeconds+=
 
-            MODES[selectedMode]
+            MODES[selectedMode].study*60;
 
-            .study*60;
+        //----------------------------------
 
-        updateDashboard();
+        if(currentTopic){
+
+            currentTopic.sessions++;
+
+        }
+
+        //----------------------------------
 
         saveTodayStudy();
 
-        showNotification(
+        updateDashboard();
 
-            "🎉 Session Completed",
+        refreshAchievements();
 
-            "Time for a break."
+        pomodoroCycle++;
 
-        );
+        //----------------------------------
+        // Long Break
+        //----------------------------------
 
-        //--------------------------------
+        if(pomodoroCycle>=4){
 
-        // Start Break
+            pomodoroCycle=0;
 
-        //--------------------------------
+            isBreak=true;
 
-        isBreak=true;
+            timerDuration=15*60;
 
-        remainingSeconds=
+            remainingSeconds=timerDuration;
 
-            MODES[selectedMode]
+            sessionStatus.innerHTML=
 
-            .break*60;
+                "🌴 Long Break";
 
-        sessionStatus.innerHTML=
+            if(breakStatus){
 
-            "☕ Break Time";
+                breakStatus.innerHTML=
+
+                    "Take a well deserved 15 minute break.";
+
+            }
+
+            showNotification(
+
+                "🎉 Focus Completed",
+
+                "Long Break Started"
+
+            );
+
+        }
+
+        //----------------------------------
+        // Normal Break
+        //----------------------------------
+
+        else{
+
+            isBreak=true;
+
+            timerDuration=
+
+                MODES[selectedMode].break*60;
+
+            remainingSeconds=
+
+                timerDuration;
+
+            sessionStatus.innerHTML=
+
+                "☕ Break Time";
+
+            if(breakStatus){
+
+                breakStatus.innerHTML=
+
+                    "Relax for a few minutes.";
+
+            }
+
+            showNotification(
+
+                "🎉 Session Completed",
+
+                "Time for a short break."
+
+            );
+
+        }
 
     }
 
     //----------------------------------
-
     // Break Finished
-
     //----------------------------------
 
     else{
 
-        showNotification(
-
-            "☕ Break Finished",
-
-            "Ready for the next session?"
-
-        );
-
         isBreak=false;
+
+        timerDuration=
+
+            MODES[selectedMode].study*60;
 
         remainingSeconds=
 
-            MODES[selectedMode]
-
-            .study*60;
+            timerDuration;
 
         sessionStatus.innerHTML=
 
             "🍅 Focus Session";
 
+        if(breakStatus){
+
+            breakStatus.innerHTML=
+
+                "Ready for next focus session.";
+
+        }
+
+        showNotification(
+
+            "☕ Break Finished",
+
+            "Ready for the next Pomodoro?"
+
+        );
+
     }
 
     updateTimer();
 
+    clearRunningTimer();
+
 }
 
-//--------------------------------------
+//======================================================
 // Notification
-//--------------------------------------
+//======================================================
 
 function showNotification(
 
@@ -1030,25 +2381,77 @@ function showNotification(
 
 ){
 
-    notificationTitle.innerHTML=
+    if(notificationTitle){
 
-        title;
+        notificationTitle.innerHTML=
 
-    notificationMessage.innerHTML=
+            title;
 
-        message;
+    }
 
-    notificationModal
+    if(notificationMessage){
 
-        .classList
+        notificationMessage.innerHTML=
 
-        .add("show");
+            message;
+
+    }
+
+    if(notificationModal){
+
+        notificationModal.classList.add(
+
+            "show"
+
+        );
+
+    }
+
+    //----------------------------------
+
+    if(
+
+        "Notification" in window
+
+    ){
+
+        if(
+
+            Notification.permission==="granted"
+
+        ){
+
+            new Notification(
+
+                title,
+
+                {
+
+                    body:message
+
+                }
+
+            );
+
+        }
+
+        else if(
+
+            Notification.permission!=="denied"
+
+        ){
+
+            Notification.requestPermission();
+
+        }
+
+    }
 
 }
 
-//--------------------------------------
+//======================================================
 // Close Notification
-//--------------------------------------
+//======================================================
 
 document
 
@@ -1058,7 +2461,7 @@ document
 
 )
 
-.addEventListener(
+?.addEventListener(
 
     "click",
 
@@ -1066,21 +2469,26 @@ document
 
         notificationModal
 
-            .classList
+        ?.classList
 
-            .remove("show");
+        .remove(
+
+            "show"
+
+        );
 
     }
 
 );
 
-//--------------------------------------
+//======================================================
 // Bell
-//--------------------------------------
+//======================================================
 
 function playBell(){
 
     if(!bellSound)
+
         return;
 
     bellSound.currentTime=0;
@@ -1091,534 +2499,86 @@ function playBell(){
 
 }
 
-//--------------------------------------
-// Format Duration
-//--------------------------------------
+//======================================================
+// Motivation Song
+//======================================================
 
-function formatDuration(
+function playMotivation(){
 
-    seconds
+    if(!motivationSound)
 
-){
-
-    const hrs=
-
-        Math.floor(
-
-            seconds/3600
-
-        );
-
-    const mins=
-
-        Math.floor(
-
-            (seconds%3600)/60
-
-        );
-
-    return(
-
-        String(hrs).padStart(2,"0")
-
-        +":"
-
-        +
-
-        String(mins).padStart(2,"0")
-
-    );
-
-}
-
-//==================================================
-// Part 4 - Save, Restore & Email
-//==================================================
-
-//--------------------------------------
-// Auto Save Notes
-//--------------------------------------
-
-notes.addEventListener(
-
-    "input",
-
-    function(){
-
-        saveTodayStudy();
-
-    }
-
-);
-
-//--------------------------------------
-// Finish Day
-//--------------------------------------
-
-function finishDay(){
-
-    saveTodayStudy();
-
-    alert(
-
-        "🎉 Excellent!\n\nToday's study has been saved successfully."
-
-    );
-
-}
-
-//--------------------------------------
-// Email Report
-//--------------------------------------
-
-function sendEmailReport(){
-
-    saveTodayStudy();
-
-    const completed=
-
-        todayTopics
-
-        .filter(t=>t.completed)
-
-        .map(t=>"✅ "+t.title)
-
-        .join("\n");
-
-    const pending=
-
-        todayTopics
-
-        .filter(t=>!t.completed)
-
-        .map(t=>"⬜ "+t.title)
-
-        .join("\n");
-
-    const subject=
-
-        "PS365 Daily Study Report";
-
-    const body=
-
-`📚 PS365 DAILY REPORT
-
-📅 Date
-${new Date().toLocaleDateString("en-IN")}
-
-🍅 Pomodoro Sessions
-${completedSessions}
-
-⏱ Total Focus Time
-${formatDuration(totalStudySeconds)}
-
-=================================
-
-✅ Completed Topics
-
-${completed || "None"}
-
-=================================
-
-📖 Remaining Topics
-
-${pending || "None"}
-
-=================================
-
-📝 Notes
-
-${notes.value || "-"}
-
-=================================
-
-Generated from PS365`;
-
-    window.location.href=
-
-`mailto:pavithrandevo@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-}
-
-//--------------------------------------
-// Sync Dashboard
-//--------------------------------------
-
-function syncDashboard(){
-
-    localStorage.setItem(
-
-        "dashboardRefresh",
-
-        Date.now()
-
-    );
-
-}
-
-//--------------------------------------
-// Sync Calendar
-//--------------------------------------
-
-function syncCalendar(){
-
-    localStorage.setItem(
-
-        "calendarRefresh",
-
-        Date.now()
-
-    );
-
-}
-
-//--------------------------------------
-// Sync Statistics
-//--------------------------------------
-
-function syncStats(){
-
-    localStorage.setItem(
-
-        "statsRefresh",
-
-        Date.now()
-
-    );
-
-}
-
-//--------------------------------------
-// Sync Everything
-//--------------------------------------
-
-function syncApplication(){
-
-    syncDashboard();
-
-    syncCalendar();
-
-    syncStats();
-
-}
-
-//--------------------------------------
-// Auto Save Every Minute
-//--------------------------------------
-
-setInterval(function(){
-
-    saveTodayStudy();
-
-},60000);
-
-//--------------------------------------
-// Save Before Closing
-//--------------------------------------
-
-window.addEventListener(
-
-    "beforeunload",
-
-    function(){
-
-        saveTodayStudy();
-
-    }
-
-);
-
-//--------------------------------------
-// Restore Current Topic
-//--------------------------------------
-
-function restoreCurrentTopic(){
-
-    currentTopic=
-
-        todayTopics.find(
-
-            t=>!t.completed
-
-        ) || null;
-
-    if(currentTopic){
-
-        currentTopicLabel.innerHTML=
-
-            currentTopic.title;
-
-    }
-
-    else{
-
-        currentTopicLabel.innerHTML=
-
-            "🎉 All Topics Completed";
-
-    }
-
-}
-
-restoreCurrentTopic();
-
-//==================================================
-// Part 5 - Final Production Setup
-//==================================================
-
-//--------------------------------------
-// Daily Quotes
-//--------------------------------------
-
-const DAILY_QUOTES=[
-
-"Success is built one Pomodoro at a time.",
-
-"Discipline beats motivation.",
-
-"Consistency creates champions.",
-
-"Small daily improvements lead to big results.",
-
-"Today's effort is tomorrow's success.",
-
-"Dream big. Study bigger.",
-
-"Stay focused. Stay unstoppable.",
-
-"Every completed topic brings you closer to TNPSC.",
-
-"One session now is one step closer to your goal."
-
-];
-
-function loadQuote(){
-
-    const quote=
-
-        document.getElementById(
-
-            "dailyQuote"
-
-        );
-
-    if(!quote)
         return;
 
-    const index=
+    motivationSound.currentTime=0;
 
-        new Date().getDate()
+    motivationSound.play()
 
-        %DAILY_QUOTES.length;
-
-    quote.innerHTML=
-
-        DAILY_QUOTES[index];
+    .catch(()=>{});
 
 }
 
-//--------------------------------------
-// Productivity
-//--------------------------------------
+//======================================================
+// Session History
+//======================================================
 
-function updateProductivity(){
+function saveSessionHistory(){
 
-    const completed=
+    const history=
 
-        todayTopics.filter(
+        getData()
 
-            t=>t.completed
+        .sessionHistory
 
-        ).length;
+        ||[];
 
-    const total=todayTopics.length;
+    history.unshift({
 
-    const percent=
+        date:getTodayDate(),
 
-        total===0
+        topic:
 
-        ?0
+            currentTopic
 
-        :Math.round(
+            ?
 
-            (completed/total)*100
+            currentTopic.title
 
-        );
+            :"No Topic",
 
-    let rating="🌱 Getting Started";
+        duration:
 
-    if(percent>=25)
+            MODES[selectedMode].study,
 
-        rating="👍 Good";
+        completedOn:now()
 
-    if(percent>=50)
+    });
 
-        rating="💪 Great";
+    const data=
 
-    if(percent>=75)
+        getData();
 
-        rating="🚀 Excellent";
+    data.sessionHistory=
 
-    if(percent===100)
+        history.slice(0,200);
 
-        rating="🏆 Outstanding";
-
-    const box=
-
-        document.getElementById(
-
-            "productivity"
-
-        );
-
-    if(box)
-
-        box.innerHTML=rating;
+    saveData(data);
 
 }
 
-//--------------------------------------
-// Keyboard Shortcut
-//--------------------------------------
+//======================================================
+// Auto Session Save
+//======================================================
 
-document.addEventListener(
+function completeFocusSession(){
 
-    "keydown",
+    saveSessionHistory();
 
-    function(e){
-
-        if(
-
-            e.code==="Space" &&
-
-            e.target.tagName!=="INPUT" &&
-
-            e.target.tagName!=="TEXTAREA"
-
-        ){
-
-            e.preventDefault();
-
-            if(isRunning)
-
-                pauseTimer();
-
-            else
-
-                startTimer();
-
-        }
-
-    }
-
-);
-
-//--------------------------------------
-// Hide Notification
-//--------------------------------------
-
-if(notificationModal){
-
-    notificationModal
-
-    .addEventListener(
-
-        "click",
-
-        function(e){
-
-            if(
-
-                e.target===notificationModal
-
-            ){
-
-                notificationModal
-
-                .classList
-
-                .remove("show");
-
-            }
-
-        }
-
-    );
+    completeSession();
 
 }
-
-//--------------------------------------
-// Daily Goal
-//--------------------------------------
-
-function updateGoal(){
-
-    const goal=8;
-
-    const percent=Math.min(
-
-        Math.round(
-
-            (
-
-                completedSessions/
-
-                goal
-
-            )*100
-
-        ),
-
-        100
-
-    );
-
-    goalProgress.style.width=
-
-        percent+"%";
-
-    goalLabel.innerHTML=
-
-        completedSessions+
-
-        " / "+
-
-        goal+
-
-        " Sessions";
-
-}
-
-//--------------------------------------
-// Refresh UI
-//--------------------------------------
-
-function refreshUI(){
-
-    renderTopics();
-
-    restoreCurrentTopic();
-
-    updateDashboard();
-
-    updateGoal();
-
-    updateProductivity();
-
-    loadQuote();
-
-    updateTimer();
-
-}
-
-//--------------------------------------
-// Initialize UI
-//--------------------------------------
-
-refreshUI();
 
 console.log(
 
-    "✅ PS365 V5 Loaded Successfully"
+    "✅ Part 3C Loaded"
 
 );

@@ -8,7 +8,7 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>PS365 • Focus Session</title>
+<title>PS365 • Smart Study</title>
 
 <link rel="preconnect"
 href="https://fonts.googleapis.com">
@@ -41,260 +41,525 @@ HEADER
 
 <header class="app-header">
 
-<div class="header-top">
+    <div class="header-top">
 
-<div>
+        <div>
 
-<h1>
+            <h1>
 
-🍅 Focus Session
+                🎯 PS365 Study
 
-</h1>
+            </h1>
 
-<p>
+            <p>
 
-TNPSC Smart Preparation
+                TNPSC Smart Preparation
 
-</p>
+            </p>
 
-</div>
+        </div>
 
-<div class="header-icon">
+        <div class="header-icon">
 
-<i class="fa-solid fa-book-open-reader"></i>
+            <i class="fa-solid fa-graduation-cap"></i>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 </header>
 
 <!--====================================
-TODAY
+WELCOME CARD
 =====================================-->
 
-<section class="card today-card">
+<section class="card welcome-card">
 
-<div class="today-left">
+    <div class="welcome-top">
 
-<h3 id="todayDate">
+        <div>
 
-07 July 2026
+            <h2 id="greeting">
 
-</h3>
+                Good Morning 👋
 
-<p>
+            </h2>
 
-Stay Consistent.
-One Session at a Time.
+            <h3 id="todayDate">
 
-</p>
+                13 July 2026
 
-</div>
+            </h3>
 
-<div class="today-right">
+            <p>
 
-🔥
+                வீழ்ந்த இடத்தில் எழுவதே வெற்றி
 
-</div>
+            </p>
+
+            <p class="quote-translation">
+
+                Success is rising from the place where you fell
+
+            </p>
+
+        </div>
+
+        <div class="welcome-emoji">
+
+            🔥
+
+        </div>
+
+    </div>
+
+    <div class="welcome-stats">
+
+        <div class="stat-box">
+
+            <div class="stat-icon">
+
+                🍅
+
+            </div>
+
+            <h2 id="todaySessions">
+
+                0
+
+            </h2>
+
+            <p>
+
+                Sessions
+
+            </p>
+
+        </div>
+
+        <div class="stat-box">
+
+            <div class="stat-icon">
+
+                ⏱
+
+            </div>
+
+            <h2 id="todayHours">
+
+                00h
+
+            </h2>
+
+            <p>
+
+                Study Time
+
+            </p>
+
+        </div>
+
+        <div class="stat-box">
+
+            <div class="stat-icon">
+
+                🔥
+
+            </div>
+
+            <h2 id="studyStreak">
+
+                0
+
+            </h2>
+
+            <p>
+
+                Day Streak
+
+            </p>
+
+        </div>
+
+    </div>
 
 </section>
 
 <!--====================================
-TODAY'S TOPICS
+DAILY CHALLENGE
+=====================================-->
+
+<!-- <section class="card challenge-card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-bullseye"></i>
+
+        Daily Challenge
+
+    </div>
+
+    <div class="challenge-content">
+
+        <div class="challenge-icon">
+
+            🏆
+
+        </div>
+
+        <div>
+
+            <h3 id="dailyChallenge">
+
+                Complete 8 Pomodoro Sessions
+
+            </h3>
+
+            <p>
+
+                Finish today's challenge to improve your streak.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section> -->
+
+<!--====================================
+QUICK ACTIONS
+=====================================-->
+
+<!-- <section class="card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-bolt"></i>
+
+        Quick Actions
+
+    </div>
+
+    <div class="quick-grid">
+
+        <button
+        class="quick-card"
+        id="practiceBtn">
+
+            📚
+
+            <span>
+
+                Practice
+
+            </span>
+
+        </button>
+
+        <button
+        class="quick-card"
+        id="quizBtn">
+
+            🧠
+
+            <span>
+
+                Quiz
+
+            </span>
+
+        </button>
+
+        <button
+        class="quick-card"
+        id="plannerBtn">
+
+            📅
+
+            <span>
+
+                Planner
+
+            </span>
+
+        </button>
+
+        <button
+        class="quick-card"
+        id="revisionBtn">
+
+            📖
+
+            <span>
+
+                Revision
+
+            </span>
+
+        </button>
+
+    </div>
+
+</section> -->
+
+<!--====================================
+TODAY'S PLANNER
 =====================================-->
 
 <section class="card">
 
-<div class="section-title">
+    <div class="section-title">
 
-<i class="fa-solid fa-list-check"></i>
+        <i class="fa-solid fa-list-check"></i>
 
-Today's Topics
+        Today's Planner
 
-</div>
+    </div>
 
-<div class="topic-input-row">
+    <div class="topic-input-row">
 
-<input
+        <input
 
-type="text"
+        id="topicInput"
 
-id="topicInput"
+        type="text"
 
-placeholder="Add today's topic">
+        placeholder="Add Today's Study Task">
 
-<button
+        <button
 
-id="addTopicBtn">
+        id="addTopicBtn">
 
-<i class="fa-solid fa-plus"></i>
+            <i class="fa-solid fa-plus"></i>
 
-</button>
+        </button>
 
-</div>
+    </div>
 
-<div
+    <div
 
-id="topicList"
+    id="topicList"
 
-class="topic-list">
+    class="topic-list">
 
-<!-- Dynamic -->
-
-</div>
+    </div>
 
 </section>
 
 <!--====================================
-POMODORO MODE
+FOCUS MODE
 =====================================-->
 
 <section class="card">
 
-<div class="section-title">
+    <div class="section-title">
 
-<i class="fa-solid fa-clock"></i>
+        <i class="fa-solid fa-clock"></i>
 
-Focus Mode
+        Focus Mode
 
-</div>
+    </div>
 
-<div class="mode-grid">
+    <div class="mode-grid">
 
-<button
+        <button
 
-class="mode-btn active"
+        class="mode-btn"
 
-data-study="25"
+        data-study="5"
 
-data-break="5">
+        data-break="1">
 
-🍅
+            🧪
 
-25 / 5
+            <strong>5 / 1</strong>
 
-</button>
+            <small>Test</small>
 
-<button
+        </button>
 
-class="mode-btn"
+        <button
 
-data-study="50"
+        class="mode-btn active"
 
-data-break="10">
+        data-study="25"
 
-📚
+        data-break="5">
 
-50 / 10
+            🍅
 
-</button>
+            <strong>25 / 5</strong>
 
-<button
+            <small>Classic</small>
 
-class="mode-btn"
+        </button>
 
-data-study="90"
+        <button
 
-data-break="15">
+        class="mode-btn"
 
-🎯
+        data-study="50"
 
-90 / 15
+        data-break="10">
 
-</button>
+            📚
 
-</div>
+            <strong>50 / 10</strong>
+
+            <small>Deep Study</small>
+
+        </button>
+
+        <button
+
+        class="mode-btn"
+
+        data-study="90"
+
+        data-break="15">
+
+            🎯
+
+            <strong>90 / 15</strong>
+
+            <small>Mock Test</small>
+
+        </button>
+
+    </div>
 
 </section>
 
 <!--====================================
-FOCUS TIMER
+CURRENT SESSION
 =====================================-->
 
 <section class="card timer-card">
 
-<div class="section-title">
+    <div class="section-title">
 
-<i class="fa-solid fa-stopwatch"></i>
+        <i class="fa-solid fa-stopwatch"></i>
 
-Current Focus
+        Current Session
 
-</div>
+    </div>
 
-<div
+    <div
 
-class="current-topic"
+    id="currentTopic"
 
-id="currentTopic">
+    class="current-topic">
 
-No Topic Selected
+        No Topic Selected
 
-</div>
+    </div>
 
-<div class="timer-circle">
+    <div class="timer-wrapper">
 
-<div
+        <div class="timer-circle">
 
-id="timerDisplay"
+            <div class="timer-inner">
 
-class="timer-text">
+                <div
 
-25:00
+                id="timerDisplay"
 
-</div>
+                class="timer-text">
 
-</div>
+                    25:00
 
-<div
+                </div>
 
-id="sessionStatus"
+                <div
 
-class="session-status">
+                id="sessionStatus"
 
-Ready to Start
+                class="session-status">
 
-</div>
+                    Ready to Start
 
-<div class="timer-buttons">
+                </div>
 
-<button
+            </div>
 
-id="startBtn"
+        </div>
 
-class="primary-btn">
+    </div>
 
-<i class="fa-solid fa-play"></i>
+    <div class="timer-buttons">
 
-Start
+        <button
 
-</button>
+        id="startBtn"
 
-<button
+        class="primary-btn">
 
-id="pauseBtn"
+            <i class="fa-solid fa-play"></i>
 
-class="secondary-btn">
+            Start
 
-<i class="fa-solid fa-pause"></i>
+        </button>
 
-Pause
+        <button
 
-</button>
+        id="pauseBtn"
 
-<button
+        class="secondary-btn">
 
-id="resetBtn"
+            <i class="fa-solid fa-pause"></i>
 
-class="danger-btn">
+            Pause
 
-<i class="fa-solid fa-rotate-left"></i>
+        </button>
 
-Reset
+        <button
 
-</button>
+        id="resetBtn"
 
-</div>
+        class="danger-btn">
+
+            <i class="fa-solid fa-rotate-left"></i>
+
+            Reset
+
+        </button>
+
+    </div>
+
+</section>
+
+<!--====================================
+BREAK SESSION
+=====================================-->
+
+<section class="card break-card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-mug-hot"></i>
+
+        Break Timer
+
+    </div>
+
+    <div
+
+    id="breakTimer"
+
+    class="break-display">
+
+        05:00
+
+    </div>
+
+    <p
+
+    id="breakStatus">
+
+        Complete a focus session to start your break.
+
+    </p>
 
 </section>
 
@@ -380,6 +645,28 @@ TODAY'S PROGRESS
 
         </div>
 
+        <div class="progress-box">
+
+            <div class="progress-icon">
+
+                🔥
+
+            </div>
+
+            <h2 id="studyStreak">
+
+                0
+
+            </h2>
+
+            <p>
+
+                Streak
+
+            </p>
+
+        </div>
+
     </div>
 
     <div class="progress-title">
@@ -392,9 +679,9 @@ TODAY'S PROGRESS
 
         <div
 
-            id="goalProgress"
+        id="goalProgress"
 
-            class="progress-fill">
+        class="progress-fill">
 
         </div>
 
@@ -402,7 +689,7 @@ TODAY'S PROGRESS
 
     <div class="goal-text">
 
-        <span>
+        <span id="goalPercent">
 
             0%
 
@@ -419,39 +706,161 @@ TODAY'S PROGRESS
 </section>
 
 <!--====================================
-BREAK TIMER
+WEEKLY PLANNER
 =====================================-->
 
-<section class="card break-card">
+<!--====================================
+WEEKLY PLANNER
+=====================================-->
+
+<section class="card planner-card">
 
     <div class="section-title">
 
-        <i class="fa-solid fa-mug-hot"></i>
+        <i class="fa-solid fa-calendar-week"></i>
 
-        Break Time
-
-    </div>
-
-    <div
-
-        id="breakTimer"
-
-        class="break-display">
-
-        05:00
+        Weekly Planner
 
     </div>
 
-    <p id="breakStatus">
+    <div class="planner-days">
 
-        Complete a focus session to start your break.
+        <button class="planner-day active" data-day="Monday">Mon</button>
 
-    </p>
+        <button class="planner-day" data-day="Tuesday">Tue</button>
+
+        <button class="planner-day" data-day="Wednesday">Wed</button>
+
+        <button class="planner-day" data-day="Thursday">Thu</button>
+
+        <button class="planner-day" data-day="Friday">Fri</button>
+
+        <button class="planner-day" data-day="Saturday">Sat</button>
+
+        <button class="planner-day" data-day="Sunday">Sun</button>
+
+    </div>
+
+    <div class="weekly-task-container">
+
+        <h3 id="selectedDay">
+
+            Monday Plan
+
+        </h3>
+
+        <div class="weekly-input-row">
+
+            <input
+
+                id="weeklyTaskInput"
+
+                type="text"
+
+                placeholder="Example : Indian History">
+
+            <button id="addWeeklyTaskBtn">
+
+                <i class="fa-solid fa-plus"></i>
+
+            </button>
+
+        </div>
+
+        <div id="weeklyTaskList">
+
+        </div>
+
+    </div>
 
 </section>
 
 <!--====================================
-NOTES
+ACHIEVEMENTS
+=====================================-->
+
+<!-- <section class="card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-trophy"></i>
+
+        Achievements
+
+    </div>
+
+    <div class="achievement-grid">
+
+        <div class="achievement-card">
+
+            <div class="achievement-icon">
+
+                🥉
+
+            </div>
+
+            <h4>
+
+                First Session
+
+            </h4>
+
+        </div>
+
+        <div class="achievement-card">
+
+            <div class="achievement-icon">
+
+                🥈
+
+            </div>
+
+            <h4>
+
+                7 Day Streak
+
+            </h4>
+
+        </div>
+
+        <div class="achievement-card">
+
+            <div class="achievement-icon">
+
+                🥇
+
+            </div>
+
+            <h4>
+
+                100 Sessions
+
+            </h4>
+
+        </div>
+
+        <div class="achievement-card">
+
+            <div class="achievement-icon">
+
+                👑
+
+            </div>
+
+            <h4>
+
+                TNPSC Master
+
+            </h4>
+
+        </div>
+
+    </div>
+
+</section> -->
+
+<!--====================================
+QUICK NOTES
 =====================================-->
 
 <section class="card">
@@ -468,9 +877,9 @@ NOTES
 
         id="notes"
 
-        rows="6"
+        rows="8"
 
-        placeholder="Write important points, shortcuts, formulas, revision notes...">
+        placeholder="Write important formulas, shortcuts, revision notes...">
 
     </textarea>
 
@@ -538,6 +947,22 @@ TODAY SUMMARY
 
     </div>
 
+    <div class="summary-row">
+
+        <span>
+
+            Performance
+
+        </span>
+
+        <strong id="performance">
+
+            ⭐⭐⭐⭐⭐
+
+        </strong>
+
+    </div>
+
 </section>
 
 <!--====================================
@@ -586,7 +1011,7 @@ MOTIVATION
 
         <i class="fa-solid fa-fire"></i>
 
-        Today's Motivation
+        Daily Motivation
 
     </div>
 
@@ -598,9 +1023,8 @@ MOTIVATION
 
     <p>
 
-        One Pomodoro at a time.
-        One topic at a time.
-        One step closer to becoming a TNPSC Officer.
+        Keep studying consistently.
+        Every Pomodoro session takes you one step closer to your TNPSC goal.
 
     </p>
 
@@ -636,37 +1060,37 @@ id="notificationModal"
 
 class="notification-modal">
 
-<div class="notification-card">
+    <div class="notification-card">
 
-<div class="notification-icon">
+        <div class="notification-icon">
 
-🎉
+            🎉
 
-</div>
+        </div>
 
-<h2 id="notificationTitle">
+        <h2 id="notificationTitle">
 
-Session Completed!
+            Session Completed
 
-</h2>
+        </h2>
 
-<p id="notificationMessage">
+        <p id="notificationMessage">
 
-Take a 5 minute break.
+            Great job! Time for a short break.
 
-</p>
+        </p>
 
-<button
+        <button
 
-id="notificationBtn"
+            id="notificationBtn"
 
-class="primary-btn">
+            class="primary-btn">
 
-Continue
+            Continue
 
-</button>
+        </button>
 
-</div>
+    </div>
 
 </div>
 
@@ -680,11 +1104,25 @@ id="bellSound"
 
 preload="auto">
 
-<source
+    <source
 
-src="audio/bell.mp3"
+        src="audio/bell.mp3"
 
-type="audio/mpeg">
+        type="audio/mpeg">
+
+</audio>
+
+<audio
+
+id="motivationSound"
+
+preload="auto">
+
+    <source
+
+        src="audio/motivation.mp3"
+
+        type="audio/mpeg">
 
 </audio>
 
@@ -694,88 +1132,59 @@ BOTTOM NAVIGATION
 
 <nav class="bottom-nav">
 
-<a
+    <a href="dashboard.html">
 
-href="dashboard.html">
+        <i class="fa-solid fa-house"></i>
 
-<i class="fa-solid fa-house"></i>
+        <span>Home</span>
 
-<span>
+    </a>
 
-Home
+    <a
 
-</span>
+        href="study.html"
 
-</a>
+        class="active">
 
-<a
+        <i class="fa-solid fa-book-open"></i>
 
-href="study.html"
+        <span>Study</span>
 
-class="active">
+    </a>
 
-<i class="fa-solid fa-book-open"></i>
+    <a href="calendar.html">
 
-<span>
+        <i class="fa-solid fa-calendar-days"></i>
 
-Study
+        <span>Calendar</span>
 
-</span>
+    </a>
 
-</a>
+    <a href="stats.html">
 
-<a
+        <i class="fa-solid fa-chart-simple"></i>
 
-href="calendar.html">
+        <span>Stats</span>
 
-<i class="fa-solid fa-calendar-days"></i>
+    </a>
 
-<span>
+    <a href="settings.html">
 
-Calendar
+        <i class="fa-solid fa-gear"></i>
 
-</span>
+        <span>Settings</span>
 
-</a>
-
-<a
-
-href="stats.html">
-
-<i class="fa-solid fa-chart-simple"></i>
-
-<span>
-
-Stats
-
-</span>
-
-</a>
-
-<a
-
-href="settings.html">
-
-<i class="fa-solid fa-gear"></i>
-
-<span>
-
-Settings
-
-</span>
-
-</a>
+    </a>
 
 </nav>
-s
+
 </div>
 
 <script src="js/app.js"></script>
-
 <script src="js/storage.js"></script>
-
 <script src="js/study.js"></script>
 
 </body>
 
 </html>
+
