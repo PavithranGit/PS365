@@ -1722,6 +1722,8 @@ function updateTimer(){
 
 function startTimer(){
 
+    unlockAudio();
+
     if(isRunning)
 
         return;
@@ -2524,6 +2526,46 @@ document
     }
 
 );
+
+//======================================================
+// Unlock Audio (Mobile Autoplay Fix)
+//======================================================
+
+let audioUnlocked=false;
+
+function unlockAudio(){
+
+    if(audioUnlocked)
+
+        return;
+
+    [bellSound,motivationSound,breakEndSound].forEach(
+
+        function(el){
+
+            if(!el)
+
+                return;
+
+            el.play()
+
+            .then(function(){
+
+                el.pause();
+
+                el.currentTime=0;
+
+            })
+
+            .catch(function(){});
+
+        }
+
+    );
+
+    audioUnlocked=true;
+
+}
 
 //======================================================
 // Bell
